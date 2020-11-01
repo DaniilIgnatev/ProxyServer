@@ -1,7 +1,6 @@
 #include "proxyserver.h"
 
 
-
 ProxyServer::ProxyServer(QObject *parent): QTcpServer(parent)
 {
 
@@ -9,7 +8,7 @@ ProxyServer::ProxyServer(QObject *parent): QTcpServer(parent)
 
 
 void ProxyServer::startServer(){
-    int port = 1234;
+    int port = 8085;
 
     if(!this->listen(QHostAddress::Any, port)){
         qDebug() << "Could not start server";
@@ -23,9 +22,9 @@ void ProxyServer::startServer(){
 void ProxyServer::incomingConnection(qintptr socketDescriptor){
     qDebug() << socketDescriptor << " Connecting...";
 
-    ProxySession *thread = new ProxySession(socketDescriptor, this);
+    ProxySession *sessionThread = new ProxySession(socketDescriptor, this);
 
-    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    connect(sessionThread, SIGNAL(finished()), sessionThread, SLOT(deleteLater()));
 
-    thread->start();
+    sessionThread->start();
 }
