@@ -1,12 +1,12 @@
-#include "mythread.h"
+#include "proxysession.h"
 
-MyThread::MyThread(qintptr ID, QObject *parent): QThread(parent)
+ProxySession::ProxySession(qintptr ID, QObject *parent): QThread(parent)
 {
     this->socketDescriptor = ID;
 }
 
 
-void MyThread::run(){
+void ProxySession::run(){
     qDebug() << "Thread started";
 
     socket = new QTcpSocket();
@@ -26,7 +26,7 @@ void MyThread::run(){
 }
 
 
-void MyThread::readyRead(){
+void ProxySession::readyRead(){
     QByteArray Data = socket->readAll();
 
     qDebug() << socketDescriptor << " Data in: " << Data;
@@ -35,7 +35,7 @@ void MyThread::readyRead(){
 }
 
 
-void MyThread::disconnected(){
+void ProxySession::disconnected(){
     qDebug() << socketDescriptor << " Disconnected";
 
     socket->deleteLater();

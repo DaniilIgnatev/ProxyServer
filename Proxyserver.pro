@@ -1,5 +1,6 @@
 QT -= gui
-QT += core
+QT += core \
+    widgets
 QT += network
 
 CONFIG += c++11 console
@@ -17,9 +18,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        Protocol/Security/cryptoproxy.cpp \
+        Protocol/Security/keypair.cpp \
+        Protocol/Security/securityhandler.cpp \
+        Protocol/documents.cpp \
+        Protocol/protocolhandler.cpp \
+        Protocol/request.cpp \
+        Protocol/response.cpp \
         main.cpp \
-        myserver.cpp \
-        mythread.cpp
+        proxyserver.cpp \
+        proxysession.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,5 +35,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    myserver.h \
-    mythread.h
+    Protocol/Security/cryptoproxy.h \
+    Protocol/Security/keypair.h \
+    Protocol/Security/securityhandler.h \
+    Protocol/documents.h \
+    Protocol/protocolhandler.h \
+    Protocol/request.h \
+    Protocol/response.h \
+    proxyserver.h \
+    proxysession.h

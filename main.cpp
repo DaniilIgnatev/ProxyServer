@@ -1,11 +1,11 @@
 #include <QCoreApplication>
-#include "myserver.h"
+#include "proxyserver.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    MyServer server;
+    ProxyServer server;
     server.startServer();
 
     return a.exec();

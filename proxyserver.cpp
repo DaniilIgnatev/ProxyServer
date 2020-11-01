@@ -1,12 +1,14 @@
-#include "myserver.h"
+#include "proxyserver.h"
 
-MyServer::MyServer(QObject *parent): QTcpServer(parent)
+
+
+ProxyServer::ProxyServer(QObject *parent): QTcpServer(parent)
 {
 
 }
 
 
-void MyServer::startServer(){
+void ProxyServer::startServer(){
     int port = 1234;
 
     if(!this->listen(QHostAddress::Any, port)){
@@ -18,10 +20,10 @@ void MyServer::startServer(){
 }
 
 
-void MyServer::incomingConnection(qintptr socketDescriptor){
+void ProxyServer::incomingConnection(qintptr socketDescriptor){
     qDebug() << socketDescriptor << " Connecting...";
 
-    MyThread *thread = new MyThread(socketDescriptor, this);
+    ProxySession *thread = new ProxySession(socketDescriptor, this);
 
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
