@@ -4,42 +4,66 @@
 
 ProxySession::ProxySession(qintptr ID, QObject *parent): QThread(parent)
 {
-    this->socketDescriptor = ID;
+    this->client_Socket_ID = ID;
 }
 
 
 void ProxySession::run(){
     qDebug() << "Thread started";
 
-    socket = new QTcpSocket();
+    client_socket = new QTcpSocket();
 
-    if (!socket->setSocketDescriptor(this->socketDescriptor)){
-        emit error(socket -> error());
+    if (!client_socket->setSocketDescriptor(this->client_Socket_ID)){
+        emit client_error(client_socket -> error());
         return;
     }
 
     //Direct connection -- invoke slot immedeately
-    connect(socket, SIGNAL(readyRead()), this, SLOT(client_on_data()), Qt::DirectConnection);
-    connect(socket, SIGNAL(disconnected()), this, SLOT(client_on_disconnect()));
+    connect(client_socket, SIGNAL(readyRead()), this, SLOT(client_on_data()), Qt::DirectConnection);
+    connect(client_socket, SIGNAL(disconnected()), this, SLOT(client_on_disconnect()));
 
-    qDebug() << socketDescriptor << " Client connected";
+    qDebug() << client_Socket_ID << " Client connected";
 
     exec();
 }
 
 
-void ProxySession::client_on_data(){
-    QByteArray Data = socket->readAll();
 
-    qDebug() << socketDescriptor << " Data in: " << Data;
+//CLIENT_SOCKET
+void ProxySession::client_package(){
+    QByteArray Data = client_socket->readAll();
 
-    socket->write(Data);
+    qDebug() << client_Socket_ID << " Data in: " << Data;
+
+    client_socket->write(Data);
 }
 
 
-void ProxySession::client_on_disconnect(){
-    qDebug() << socketDescriptor << " Disconnected";
+void ProxySession::client_on_complete(){
 
-    socket->deleteLater();
+}
+
+
+void ProxySession::client_disconnect(){
+    qDebug() << client_Socket_ID << " Disconnected";
+
+    client_socket->deleteLater();
     exit(0);
+}
+
+
+
+//SERVER_SOCKET
+void ProxySession::server_package(){
+
+}
+
+
+void ::ProxySession::server_on_complete(){
+
+}
+
+
+void ProxySession::server_disconnect(){
+
 }

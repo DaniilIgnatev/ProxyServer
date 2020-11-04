@@ -26,12 +26,6 @@ export class SHSecuredRequest implements SHRequest{
 }
 
 
-export class SHClearRequest extends SHSecuredRequest{
-    authorizeRequest: SHAuthorizeRequest
-    dataRequest: SHRequest
-}
-
-
 export class SHAuthorizeRequest implements SHRequest{
     type: string
     operation: string
@@ -39,4 +33,10 @@ export class SHAuthorizeRequest implements SHRequest{
     user: string
     password: string
     time: string
+}
+
+
+export class SHClearRequest extends SHSecuredRequest{
+    authorizeRequest: SHAuthorizeRequest
+    dataRequest: SHRequest
 }

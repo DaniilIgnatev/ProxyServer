@@ -18,6 +18,7 @@ enum ProxyresponsePattern{
     toClient, toServer
 };
 
+//QJsonDocument::fromRawData чтобы проверить что документ пришел целиком
 
 
 class ProxySession : public QThread
@@ -32,23 +33,45 @@ public:
 
 //SH_CLIENT
 private:
-    QTcpSocket *socket;
+    QTcpSocket *client_socket;
 
-    qintptr socketDescriptor;
+    qintptr client_Socket_ID;
+
+    void client_on_complete();
 
 
 public: signals:
-    void error (QTcpSocket::SocketError socketError);
+    void client_error (QTcpSocket::SocketError socketError);
 
 
 public slots:
-    void client_on_data();
+    void client_package();
 
-    void client_on_disconnect();
+    void client_disconnect();
 
 
 //SH_SERVER
+private:
+    QTcpSocket *server_socket;
 
+    qintptr server_Socket_ID;
+
+    void server_on_complete();
+
+public: signals:
+    void server_error (QTcpSocket::SocketError socketError);
+
+public slots:
+    void server_package();
+
+    void server_disconnect();
 };
 
 #endif // MYTHREAD_H
+
+
+
+
+
+
+

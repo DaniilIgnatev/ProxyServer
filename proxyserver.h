@@ -24,7 +24,6 @@ public slots:
 
 
 protected:
-
     void incomingConnection(qintptr handle) override;
 };
 
