@@ -3,14 +3,31 @@
 
 #include <QWidget>
 
-class KeyPair : public QWidget
+struct Key
+{
+public:
+    int x;
+
+    int y;
+
+    Key(QString key);
+
+    QString toString();
+};
+
+
+
+class RSAKeyPair : public QObject
 {
     Q_OBJECT
 public:
-    explicit KeyPair(QWidget *parent = nullptr);
+    Key self_private_key;
 
-signals:
+    Key self_public_key;
 
+    Key client_public_key;
+
+    RSAKeyPair(QString client_public_key);
 };
 
 #endif // KEYPAIR_H

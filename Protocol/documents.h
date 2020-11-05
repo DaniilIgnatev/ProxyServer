@@ -3,14 +3,19 @@
 
 #include <QObject>
 
-class Document : public QObject
+class Stored_Session : public QObject
 {
     Q_OBJECT
 public:
-    explicit Document(QObject *parent = nullptr);
+    QString uuid;
 
-signals:
+    int method;
 
+    QString key;
+
+    void read(const QJsonObject &json);
+
+    void write(const QJsonObject &json);
 };
 
 #endif // DOCUMENT_H
