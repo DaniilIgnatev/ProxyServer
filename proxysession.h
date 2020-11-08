@@ -8,17 +8,17 @@
 
 
 
-enum ProxyrequestPattern{
+enum ProxyRequestPattern{
     handshake, data
 };
 
 
 
-enum ProxyresponsePattern{
+enum ProxyResponsePattern{
     toClient, toServer
 };
 
-//QJsonDocument::fromRawData чтобы проверить что документ пришел целиком
+//QJsonDocument::fromRawData. Вызывать, чтобы проверить что документ пришел целиком
 
 
 class ProxySession : public QThread

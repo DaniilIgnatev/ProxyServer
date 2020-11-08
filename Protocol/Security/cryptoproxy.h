@@ -1,16 +1,20 @@
 #ifndef CRYPTOPROXY_H
 #define CRYPTOPROXY_H
 
+#include "keypair.h"
 #include <QObject>
 
-class CryptoProxy : public QObject
+class RSACryptoProxy : public QObject
 {
     Q_OBJECT
 public:
-    explicit CryptoProxy(QObject *parent = nullptr);
+    RSAKeyPair keys;
 
-signals:
+    RSACryptoProxy(RSAKeyPair keys);
 
+    QString encrypt(QString str);
+
+    QString decrypt(QString str);
 };
 
 #endif // CRYPTOPROXY_H
