@@ -9,19 +9,11 @@
 
 class ProxyServer : public QTcpServer
 {
-        Q_OBJECT
+    Q_OBJECT
 public:
-
     explicit ProxyServer(QObject *parent = 0);
 
-
     void startServer();
-
-signals:
-
-
-public slots:
-
 
 protected:
     void incomingConnection(qintptr handle) override;

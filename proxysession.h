@@ -5,7 +5,8 @@
 #include <QThread>
 #include <QtDebug>
 #include <QTcpSocket>
-
+#include <QTimer>
+#include <QJsonDocument>
 
 
 enum ProxyRequestPattern{
@@ -18,12 +19,15 @@ enum ProxyResponsePattern{
     toClient, toServer
 };
 
+
+
 //QJsonDocument::fromRawData. Вызывать, чтобы проверить что документ пришел целиком
-
-
 class ProxySession : public QThread
 {
     Q_OBJECT
+private:
+    QObject* proxy_server;
+
 //THREAD
 public:
     explicit ProxySession(qintptr ID, QObject *parent = 0);
@@ -37,8 +41,9 @@ private:
 
     qintptr client_Socket_ID;
 
-    void client_on_complete();
+    QByteArray* read_data;
 
+    QTimer client_timeout;
 
 public: signals:
     void client_error (QTcpSocket::SocketError socketError);
@@ -46,6 +51,8 @@ public: signals:
 
 public slots:
     void client_package();
+
+    void client_on_complete();
 
     void client_disconnect();
 
