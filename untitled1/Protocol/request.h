@@ -2,19 +2,38 @@
 #define REQUEST_H
 
 #include <QObject>
+#include <QJsonObject>
+
+
+
+#define RequestPattern_undefined "undefined"
+#define RequestPattern_handshake "cryptoHandshake"
+#define RequestPattern_data "cryptoData"
 
 
 
 ///Цель общения с клиентом
-enum RequestPattern {
-    handshake = 0,
-    data = 1
+enum RequestPattern_Enum{
+    unknown,
+    cryptoHandshake,
+    cryptoData
 };
 
 
 
-class SHRequest : public QObject
-{
+///Цель общения с клиентом, логика
+struct RequestPattern {
+    RequestPattern_Enum type;
+
+    RequestPattern(QString operation);
+
+    QString toOperation();
+};
+
+
+
+///Любой запрос
+class SHRequest : public QObject{
     Q_OBJECT
 public:
     QString type = "request";
@@ -28,6 +47,7 @@ public:
 
 
 
+///Запрос организации защищенного канала связи
 class SHCryptoHandshakeRequest: public SHRequest{
     Q_OBJECT
 public:
@@ -44,6 +64,7 @@ public:
 
 
 
+///Запрос доступа к данным
 class SHSecuredRequest: public SHRequest{
     Q_OBJECT
 public:
@@ -60,6 +81,7 @@ public:
 
 
 
+///Запрос авторизации серверу данных
 class SHAuthorizeRequest: public SHRequest{
     Q_OBJECT
 public:
@@ -68,20 +90,21 @@ public:
     QString password;
 
     QString time;
+
+    void read(const QJsonObject &json);
+
+    void write(const QJsonObject &json);
 };
 
 
 
-class SHClearRequest: public SHSecuredRequest{
+///Полностью раскрытый запрос
+class SHNakedRequest: public SHSecuredRequest{
     Q_OBJECT
 public:
     SHAuthorizeRequest authorizeRequest;
 
     SHRequest dataRequest;
-
-    void read(const QJsonObject &json);
-
-    void write(const QJsonObject &json);
 };
 
 #endif // REQUEST_H

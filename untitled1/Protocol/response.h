@@ -6,15 +6,15 @@
 
 
 ///Направление ответа
-enum ResponsePattern {
+enum ResponsePattern_Enum {
+    unknown,
     toClient,
     toServer
 };
 
 
 
-class SHResponse: public QObject{
-    Q_OBJECT
+class SHResponse{
 public:
     QString type = "response";
 
@@ -27,8 +27,7 @@ public:
 
 
 
-class SHCryptoHandshakeResponse: public SHResponse{
-    Q_OBJECT
+class SHCryptoHandshakeResponse{
 public:
     QString operation = "cryptoHandshake";
 
@@ -43,8 +42,7 @@ public:
 
 
 
-class SHCryptoDataResponse: public SHResponse{
-    Q_OBJECT
+class SHCryptoDataResponse{
 public:
     QString response;
 
@@ -55,8 +53,7 @@ public:
 
 
 
-class SHDataResponse: public SHResponse{
-    Q_OBJECT
+class SHDataResponse{
 public:
     QString result;//был any
 
@@ -66,8 +63,7 @@ public:
 };
 
 
-class SHStatusResponse: public SHResponse{
-    Q_OBJECT
+class SHStatusResponse{
 public:
     bool result = true;
 

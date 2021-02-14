@@ -6,6 +6,11 @@
 #include "session.h"
 #include "QJsonArray"
 #include "QJsonObject"
+#include "request.h"
+#include "response.h"
+#include <QJsonDocument>
+#include <QException>
+
 
 
 enum ProtocolHandlerStatus{
@@ -20,15 +25,15 @@ class ProtocolHandler : public QObject
 private:
     SecurityHandler* secirity_handler = NULL;
 
-    RequestPattern request_scenario = RequestPattern::handshake;
+    RequestPattern_Enum request_scenario = RequestPattern_Enum::unknown;
 
-    ResponsePattern response_scenario = ResponsePattern::toClient;
+    ResponsePattern_Enum response_scenario = ResponsePattern_Enum::unknown;
 
     ProtocolHandlerStatus status = ProtocolHandlerStatus::notHandled;
 
     ~ProtocolHandler();
 
-    int operation;
+    QString operation;
 
 public:
     ProtocolHandler();
@@ -36,11 +41,13 @@ public:
     QString handleRequest(QJsonArray request_list);
 
 private:
-     bool stayAlive = false;
+    bool stayAlive = false;
 
-    QString handleHandshake(QJsonObject reqeust_obj);
+    QByteArray handleHandshake(QJsonObject reqeust_obj);
 
-    QString handleData(QJsonObject request_obj);
+    QByteArray handleData(QJsonObject request_obj);
+
+    QByteArray handleUnknown(QJsonObject request_obj);
 };
 
 #endif // PROTOCOLHANDLER_H

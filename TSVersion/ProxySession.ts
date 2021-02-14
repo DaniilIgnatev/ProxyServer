@@ -9,7 +9,7 @@ import { clearTimeout } from "timers"
 ///Цель общения с клиентом
 export enum ProxyRequestPattern {
     handshake = "cryptoHandshake",
-    data = ""
+    data = "cryptoData"
 }
 
 
