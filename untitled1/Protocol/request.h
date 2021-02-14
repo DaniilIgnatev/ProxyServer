@@ -6,36 +6,8 @@
 
 
 
-#define RequestPattern_undefined "undefined"
-#define RequestPattern_handshake "cryptoHandshake"
-#define RequestPattern_data "cryptoData"
-
-
-
-///Цель общения с клиентом
-enum RequestPattern_Enum{
-    unknown,
-    cryptoHandshake,
-    cryptoData
-};
-
-
-
-///Цель общения с клиентом, логика
-struct RequestPattern {
-    RequestPattern_Enum type;
-
-    RequestPattern(QString operation);
-
-    QString toOperation();
-};
-
-
-
 ///Любой запрос
-class SHRequest : public QObject{
-    Q_OBJECT
-public:
+struct SHRequest{
     QString type = "request";
 
     QString operation;
@@ -48,9 +20,7 @@ public:
 
 
 ///Запрос организации защищенного канала связи
-class SHCryptoHandshakeRequest: public SHRequest{
-    Q_OBJECT
-public:
+struct SHCryptoHandshakeRequest: SHRequest{
     QString operation = "cryptoHandshake";
 
     int method = 0;
@@ -65,9 +35,7 @@ public:
 
 
 ///Запрос доступа к данным
-class SHSecuredRequest: public SHRequest{
-    Q_OBJECT
-public:
+struct SHSecuredRequest: SHRequest{
     QString UID;
 
     bool stayAlive;
@@ -82,9 +50,7 @@ public:
 
 
 ///Запрос авторизации серверу данных
-class SHAuthorizeRequest: public SHRequest{
-    Q_OBJECT
-public:
+struct SHAuthorizeRequest: SHRequest{
     QString user;
 
     QString password;
@@ -99,9 +65,7 @@ public:
 
 
 ///Полностью раскрытый запрос
-class SHNakedRequest: public SHSecuredRequest{
-    Q_OBJECT
-public:
+struct SHNakedRequest: SHSecuredRequest{
     SHAuthorizeRequest authorizeRequest;
 
     SHRequest dataRequest;

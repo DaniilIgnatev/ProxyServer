@@ -2,12 +2,26 @@
 #include <QSqlDatabase>
 
 
-Storage::Storage(QObject *parent) : QObject(parent)
+Storage::Storage(QObject *parent): QObject(parent)
 {
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("localhost");
-    db.setDatabaseName("smarthouse");
-    db.setUserName("smarthouse");
-    db.setPassword("1234");
-    bool ok = db.open();
+
+}
+
+
+QString Storage::reserveUUID(SHCryptoHandshakeRequest request)
+{
+    QUuid newUUID = QUuid::createUuid();
+    QString uuidStr = newUUID.toString();
+
+    Stored_Session session(uuidStr,request.method,request.key);
+
+    QDateTime currentDateTime = QDateTime::currentDateTimeUtc();
+    QTime currentTime = currentDateTime.time();
+    QTime resetTime = QTime(currentTime.hour(),0,0,0);
+    currentDateTime.setTime(resetTime);
+
+    session_mutex.lock();
+    session_map.insert(currentDateTime, session);
+
+    return uuidStr;
 }

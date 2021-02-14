@@ -10,6 +10,7 @@
 #include "response.h"
 #include <QJsonDocument>
 #include <QException>
+#include "storage.h"
 
 
 
@@ -22,25 +23,24 @@ enum ProtocolHandlerStatus{
 class ProtocolHandler : public QObject
 {
     Q_OBJECT
-private:
-    SecurityHandler* secirity_handler = NULL;
-
-    RequestPattern_Enum request_scenario = RequestPattern_Enum::unknown;
-
-    ResponsePattern_Enum response_scenario = ResponsePattern_Enum::unknown;
-
-    ProtocolHandlerStatus status = ProtocolHandlerStatus::notHandled;
-
-    ~ProtocolHandler();
-
-    QString operation;
-
 public:
-    ProtocolHandler();
+    ProtocolHandler(QObject *parent = nullptr);
 
     QString handleRequest(QJsonArray request_list);
 
 private:
+    SecurityHandler* security_handler = NULL;
+
+    Storage storage;
+
+    ~ProtocolHandler();
+
+    ProtocolPattern_Enum request_scenario = ProtocolPattern_Enum::unknown;
+
+    DestinationPattern_Enum response_scenario = DestinationPattern_Enum::unknown;
+
+    ProtocolHandlerStatus status = ProtocolHandlerStatus::notHandled;
+
     bool stayAlive = false;
 
     QByteArray handleHandshake(QJsonObject reqeust_obj);

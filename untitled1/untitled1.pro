@@ -10,10 +10,12 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        Protocol/Security/cryptoproxy.cpp \
         Protocol/Security/keypair.cpp \
+        Protocol/Security/rsacrypto.cpp \
         Protocol/Security/securityhandler.cpp \
+        Protocol/Security/securitykey.cpp \
         Protocol/protocolhandler.cpp \
+        Protocol/protocolpattern.cpp \
         Protocol/request.cpp \
         Protocol/response.cpp \
         Protocol/storage.cpp \
@@ -28,10 +30,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    Protocol/Security/cryptoproxy.h \
     Protocol/Security/keypair.h \
+    Protocol/Security/rsacrypto.h \
     Protocol/Security/securityhandler.h \
+    Protocol/Security/securitykey.h \
     Protocol/protocolhandler.h \
+    Protocol/protocolpattern.h \
     Protocol/request.h \
     Protocol/response.h \
     Protocol/storage.h \

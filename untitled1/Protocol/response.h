@@ -1,21 +1,15 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
+
+
 #include <QObject>
+#include "protocolpattern.h"
+#include <QJsonObject>
 
 
 
-///Направление ответа
-enum ResponsePattern_Enum {
-    unknown,
-    toClient,
-    toServer
-};
-
-
-
-class SHResponse{
-public:
+struct SHResponse{
     QString type = "response";
 
     QString operation;
@@ -27,9 +21,8 @@ public:
 
 
 
-class SHCryptoHandshakeResponse{
-public:
-    QString operation = "cryptoHandshake";
+struct SHCryptoHandshakeResponse: SHResponse{
+    QString operation = ProtocolPattern_handshake;
 
     QString UUID;
 
@@ -42,8 +35,9 @@ public:
 
 
 
-class SHCryptoDataResponse{
-public:
+struct SHCryptoDataResponse: SHResponse{
+    QString operation = ProtocolPattern_data;
+
     QString response;
 
     void read(const QJsonObject &json);
@@ -53,18 +47,7 @@ public:
 
 
 
-class SHDataResponse{
-public:
-    QString result;//был any
-
-    void read(const QJsonObject &json);
-
-    void write(const QJsonObject &json);
-};
-
-
-class SHStatusResponse{
-public:
+struct SHStatusResponse: SHResponse{
     bool result = true;
 
     QString result_message;

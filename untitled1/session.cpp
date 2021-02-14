@@ -1,16 +1,25 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor)
+Session::Session(quint16 socketDescriptor,QObject*)
 {
     this->socketDescriptor = socketDescriptor;
     start();
 }
 
+
+Session::~Session()
+{
+
+}
+
+
+
 void Session::send(QString &message)
 {
     socket->write(message.toUtf8());
 }
+
 
 void Session::run()
 {
@@ -23,11 +32,13 @@ void Session::run()
     exec();
 }
 
+
 void Session::readyRead()
 {
     QByteArray data = socket->readAll();
     socket->write(data);
 }
+
 
 void Session::socketClosed()
 {

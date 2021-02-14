@@ -2,21 +2,23 @@
 #define SECURITYHANDLER_H
 
 
-#include "cryptoproxy.h"
+#include "rsacrypto.h"
 #include "../request.h"
 #include "../response.h"
 #include <QObject>
 
 
-class SecurityHandler : public QObject
+
+class SecurityHandler: QObject
 {
     Q_OBJECT
+private:
+    RSACrypto cryptoProxy;
+
 public:
-    explicit SecurityHandler(RSACryptoProxy cryptoProxy);
+    explicit SecurityHandler(RSACrypto cryptoProxy, QObject *parent = nullptr);
 
-    RSACryptoProxy cryptoProxy;
-
-    SHClearRequest removeShell(SHSecuredRequest secured_request);
+    SHNakedRequest removeShell(SHSecuredRequest secured_request);
 
     bool checkAuthorize(SHAuthorizeRequest authorize);
 

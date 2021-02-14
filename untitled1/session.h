@@ -11,7 +11,7 @@ class Session : public QThread
 {
     Q_OBJECT
 public:
-    Session(quint16 socketDescriptor);
+    Session(quint16 socketDescriptor, QObject *parent = nullptr);
 
     ~Session();
 

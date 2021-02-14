@@ -1,10 +1,17 @@
 #include "protocolhandler.h"
 
 
-ProtocolHandler::ProtocolHandler()
+ProtocolHandler::ProtocolHandler(QObject *parent): QObject(parent)
 {
 
 }
+
+
+ProtocolHandler::~ProtocolHandler()
+{
+
+}
+
 
 QString ProtocolHandler::handleRequest(QJsonArray request_list)
 {
@@ -13,15 +20,15 @@ QString ProtocolHandler::handleRequest(QJsonArray request_list)
     QJsonObject firstRequest = request_list[0].toObject();
     operation = firstRequest["operation"].toString();
 
-    RequestPattern requestType(operation);
+    ProtocolPattern requestType(operation);
     QString response_str = "";
 
     try {
         switch (requestType.type) {
-            case RequestPattern_Enum::cryptoHandshake:
+            case ProtocolPattern_Enum::cryptoHandshake:
                 response_str = QString(handleHandshake(firstRequest));
             break;
-            case RequestPattern_Enum::cryptoData:
+            case ProtocolPattern_Enum::cryptoData:
                 response_str = QString(handleData(firstRequest));
             break;
         default:
@@ -38,50 +45,22 @@ QString ProtocolHandler::handleRequest(QJsonArray request_list)
 
     }
 
-    /*
-
-
-        let error_response = new Response.SHStatusResponse();
-        error_response.operation = this.operation
-
-        let response = null
-        //try {
-            switch (this.operation) {
-                case ProxyRequestPattern.handshake:
-                    this.request_scenario = ProxyRequestPattern.handshake
-                    this.response_scenario = ProxyResponsePattern.toClient
-                    response = await this.handleHandshake(firstRequest)
-                    this.status = ProtocolHandlerStatus.handled
-                    break
-                default:
-                    this.request_scenario = ProxyRequestPattern.data
-                    this.response_scenario = ProxyResponsePattern.toServer
-                    response = await this.handleData(firstRequest)
-                    this.status = ProtocolHandlerStatus.handled
-                    break
-            }
-        */
-
     return response_str;
 }
 
-QByteArray ProtocolHandler::handleHandshake(QJsonObject reqeust_obj)
+
+QByteArray ProtocolHandler::handleHandshake(QJsonObject request_obj)
 {
-    request_scenario = RequestPattern_Enum::cryptoHandshake;
-    response_scenario = ResponsePattern_Enum::toClient;
+    request_scenario = ProtocolPattern_Enum::cryptoHandshake;
+    response_scenario = DestinationPattern_Enum::toClient;
 
+    SHCryptoHandshakeRequest handshake;
+    handshake.read(request_obj);
 
-//    let handshakeRequest = new Request.SHCryptoHandshakeRequest()
-//            handshakeRequest.key = request_obj.key
-//            handshakeRequest.method = request_obj.method
+    RSAKeyPair keyPair(handshake.key);
+    RSACrypto crypto(keyPair);
 
-
-//            let method = CryptoProxyMethods[CryptoProxyMethods[handshakeRequest.method]]
-//            let key_pair = new RSAKeyPair(handshakeRequest.key)
-//            let proxy = new RSACryptoProxy(key_pair)
-
-//            this.security_handler = new SecurityHandler(method, proxy)
-
+    SecurityHandler security(crypto);
 //            let UUID = await this.appendUUID(handshakeRequest)
 //            let key = this.security_handler.cryptoProxy.keys.server_public_key_string
 
@@ -100,8 +79,8 @@ QByteArray ProtocolHandler::handleHandshake(QJsonObject reqeust_obj)
 
 QByteArray ProtocolHandler::handleData(QJsonObject request_obj)
 {
-    request_scenario = RequestPattern_Enum::cryptoData;
-    response_scenario = ResponsePattern_Enum::toServer;
+    request_scenario = ProtocolPattern_Enum::cryptoData;
+    response_scenario = DestinationPattern_Enum::toServer;
 
     /*
     this.request_scenario = ProxyRequestPattern.data

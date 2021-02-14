@@ -2,17 +2,19 @@
 #define STORED_SESSION_H
 
 #include <QObject>
+#include <QString>
+#include <QJsonObject>
 
 
-class Stored_Session : public QObject
+struct Stored_Session
 {
-    Q_OBJECT
-public:
     QString uuid;
 
     int method;
 
     QString key;
+
+    Stored_Session(QString uuid, int method, QString key);
 
     void read(const QJsonObject &json);
 

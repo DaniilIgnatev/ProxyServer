@@ -3,36 +3,7 @@
 
 
 
-//struct RequestPattern
-
-RequestPattern::RequestPattern(QString operation){
-    if (operation == RequestPattern_handshake){
-        type = RequestPattern_Enum::cryptoHandshake;
-    }
-    else
-        if (operation == RequestPattern_data){
-            type = RequestPattern_Enum::cryptoData;
-        }
-        else{
-            type = RequestPattern_Enum::undefined;
-        }
-}
-
-
-QString RequestPattern::toOperation(){
-    switch (type) {
-    case RequestPattern_Enum::cryptoHandshake:
-        return RequestPattern_handshake;
-    case RequestPattern_Enum::cryptoData:
-        return RequestPattern_data;
-    default:
-        return RequestPattern_undefined;
-    }
-}
-
-
-
-//class SHRequest : public QObject
+//struct SHRequest : public QObject
 
 void SHRequest::read(const QJsonObject &json){
     operation = json["operation"].toString();
@@ -45,7 +16,7 @@ void SHRequest::write(const QJsonObject &json){
 
 
 
-//class SHCryptoHandshakeRequest: public SHRequest
+//struct SHCryptoHandshakeRequest: public SHRequest
 
 void SHCryptoHandshakeRequest::read(const QJsonObject &json){
     SHRequest::read(json);
@@ -62,7 +33,7 @@ void SHCryptoHandshakeRequest::write(const QJsonObject &json){
 
 
 
-//class SHSecuredRequest: public SHRequest
+//struct SHSecuredRequest: public SHRequest
 
 void SHSecuredRequest::read(const QJsonObject &json){
     SHRequest::read(json);
@@ -81,7 +52,7 @@ void SHSecuredRequest::write(const QJsonObject &json){
 
 
 
-//class SHAuthorizeRequest: public SHRequest
+//struct SHAuthorizeRequest: public SHRequest
 
 void SHAuthorizeRequest::read(const QJsonObject &json){
     SHRequest::read(json);
