@@ -35,7 +35,7 @@ void SHCryptoHandshakeRequest::write(const QJsonObject &json){
 
 //struct SHSecuredRequest: public SHRequest
 
-void SHSecuredRequest::read(const QJsonObject &json){
+void SHCryptoDataRequest::read(const QJsonObject &json){
     SHRequest::read(json);
     UID = json["UID"].toString();
     stayAlive = json["stayAlive"].toBool();
@@ -43,7 +43,7 @@ void SHSecuredRequest::read(const QJsonObject &json){
 }
 
 
-void SHSecuredRequest::write(const QJsonObject &json){
+void SHCryptoDataRequest::write(const QJsonObject &json){
     SHRequest::write(json);
     json["UID"] = UID;
     json["stayAlive"] = stayAlive;

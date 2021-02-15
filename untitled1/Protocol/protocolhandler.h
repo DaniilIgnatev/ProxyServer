@@ -20,18 +20,23 @@ enum ProtocolHandlerStatus{
 
 
 
+///Предоставляет внутренний интерфейс для клиента
 class ProtocolHandler : public QObject
 {
     Q_OBJECT
 public:
     ProtocolHandler(QObject *parent = nullptr);
 
-    QString handleRequest(QJsonArray request_list);
+signals:
+    void responseReady(QByteArray response);
+
+public slots:
+    QString handleRequest(QByteArray request_list);
 
 private:
     SecurityHandler* security_handler = NULL;
 
-    Storage storage;
+    Storage* storage = NULL;
 
     ~ProtocolHandler();
 
@@ -43,11 +48,11 @@ private:
 
     bool stayAlive = false;
 
-    QByteArray handleHandshake(QJsonObject reqeust_obj);
+    QByteArray handleCryptoHandshakeRequest(QJsonObject reqeust_obj);
 
-    QByteArray handleData(QJsonObject request_obj);
+    QByteArray handleCryptoDataRequest(QJsonObject request_obj);
 
-    QByteArray handleUnknown(QJsonObject request_obj);
+    QByteArray handleUnknownRequest(QJsonObject request_obj);
 };
 
 #endif // PROTOCOLHANDLER_H

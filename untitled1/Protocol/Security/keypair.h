@@ -9,11 +9,11 @@
 
 struct RSAKeyPair
 {
-    SecurityKey self_private_key;
+    QString self_private_key;
 
-    SecurityKey self_public_key;
+    QString self_public_key;
 
-    SecurityKey client_public_key;
+    QString client_public_key;
 
     RSAKeyPair(QString client_public_key);
 };

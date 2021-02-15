@@ -3,7 +3,7 @@
 
 ProtocolHandler::ProtocolHandler(QObject *parent): QObject(parent)
 {
-
+    storage = new Storage(this);
 }
 
 
@@ -18,28 +18,21 @@ QString ProtocolHandler::handleRequest(QJsonArray request_list)
     status = ProtocolHandlerStatus::notHandled;
 
     QJsonObject firstRequest = request_list[0].toObject();
-    operation = firstRequest["operation"].toString();
+    QString operation = firstRequest["operation"].toString();
 
     ProtocolPattern requestType(operation);
     QString response_str = "";
 
     try {
         switch (requestType.type) {
-            case ProtocolPattern_Enum::cryptoHandshake:
-                response_str = QString(handleHandshake(firstRequest));
+        case ProtocolPattern_Enum::cryptoHandshake:
+            response_str = QString(handleCryptoHandshakeRequest(firstRequest));
             break;
-            case ProtocolPattern_Enum::cryptoData:
-                response_str = QString(handleData(firstRequest));
+        case ProtocolPattern_Enum::cryptoData:
+            response_str = QString(handleCryptoDataRequest(firstRequest));
             break;
         default:
-            SHStatusResponse unknownRequest;
-            unknownRequest.result_message = "error";
-            unknownRequest.result_message = "unknown request type";
-            QJsonObject jsonObject;
-            unknownRequest.write(jsonObject);
-
-            QJsonDocument jsonDocument(jsonObject);
-            response_str = QString(jsonDocument.toJson(QJsonDocument::JsonFormat::Compact));
+           response_str = QString(handleUnknownRequest(firstRequest));
         }
     }  catch (QException e) {
 
@@ -49,7 +42,7 @@ QString ProtocolHandler::handleRequest(QJsonArray request_list)
 }
 
 
-QByteArray ProtocolHandler::handleHandshake(QJsonObject request_obj)
+QByteArray ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject request_obj)
 {
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
     response_scenario = DestinationPattern_Enum::toClient;
@@ -60,24 +53,27 @@ QByteArray ProtocolHandler::handleHandshake(QJsonObject request_obj)
     RSAKeyPair keyPair(handshake.key);
     RSACrypto crypto(keyPair);
 
-    SecurityHandler security(crypto);
-//            let UUID = await this.appendUUID(handshakeRequest)
-//            let key = this.security_handler.cryptoProxy.keys.server_public_key_string
+    security_handler = new SecurityHandler(crypto,this);
+    QString UUID = storage->reserveUUID(handshake);
 
-//            let handshakeResponse = new Response.SHCryptoHandshakeResponse()
-//            handshakeResponse.UUID = UUID
-//            handshakeResponse.key = key
+    QString serverKey = security_handler->serverKey();
 
-//            let response = [handshakeResponse]
-//            let response_str = JSON.stringify(response)
-//            return response_str
-//        }
+    SHCryptoHandshakeResponse response;
+    response.UUID = UUID;
+    response.key = serverKey;
+
+    QJsonObject jsonObject;
+    response.write(jsonObject);
+
+    QJsonDocument jsonDocument(jsonObject);
+    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
     status = ProtocolHandlerStatus::handled;
+    return result;
 }
 
 
-QByteArray ProtocolHandler::handleData(QJsonObject request_obj)
+QByteArray ProtocolHandler::handleCryptoDataRequest(QJsonObject request_obj)
 {
     request_scenario = ProtocolPattern_Enum::cryptoData;
     response_scenario = DestinationPattern_Enum::toServer;
@@ -90,14 +86,23 @@ QByteArray ProtocolHandler::handleData(QJsonObject request_obj)
     break
     */
 
+    //подписываюсь на сокет
+
     status = ProtocolHandlerStatus::handled;
 }
 
 
-QByteArray ProtocolHandler::handleUnknown(QJsonObject request_obj)
+QByteArray ProtocolHandler::handleUnknownRequest(QJsonObject request_obj)
 {
+    SHStatusResponse unknownRequest;
+    unknownRequest.result_message = "error";
+    unknownRequest.result_message = "unknown request type";
+    QJsonObject jsonObject;
+    unknownRequest.write(jsonObject);
 
+    QJsonDocument jsonDocument(jsonObject);
+    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
     status = ProtocolHandlerStatus::error;
-
+    return result;
 }

@@ -34,8 +34,8 @@ struct SHCryptoHandshakeRequest: SHRequest{
 
 
 
-///Запрос доступа к данным
-struct SHSecuredRequest: SHRequest{
+///Зашифрованый запрос бизнес-логики
+struct SHCryptoDataRequest: SHRequest{
     QString UID;
 
     bool stayAlive;
@@ -65,7 +65,7 @@ struct SHAuthorizeRequest: SHRequest{
 
 
 ///Полностью раскрытый запрос
-struct SHNakedRequest: SHSecuredRequest{
+struct SHNakedRequest: SHCryptoDataRequest{
     SHAuthorizeRequest authorizeRequest;
 
     SHRequest dataRequest;

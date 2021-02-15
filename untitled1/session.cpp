@@ -1,7 +1,7 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor,QObject*)
+Session::Session(quint16 socketDescriptor,QObject* parent): QThread(parent)
 {
     this->socketDescriptor = socketDescriptor;
     start();
@@ -10,7 +10,8 @@ Session::Session(quint16 socketDescriptor,QObject*)
 
 Session::~Session()
 {
-
+    socket->deleteLater();
+    protocol->deleteLater();
 }
 
 
@@ -23,10 +24,13 @@ void Session::send(QString &message)
 
 void Session::run()
 {
+    connect(this, &QThread::finished, this, &Session::deleteLater);
+
+    protocol = new ProtocolHandler();
+
     socket = new QTcpSocket();
     socket->setSocketDescriptor(socketDescriptor);
     connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
-    connect(socket, &QTcpSocket::disconnected, this, &Session::deleteLater);
     connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
 
     exec();
@@ -36,7 +40,15 @@ void Session::run()
 void Session::readyRead()
 {
     QByteArray data = socket->readAll();
-    socket->write(data);
+
+
+    emit requestReady(data);
+}
+
+
+void Session::handleResponse(QByteArray response)
+{
+    socket->write(response);
 }
 
 

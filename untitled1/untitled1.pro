@@ -20,6 +20,7 @@ SOURCES += \
         Protocol/response.cpp \
         Protocol/storage.cpp \
         Protocol/stored_session.cpp \
+        log.cpp \
         main.cpp \
         server.cpp \
         session.cpp
@@ -40,5 +41,6 @@ HEADERS += \
     Protocol/response.h \
     Protocol/storage.h \
     Protocol/stored_session.h \
+    log.h \
     server.h \
     session.h

@@ -18,7 +18,9 @@ private:
 public:
     explicit SecurityHandler(RSACrypto cryptoProxy, QObject *parent = nullptr);
 
-    SHNakedRequest removeShell(SHSecuredRequest secured_request);
+    QString serverKey();
+
+    SHNakedRequest removeShell(SHCryptoDataRequest secured_request);
 
     bool checkAuthorize(SHAuthorizeRequest authorize);
 

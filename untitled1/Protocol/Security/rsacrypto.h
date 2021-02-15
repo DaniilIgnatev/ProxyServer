@@ -19,4 +19,6 @@ struct RSACrypto
     QString decrypt(QString str);
 };
 
+
+
 #endif // CRYPTOPROXY_H
