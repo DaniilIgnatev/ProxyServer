@@ -1,6 +1,13 @@
 #include "securitykey.h"
 
-SecurityKey::SecurityKey()
+
+
+SecurityKey::SecurityKey(QString key)
+{
+
+}
+
+QString SecurityKey::toString()
 {
 
 }

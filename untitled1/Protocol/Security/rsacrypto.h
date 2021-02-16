@@ -3,14 +3,14 @@
 
 
 
-#include "keypair.h"
+#include "rsakeypair.h"
 #include <QObject>
 
 
 
 struct RSACrypto
 {
-    RSAKeyPair keys;
+    RSAKeyPair keys = RSAKeyPair(SecurityKey(QString()));
 
     RSACrypto(RSAKeyPair keys);
 

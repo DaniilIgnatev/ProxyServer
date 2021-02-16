@@ -2,10 +2,12 @@
 #define SECURITYHANDLER_H
 
 
-#include "rsacrypto.h"
 #include "../request.h"
 #include "../response.h"
 #include <QObject>
+#include "rsakeypair.h"
+#include "rsacrypto.h"
+#include "securitykey.h"
 
 
 
@@ -13,7 +15,7 @@ class SecurityHandler: QObject
 {
     Q_OBJECT
 private:
-    RSACrypto cryptoProxy;
+    RSACrypto cryptoProxy = RSACrypto(RSAKeyPair(SecurityKey(QString())));
 
 public:
     explicit SecurityHandler(RSACrypto cryptoProxy, QObject *parent = nullptr);

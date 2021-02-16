@@ -1,5 +1,9 @@
 #include "storage.h"
-#include <QSqlDatabase>
+
+
+QMutex session_mutex;
+
+QMultiMap<QDateTime,Stored_Session> session_map;
 
 
 Storage::Storage(QObject *parent): QObject(parent)

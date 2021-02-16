@@ -13,8 +13,10 @@ struct SecurityKey
 
     int y;
 
+    ///Внимание! Ключи-строки в 16-м коде
     SecurityKey(QString key);
 
+    ///Внимание! Ключи-строки в 16-м коде
     QString toString();
 };
 

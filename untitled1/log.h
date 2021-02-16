@@ -12,6 +12,8 @@ class Log
 {
 public:
     static void info(QByteArray message);
+
+    static void debug(QByteArray message);
 };
 
 #endif // LOG_H

@@ -12,6 +12,8 @@ Session::~Session()
 {
     socket->deleteLater();
     protocol->deleteLater();
+    delete readData;
+    delete readStream;
 }
 
 
@@ -37,18 +39,33 @@ void Session::run()
 }
 
 
+
+
+
 void Session::readyRead()
 {
-    QByteArray data = socket->readAll();
+    if (readData == NULL){
+        readData = new QByteArray();
+    }
+    if (readStream == NULL){
+        readStream = new QDataStream(socket);
+    }
 
+    QByteArray newReadData = socket->readAll();
 
-    emit requestReady(data);
+    if (request_size == bytes_read){
+        emit requestReady(readData);
+        delete readData;
+        readData = NULL;
+        delete readStream;
+        readStream = NULL;
+    }
 }
 
 
-void Session::handleResponse(QByteArray response)
+void Session::handleResponse(QByteArray* response)
 {
-    socket->write(response);
+    socket->write(*response);
 }
 
 

@@ -29,13 +29,4 @@ struct ProtocolPattern {
     QString toOperation();
 };
 
-
-
-///Направление ответа
-enum struct DestinationPattern_Enum {
-    unknown = 0,
-    toClient = 1,
-    toServer = 2
-};
-
 #endif // PROTOCOLPATTERN_H

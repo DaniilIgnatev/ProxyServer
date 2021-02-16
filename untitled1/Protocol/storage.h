@@ -12,10 +12,6 @@
 #include <QMutex>
 
 
-QMutex session_mutex;
-
-QMultiMap<QDateTime,Stored_Session> session_map;
-
 
 class Storage: QObject
 {

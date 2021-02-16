@@ -5,8 +5,10 @@
 
 #include <QTcpSocket>
 #include <QThread>
+#include <QDataStream>
 #include "Protocol/protocolhandler.h"
 #include <QtDebug>
+#include "log.h"
 
 
 /*
@@ -29,17 +31,25 @@ public:
     void send(QString &message);
 
 signals:
-    void requestReady(QByteArray request);
+    void requestReady(QByteArray* request);
 
 public slots:
-    void handleResponse(QByteArray response);
+    void handleResponse(QByteArray* response);
 
 private:
+    void run() override;
+
+    ProtocolHandler *protocol = NULL;
+
     QTcpSocket* socket = NULL;
 
-    ProtocolHandler* protocol = NULL;
+    uint32_t request_size = 0;
 
-    void run() override;
+    uint32_t bytes_read = 0;
+
+    QByteArray* readData = NULL;
+
+    QDataStream* readStream = NULL;
 
 private slots:
     void readyRead();
