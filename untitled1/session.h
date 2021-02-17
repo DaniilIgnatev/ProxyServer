@@ -43,9 +43,11 @@ private:
 
     QTcpSocket* socket = NULL;
 
-    uint32_t request_size = 0;
+    ///Всего для чтения
+    quint32 request_size = 0;
 
-    uint32_t bytes_read = 0;
+    ///Уже прочитано
+    quint32 bytes_read = 0;
 
     QByteArray* readData = NULL;
 

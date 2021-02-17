@@ -109,6 +109,7 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
     status = ProtocolHandlerStatus::error;
+
     emit responseReady(&result);
 }
 
