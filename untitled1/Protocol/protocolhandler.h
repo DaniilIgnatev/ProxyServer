@@ -15,7 +15,7 @@
 #include "Security/rsakeypair.h"
 
 #include "Security/securitykey.h"
-
+#include <QThread>
 
 
 
@@ -37,7 +37,7 @@ signals:
     void responseReady(QByteArray* responseData);
 
 public slots:
-    void handleRequest(QByteArray* requestData);
+    void handleRequest(QByteArray &requestData);
 
 private:
     SecurityHandler* security_handler = NULL;

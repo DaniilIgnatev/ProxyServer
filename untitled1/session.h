@@ -18,11 +18,11 @@ protocolhandler посылает сигнал о поступлении отве
 */
 
 ///Предоставляет внешний интерфейс для клиента
-class Session : public QThread
+class Session : public QObject
 {
     Q_OBJECT
 public:
-    Session(quint16 socketDescriptor, QObject *parent = nullptr);
+    Session(quint16 socketDescriptor);
 
     ~Session();
 
@@ -31,17 +31,18 @@ public:
     void send(QString &message);
 
 signals:
-    void requestReady(QByteArray* request);
+    void requestReady(QByteArray &request);
 
 public slots:
     void handleResponse(QByteArray* response);
 
 private:
-    void run() override;
 
-    ProtocolHandler *protocol = NULL;
+    QThread *thread;
 
-    QTcpSocket* socket = NULL;
+    ProtocolHandler *protocol;
+
+    QTcpSocket* socket;
 
     ///Всего для чтения
     quint32 request_size = 0;
@@ -52,6 +53,8 @@ private:
     QByteArray* readData = NULL;
 
     QDataStream* readStream = NULL;
+
+    qint32 response_size = 0;
 
 private slots:
     void readyRead();

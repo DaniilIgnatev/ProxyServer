@@ -14,9 +14,11 @@ ProtocolHandler::~ProtocolHandler()
 }
 
 
-void ProtocolHandler::handleRequest(QByteArray* requestData)
+void ProtocolHandler::handleRequest(QByteArray &requestData)
 {
-    QJsonDocument requestDocument = QJsonDocument::fromJson(*requestData);
+    qDebug() << "handleRequest " << QThread::currentThreadId();
+
+    QJsonDocument requestDocument = QJsonDocument::fromJson(requestData);
     QJsonArray request_list = requestDocument.array();
 
     status = ProtocolHandlerStatus::notHandled;

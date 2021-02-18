@@ -1,10 +1,25 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor,QObject* parent): QThread(parent)
+Session::Session(quint16 socketDescriptor): QObject(0)
 {
+    thread = new QThread();
+    thread->start();
+
     this->socketDescriptor = socketDescriptor;
-    start();
+    connect(this->thread, &QThread::finished, this, &Session::deleteLater);
+
+    protocol = new ProtocolHandler(this);
+    connect(this, &Session::requestReady, protocol, &ProtocolHandler::handleRequest);
+
+    socket = new QTcpSocket(this);
+    socket->setSocketDescriptor(socketDescriptor);
+    qDebug() << "Socket opened";
+
+    connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
+    connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
+
+    this->moveToThread(thread);
 }
 
 
@@ -14,7 +29,7 @@ Session::~Session()
     protocol->deleteLater();
     delete readData;
     delete readStream;
-    Log::debug("Session deinited");
+    qDebug() << "Session deinited";
 }
 
 
@@ -22,22 +37,6 @@ Session::~Session()
 void Session::send(QString &message)
 {
     socket->write(message.toUtf8());
-}
-
-
-void Session::run()
-{
-    connect(this, &QThread::finished, this, &Session::deleteLater);
-    protocol = new ProtocolHandler();
-
-    socket = new QTcpSocket();
-    socket->setSocketDescriptor(socketDescriptor);
-    Log::info("Socket opened");
-
-    connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
-    connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
-
-    exec();
 }
 
 
@@ -53,9 +52,9 @@ void Session::readyRead()
     if (request_size == 0){
         if (socket->bytesAvailable() > 4){
             *readStream >> request_size;
-            Log::debug("Ожидается пакет ");
-            Log::debug(QString(request_size).toLatin1());
-            Log::debug(" байт.");
+            qDebug() << "Ожидается пакет ";
+            qDebug() << request_size;
+            qDebug() << " байт.";
         }
         else{
             return;
@@ -68,19 +67,21 @@ void Session::readyRead()
     readData->append(newReadData);
     bytes_read += bytes_read_add;
 
-    Log::debug("Получено ");
-    Log::debug(QString(bytes_read).toLatin1());
-    Log::debug(" байт.");
+    qDebug() << "Получено ";
+    qDebug() << bytes_read;
+    qDebug() << " байт.";
 
 
     if (request_size == bytes_read){
-        Log::debug("Принят пакет");
-        Log::debug(QString(request_size).toLatin1());
-        Log::debug(" байт.");
+        qDebug() << "Принят пакет";
+        qDebug() << request_size;
+        qDebug() << " байт.";
 
-        Log::debug(*readData);
+        qDebug() << "readyRead thread id" << QThread::currentThreadId();
 
-        emit requestReady(readData);
+        qDebug() << readData;
+
+        emit requestReady(*readData);
 
         delete readData;
         readData = NULL;
@@ -94,12 +95,14 @@ void Session::readyRead()
 
 void Session::handleResponse(QByteArray* response)
 {
+    response_size = response->size();
+    response->insert(0,(char*)&response_size,4);
     socket->write(*response);
 }
 
 
 void Session::socketClosed()
 {
-    Log::info("socket closed");
-    this->exit();
+    qDebug() << "socket closed";
+    this->thread->exit();
 }
