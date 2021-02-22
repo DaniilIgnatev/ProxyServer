@@ -72,7 +72,6 @@ void TestRSAGenerator::testonlyGenerateSecurityKeys()
 }
 
 
-
 void TestRSAGenerator::gcd()
 {
     QCOMPARE(generator->gcd(23, 5), 1);
@@ -81,7 +80,6 @@ void TestRSAGenerator::gcd()
     QCOMPARE(generator->gcd(22, 2), 2);
     QCOMPARE(generator->gcd(27, 9), 9);
 }
-
 
 
 void TestRSAGenerator::gcdExtendReverse()

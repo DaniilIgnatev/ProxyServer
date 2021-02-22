@@ -63,11 +63,12 @@ SecurityKeysPair RSAGenerator::testonlyGenerateSecurityKeys(int p, int q, int e)
 SecurityKeysPair RSAGenerator::generateSecurityKeys()
 {
     int p_base = randGener->bounded(3,50);
-    //тут должна быть ошибка
-    int p = generatePrimeNumbers(p_base,1).first();
-    //тут должна быть ошибка
+    auto p_primeList = generatePrimeNumbers(p_base,1);
+    int p = p_primeList.first();
+
     int q_base = randGener->bounded(51,100);
-    int q = generatePrimeNumbers(q_base,1).first();
+    auto q_primeList = generatePrimeNumbers(q_base,1);
+    int q = q_primeList.first();
 
     int n = p * q;
     int eiler = (p - 1) * (q - 1);
