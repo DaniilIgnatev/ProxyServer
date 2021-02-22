@@ -7,10 +7,12 @@ TestRSAGenerator::TestRSAGenerator(QObject *parent) : QObject(parent)
 
 }
 
+
 void TestRSAGenerator::initTestCase()
 {
     this->generator = new RSAGenerator(this);
 }
+
 
 void TestRSAGenerator::cleanupTestCase()
 {
@@ -54,33 +56,60 @@ void TestRSAGenerator::generatePrimeNumbers()
 
 void TestRSAGenerator::testonlyGenerateSecurityKeys()
 {
+    int p = 3557;
+    int q = 2579;
+    int e = 3;
 
+    auto keys = generator->testonlyGenerateSecurityKeys(p, q, e);
+
+    auto publicKeys = keys.publicKey;
+    QCOMPARE(publicKeys.x, 3);
+    QCOMPARE(publicKeys.y, 9173503);
+
+    auto privateKeys = keys.privateKey;
+    QCOMPARE(privateKeys.x, 6111579);
+    QCOMPARE(privateKeys.y, 9173503);
 }
 
 
 
 void TestRSAGenerator::gcd()
 {
-
-}
-
-
-
-void TestRSAGenerator::generatePublicExp()
-{
-
-}
-
-
-
-void TestRSAGenerator::gcdExtend()
-{
-
+    QCOMPARE(generator->gcd(23, 5), 1);
+    QCOMPARE(generator->gcd(12, 664), 4);
+    QCOMPARE(generator->gcd(15, 2), 1);
+    QCOMPARE(generator->gcd(22, 2), 2);
+    QCOMPARE(generator->gcd(27, 9), 9);
 }
 
 
 
 void TestRSAGenerator::gcdExtendReverse()
 {
+    QList<SecurityKey> GCD_One_Numbers = QList<SecurityKey>();
 
+    while (GCD_One_Numbers.count() < 5) {
+        int firstNum = randGener->bounded(1000);
+        int firstPrime = generator->generatePrimeNumbers(firstNum, 1).first();
+
+        int secondNum = randGener->bounded(1000);
+        int secondPrime = generator->generatePrimeNumbers(secondNum, 1).first();
+
+        int gcd = generator->gcd(firstPrime, secondPrime);
+        if (gcd == 1){
+            int x = 0;
+            int y = 0;
+            GCD_One_Numbers.append(SecurityKey(firstPrime,secondPrime));
+            int d = generator->gcdExtendReverse(firstPrime, secondPrime, x, y);
+            QCOMPARE(d, 1);
+        }
+    }
+
+    int a = 3;
+    int b = 9167368;
+    int x = 0;
+    int y = 0;
+    int d = generator->gcdExtendReverse(a, b, x, y);
+    QCOMPARE(d, 1);
+    QCOMPARE(x, 6111579);
 }

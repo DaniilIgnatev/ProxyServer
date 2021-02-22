@@ -5,12 +5,16 @@
 #include <QList>
 #include "securitykeyspair.h"
 #include <QtMath>
+#include <QRandomGenerator>
 
 
 
 class RSAGenerator : public QObject
 {
     Q_OBJECT
+private:
+    QRandomGenerator* randGener = QRandomGenerator::global();
+
 public:
 
     explicit RSAGenerator(QObject *parent = nullptr);

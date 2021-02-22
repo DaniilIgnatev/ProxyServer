@@ -19,6 +19,8 @@ public:
 private:
     RSAGenerator *generator = nullptr;
 
+    QRandomGenerator* randGener = QRandomGenerator::global();
+
 private slots:
 
     void initTestCase();
@@ -37,12 +39,6 @@ private slots:
 
 
     void gcd();
-
-
-    void generatePublicExp();
-
-
-    void gcdExtend();
 
 
     void gcdExtendReverse();
