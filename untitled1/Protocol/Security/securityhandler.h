@@ -6,7 +6,7 @@
 #include "../response.h"
 #include <QObject>
 #include "rsakeypair.h"
-#include "rsacrypto.h"
+#include "rsacryptoproxy.h"
 #include "securitykey.h"
 
 
@@ -15,10 +15,10 @@ class SecurityHandler: QObject
 {
     Q_OBJECT
 private:
-    RSACrypto cryptoProxy = RSACrypto(RSAKeyPair(SecurityKey(QString())));
+    RSACryptoProxy* cryptoProxy;
 
 public:
-    explicit SecurityHandler(RSACrypto cryptoProxy, QObject *parent = nullptr);
+    explicit SecurityHandler(RSACryptoProxy &cryptoProxy, QObject *parent = nullptr);
 
     QString serverKey();
 

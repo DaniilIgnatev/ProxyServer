@@ -8,7 +8,6 @@
 #include <QDataStream>
 #include "Protocol/protocolhandler.h"
 #include <QtDebug>
-#include "log.h"
 
 
 /*

@@ -9,11 +9,10 @@
 #include <QJsonDocument>
 #include <QException>
 #include "storage.h"
-#include "log.h"
 #include "Security/securityhandler.h"
-#include "Security/rsacrypto.h"
+#include "Security/rsacryptoproxy.h"
 #include "Security/rsakeypair.h"
-
+#include <QtDebug>
 #include "Security/securitykey.h"
 #include <QThread>
 

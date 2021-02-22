@@ -53,9 +53,9 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     handshake.read(request_obj);
 
     RSAKeyPair keyPair(handshake.key);
-    RSACrypto crypto(keyPair);
+    RSACryptoProxy crypto(keyPair);
 
-    security_handler = new SecurityHandler(crypto,this);
+    security_handler = new SecurityHandler(crypto);
     QString UUID = storage->reserveUUID(handshake);
 
     QString serverKey = security_handler->serverKey();
@@ -97,8 +97,8 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 
 void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 {
-    Log::debug("handleUnknownRequest");
-    Log::debug(QJsonDocument(request_obj).toJson());
+    qDebug("handleUnknownRequest");
+    qDebug(QJsonDocument(request_obj).toJson());
 
     SHStatusResponse unknownResponse;
     unknownResponse.result_message = "error";
@@ -118,8 +118,8 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 
 void ProtocolHandler::handleException(QException &e)
 {
-    Log::info("Error: handleRequest");
-    Log::info(qPrintable(e.what()));
+    qDebug("Error: handleRequest");
+    qDebug(qPrintable(e.what()));
 
     SHStatusResponse exceptionResponse;
     exceptionResponse.result_message = "error";
