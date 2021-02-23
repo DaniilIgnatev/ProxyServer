@@ -21,14 +21,12 @@ void SHResponse::write(const QJsonObject &json){
 
 void SHCryptoHandshakeResponse::read(const QJsonObject &json){
     SHResponse::read(json);
-    UUID = json["UUID"].toString();
     key = json["key"].toString();
 }
 
 
 void SHCryptoHandshakeResponse::write(const QJsonObject &json){
     SHResponse::write(json);
-    json["UUID"] = UUID;
     json["key"] = key;
 }
 

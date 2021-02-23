@@ -2,6 +2,12 @@
 
 
 
+bool CryptoKey::isEmpty()
+{
+    return x > 0 && y > 0;
+}
+
+
 CryptoKey::CryptoKey(int x, int y)
 {
     this->x = x;
@@ -11,10 +17,17 @@ CryptoKey::CryptoKey(int x, int y)
 
 CryptoKey::CryptoKey(QString key)
 {
-     QStringList parts = key.split(QChar('_'));
-     bool status;
-     this->x = parts[0].toInt(&status,16);
-     this->y = parts[1].toInt(&status,16);
+    this->x = 0;
+    this->y = 0;
+
+    if (key.count() > 0){
+        QStringList parts = key.split(QChar('_'));
+        if (parts.count() == 2){
+            bool status;
+            this->x = parts[0].toInt(&status,16);
+            this->y = parts[1].toInt(&status,16);
+        }
+    }
 }
 
 

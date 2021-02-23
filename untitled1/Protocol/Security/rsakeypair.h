@@ -6,26 +6,31 @@
 #include <QString>
 #include "cryptokey.h"
 #include "rsagenerator.h"
+#include "rsageneratorsingletron.h"
 
 
 
-class RSAKeyPair
+struct RSAKeyPair
 {
-public:
-    CryptoKey* self_private_key = nullptr;
+    const CryptoKey get_self_private_key();
 
 
-    CryptoKey* self_public_key = nullptr;
+    const CryptoKey get_self_public_key();
 
 
-    CryptoKey* client_public_key = nullptr;
+    bool hasPastKey();
+
+
+    const CryptoKey get_past_private_key();
+
+
+    const CryptoKey get_past_public_key();
+
+
+    CryptoKey client_public_key;
 
 
     RSAKeyPair(QString client_public_key);
-
-
-    ~RSAKeyPair();
-
 };
 
 #endif // KEYPAIR_H

@@ -24,8 +24,6 @@ struct SHResponse{
 struct SHCryptoHandshakeResponse: SHResponse{
     QString operation = ProtocolPattern_handshake;
 
-    QString UUID;
-
     QString key;
 
     void read(const QJsonObject &json);

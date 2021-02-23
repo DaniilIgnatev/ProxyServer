@@ -10,7 +10,7 @@ RSACryptoProxy::RSACryptoProxy(RSAKeyPair *keys, QObject *parent) : QObject(pare
 
 QString RSACryptoProxy::encrypt(QString str)
 {
-    QString encoded = enCrypt(str, *keys->client_public_key);
+    QString encoded = enCrypt(str, keys->client_public_key);
     QString base64 = QString::fromUtf8(encoded.toUtf8().toBase64());
     return base64;
 }
@@ -19,7 +19,7 @@ QString RSACryptoProxy::encrypt(QString str)
 QString RSACryptoProxy::decrypt(QString base64String)
 {
     QString str = QString::fromUtf8(QByteArray::fromBase64(base64String.toUtf8()));
-    QString decoded = deCrypt(str, *keys->self_private_key);
+    QString decoded = deCrypt(str, keys->self_private_key());
     return decoded;
 }
 

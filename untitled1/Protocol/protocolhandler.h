@@ -8,7 +8,6 @@
 #include "response.h"
 #include <QJsonDocument>
 #include <QException>
-#include "storage.h"
 #include "Security/securityhandler.h"
 #include "Security/rsacryptoproxy.h"
 #include "Security/rsakeypair.h"
@@ -30,7 +29,11 @@ class ProtocolHandler : public QObject
 {
     Q_OBJECT
 public:
+
     ProtocolHandler(QObject *parent = nullptr);
+
+
+    ~ProtocolHandler();
 
 signals:
     void responseReady(QByteArray* responseData);
@@ -41,21 +44,25 @@ public slots:
 private:
     SecurityHandler* security_handler = NULL;
 
-    Storage* storage = NULL;
 
-    ~ProtocolHandler();
 
     ProtocolPattern_Enum request_scenario = ProtocolPattern_Enum::unknown;
 
+
     ProtocolHandlerStatus status = ProtocolHandlerStatus::notHandled;
+
 
     bool stayAlive = false;
 
+
     void handleCryptoHandshakeRequest(QJsonObject &reqeust_obj);
+
 
     void handleCryptoDataRequest(QJsonObject &request_obj);
 
+
     void handleUnknownRequest(QJsonObject &request_obj);
+
 
     void handleException(QException &e);
 };

@@ -8,6 +8,7 @@
 #include "rsakeypair.h"
 #include "rsacryptoproxy.h"
 #include "cryptokey.h"
+#include <QDateTime>
 
 
 
@@ -20,11 +21,15 @@ private:
 public:
     explicit SecurityHandler(RSACryptoProxy *cryptoProxy, QObject *parent = nullptr);
 
+
     QString serverKey();
+
+
+    bool checkAuthorize(SHAuthorizeRequest authorize);
+
 
     SHNakedRequest removeShell(SHCryptoDataRequest secured_request);
 
-    bool checkAuthorize(SHAuthorizeRequest authorize);
 
     SHCryptoDataResponse putInShell(QString str, QString operation);
 };

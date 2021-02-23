@@ -36,7 +36,6 @@ struct SHCryptoHandshakeRequest: SHRequest{
 
 ///Зашифрованый запрос бизнес-логики
 struct SHCryptoDataRequest: SHRequest{
-    QString UID;
 
     bool stayAlive;
 

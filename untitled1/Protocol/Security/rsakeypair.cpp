@@ -2,35 +2,40 @@
 
 
 
+
 RSAKeyPair::RSAKeyPair(QString client_public_key)
 {
-    this->client_public_key = new CryptoKey(client_public_key);
-
-    RSAGenerator *generator = new RSAGenerator(nullptr);
-    CryptoKeysDescriptor keys = generator->generateSecurityKeys();
-
-    this->self_private_key = new CryptoKey(keys.privateKey);
-    this->self_public_key = new CryptoKey(keys.publicKey);
-
-    generator->deleteLater();
+    this->client_public_key = CryptoKey(client_public_key);
 }
 
 
-RSAKeyPair::~RSAKeyPair()
+
+const CryptoKey RSAKeyPair::get_self_private_key()
 {
-    if (this->client_public_key != nullptr){
-        delete this->client_public_key;
-        this->client_public_key = nullptr;
-    }
+    return RSAGeneratorSingletron::get_self_private_key();
+}
 
-    if (this->self_private_key != nullptr){
-        delete this->self_private_key;
-        this->self_private_key = nullptr;
-    }
 
-    if (this->self_public_key != nullptr){
-        delete this->self_public_key;
-        this->self_public_key = nullptr;
-    }
+const CryptoKey RSAKeyPair::get_self_public_key()
+{
+    return RSAGeneratorSingletron::get_self_public_key();
+}
+
+
+bool RSAKeyPair::hasPastKey()
+{
+    return RSAGeneratorSingletron::hasPastKey();
+}
+
+
+const CryptoKey RSAKeyPair::get_past_private_key()
+{
+    return RSAGeneratorSingletron::get_past_private_key();
+}
+
+
+const CryptoKey RSAKeyPair::get_past_public_key()
+{
+    return RSAGeneratorSingletron::get_past_public_key();
 }
 

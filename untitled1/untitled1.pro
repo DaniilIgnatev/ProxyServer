@@ -14,14 +14,13 @@ SOURCES += \
         Protocol/Security/cryptokeysdescriptor.cpp \
         Protocol/Security/rsacryptoproxy.cpp \
         Protocol/Security/rsagenerator.cpp \
+        Protocol/Security/rsageneratorsingletron.cpp \
         Protocol/Security/rsakeypair.cpp \
         Protocol/Security/securityhandler.cpp \
         Protocol/protocolhandler.cpp \
         Protocol/protocolpattern.cpp \
         Protocol/request.cpp \
         Protocol/response.cpp \
-        Protocol/storage.cpp \
-        Protocol/stored_session.cpp \
         main.cpp \
         server.cpp \
         session.cpp
@@ -36,13 +35,12 @@ HEADERS += \
     Protocol/Security/cryptokeysdescriptor.h \
     Protocol/Security/rsacryptoproxy.h \
     Protocol/Security/rsagenerator.h \
+    Protocol/Security/rsageneratorsingletron.h \
     Protocol/Security/rsakeypair.h \
     Protocol/Security/securityhandler.h \
     Protocol/protocolhandler.h \
     Protocol/protocolpattern.h \
     Protocol/request.h \
     Protocol/response.h \
-    Protocol/storage.h \
-    Protocol/stored_session.h \
     server.h \
     session.h

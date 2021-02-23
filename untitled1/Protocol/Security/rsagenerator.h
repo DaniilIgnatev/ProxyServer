@@ -6,6 +6,7 @@
 #include "cryptokeysdescriptor.h"
 #include <QtMath>
 #include <QRandomGenerator>
+#include <QTimer>
 
 
 
@@ -13,6 +14,7 @@ class RSAGenerator : public QObject
 {
     Q_OBJECT
 private:
+
     QRandomGenerator* randGener = QRandomGenerator::global();
 
 public:

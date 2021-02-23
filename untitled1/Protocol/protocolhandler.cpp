@@ -4,7 +4,7 @@
 
 ProtocolHandler::ProtocolHandler(QObject *parent): QObject(parent)
 {
-    storage = new Storage(this);
+
 }
 
 
@@ -56,12 +56,10 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
 
     security_handler = new SecurityHandler(crypto);
-    QString UUID = storage->reserveUUID(handshake);
 
     QString serverKey = security_handler->serverKey();
 
     SHCryptoHandshakeResponse response;
-    response.UUID = UUID;
     response.key = serverKey;
 
     QJsonObject jsonObject;
