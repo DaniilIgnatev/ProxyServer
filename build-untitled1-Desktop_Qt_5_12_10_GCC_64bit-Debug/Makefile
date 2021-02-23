@@ -52,12 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../untitled1/Protocol/Security/rsacryptoproxy.cpp \
+SOURCES       = ../untitled1/Protocol/Security/cryptokey.cpp \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.cpp \
+		../untitled1/Protocol/Security/rsacryptoproxy.cpp \
 		../untitled1/Protocol/Security/rsagenerator.cpp \
 		../untitled1/Protocol/Security/rsakeypair.cpp \
 		../untitled1/Protocol/Security/securityhandler.cpp \
-		../untitled1/Protocol/Security/securitykey.cpp \
-		../untitled1/Protocol/Security/securitykeyspair.cpp \
 		../untitled1/Protocol/protocolhandler.cpp \
 		../untitled1/Protocol/protocolpattern.cpp \
 		../untitled1/Protocol/request.cpp \
@@ -73,12 +73,12 @@ SOURCES       = ../untitled1/Protocol/Security/rsacryptoproxy.cpp \
 		moc_storage.cpp \
 		moc_server.cpp \
 		moc_session.cpp
-OBJECTS       = rsacryptoproxy.o \
+OBJECTS       = cryptokey.o \
+		cryptokeysdescriptor.o \
+		rsacryptoproxy.o \
 		rsagenerator.o \
 		rsakeypair.o \
 		securityhandler.o \
-		securitykey.o \
-		securitykeyspair.o \
 		protocolhandler.o \
 		protocolpattern.o \
 		request.o \
@@ -287,12 +287,12 @@ DIST          = ../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.p
 		../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/exceptions.prf \
 		../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/lex.prf \
-		../untitled1/untitled1.pro ../untitled1/Protocol/Security/rsacryptoproxy.h \
+		../untitled1/untitled1.pro ../untitled1/Protocol/Security/cryptokey.h \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../untitled1/Protocol/Security/rsagenerator.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
 		../untitled1/Protocol/Security/securityhandler.h \
-		../untitled1/Protocol/Security/securitykey.h \
-		../untitled1/Protocol/Security/securitykeyspair.h \
 		../untitled1/Protocol/protocolhandler.h \
 		../untitled1/Protocol/protocolpattern.h \
 		../untitled1/Protocol/request.h \
@@ -300,12 +300,12 @@ DIST          = ../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.p
 		../untitled1/Protocol/storage.h \
 		../untitled1/Protocol/stored_session.h \
 		../untitled1/server.h \
-		../untitled1/session.h ../untitled1/Protocol/Security/rsacryptoproxy.cpp \
+		../untitled1/session.h ../untitled1/Protocol/Security/cryptokey.cpp \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.cpp \
+		../untitled1/Protocol/Security/rsacryptoproxy.cpp \
 		../untitled1/Protocol/Security/rsagenerator.cpp \
 		../untitled1/Protocol/Security/rsakeypair.cpp \
 		../untitled1/Protocol/Security/securityhandler.cpp \
-		../untitled1/Protocol/Security/securitykey.cpp \
-		../untitled1/Protocol/Security/securitykeyspair.cpp \
 		../untitled1/Protocol/protocolhandler.cpp \
 		../untitled1/Protocol/protocolpattern.cpp \
 		../untitled1/Protocol/request.cpp \
@@ -728,8 +728,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt5.12.10/5.12.10/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../untitled1/Protocol/Security/rsacryptoproxy.h ../untitled1/Protocol/Security/rsagenerator.h ../untitled1/Protocol/Security/rsakeypair.h ../untitled1/Protocol/Security/securityhandler.h ../untitled1/Protocol/Security/securitykey.h ../untitled1/Protocol/Security/securitykeyspair.h ../untitled1/Protocol/protocolhandler.h ../untitled1/Protocol/protocolpattern.h ../untitled1/Protocol/request.h ../untitled1/Protocol/response.h ../untitled1/Protocol/storage.h ../untitled1/Protocol/stored_session.h ../untitled1/server.h ../untitled1/session.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../untitled1/Protocol/Security/rsacryptoproxy.cpp ../untitled1/Protocol/Security/rsagenerator.cpp ../untitled1/Protocol/Security/rsakeypair.cpp ../untitled1/Protocol/Security/securityhandler.cpp ../untitled1/Protocol/Security/securitykey.cpp ../untitled1/Protocol/Security/securitykeyspair.cpp ../untitled1/Protocol/protocolhandler.cpp ../untitled1/Protocol/protocolpattern.cpp ../untitled1/Protocol/request.cpp ../untitled1/Protocol/response.cpp ../untitled1/Protocol/storage.cpp ../untitled1/Protocol/stored_session.cpp ../untitled1/main.cpp ../untitled1/server.cpp ../untitled1/session.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../untitled1/Protocol/Security/cryptokey.h ../untitled1/Protocol/Security/cryptokeysdescriptor.h ../untitled1/Protocol/Security/rsacryptoproxy.h ../untitled1/Protocol/Security/rsagenerator.h ../untitled1/Protocol/Security/rsakeypair.h ../untitled1/Protocol/Security/securityhandler.h ../untitled1/Protocol/protocolhandler.h ../untitled1/Protocol/protocolpattern.h ../untitled1/Protocol/request.h ../untitled1/Protocol/response.h ../untitled1/Protocol/storage.h ../untitled1/Protocol/stored_session.h ../untitled1/server.h ../untitled1/session.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../untitled1/Protocol/Security/cryptokey.cpp ../untitled1/Protocol/Security/cryptokeysdescriptor.cpp ../untitled1/Protocol/Security/rsacryptoproxy.cpp ../untitled1/Protocol/Security/rsagenerator.cpp ../untitled1/Protocol/Security/rsakeypair.cpp ../untitled1/Protocol/Security/securityhandler.cpp ../untitled1/Protocol/protocolhandler.cpp ../untitled1/Protocol/protocolpattern.cpp ../untitled1/Protocol/request.cpp ../untitled1/Protocol/response.cpp ../untitled1/Protocol/storage.cpp ../untitled1/Protocol/stored_session.cpp ../untitled1/main.cpp ../untitled1/server.cpp ../untitled1/session.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -817,9 +817,16 @@ moc_rsacryptoproxy.cpp: ../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		moc_predefs.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/build-untitled1-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1 -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../untitled1/Protocol/Security/rsacryptoproxy.h -o moc_rsacryptoproxy.cpp
@@ -876,13 +883,15 @@ moc_rsagenerator.cpp: ../untitled1/Protocol/Security/rsagenerator.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
-		../untitled1/Protocol/Security/securitykeyspair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		moc_predefs.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/build-untitled1-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1 -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../untitled1/Protocol/Security/rsagenerator.h -o moc_rsagenerator.cpp
@@ -946,9 +955,16 @@ moc_securityhandler.cpp: ../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/protocolpattern.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		moc_predefs.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/bin/moc
@@ -1042,9 +1058,16 @@ moc_protocolhandler.cpp: ../untitled1/Protocol/protocolhandler.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
@@ -1236,9 +1259,16 @@ moc_server.cpp: ../untitled1/server.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		moc_predefs.h \
@@ -1343,9 +1373,16 @@ moc_session.cpp: ../untitled1/session.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		moc_predefs.h \
@@ -1365,6 +1402,99 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
+
+cryptokey.o: ../untitled1/Protocol/Security/cryptokey.cpp ../untitled1/Protocol/Security/cryptokey.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cryptokey.o ../untitled1/Protocol/Security/cryptokey.cpp
+
+cryptokeysdescriptor.o: ../untitled1/Protocol/Security/cryptokeysdescriptor.cpp ../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../untitled1/Protocol/Security/cryptokey.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cryptokeysdescriptor.o ../untitled1/Protocol/Security/cryptokeysdescriptor.cpp
 
 rsacryptoproxy.o: ../untitled1/Protocol/Security/rsacryptoproxy.cpp ../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
@@ -1419,9 +1549,16 @@ rsacryptoproxy.o: ../untitled1/Protocol/Security/rsacryptoproxy.cpp ../untitled1
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsacryptoproxy.o ../untitled1/Protocol/Security/rsacryptoproxy.cpp
 
 rsagenerator.o: ../untitled1/Protocol/Security/rsagenerator.cpp ../untitled1/Protocol/Security/rsagenerator.h \
@@ -1476,13 +1613,15 @@ rsagenerator.o: ../untitled1/Protocol/Security/rsagenerator.cpp ../untitled1/Pro
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
-		../untitled1/Protocol/Security/securitykeyspair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsagenerator.o ../untitled1/Protocol/Security/rsagenerator.cpp
 
 rsakeypair.o: ../untitled1/Protocol/Security/rsakeypair.cpp ../untitled1/Protocol/Security/rsakeypair.h \
@@ -1518,7 +1657,7 @@ rsakeypair.o: ../untitled1/Protocol/Security/rsakeypair.cpp ../untitled1/Protoco
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
@@ -1529,7 +1668,24 @@ rsakeypair.o: ../untitled1/Protocol/Security/rsakeypair.cpp ../untitled1/Protoco
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsakeypair.o ../untitled1/Protocol/Security/rsakeypair.cpp
 
 securityhandler.o: ../untitled1/Protocol/Security/securityhandler.cpp ../untitled1/Protocol/Security/securityhandler.h \
@@ -1591,104 +1747,18 @@ securityhandler.o: ../untitled1/Protocol/Security/securityhandler.cpp ../untitle
 		../untitled1/Protocol/protocolpattern.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securityhandler.o ../untitled1/Protocol/Security/securityhandler.cpp
-
-securitykey.o: ../untitled1/Protocol/Security/securitykey.cpp ../untitled1/Protocol/Security/securitykey.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securitykey.o ../untitled1/Protocol/Security/securitykey.cpp
-
-securitykeyspair.o: ../untitled1/Protocol/Security/securitykeyspair.cpp ../untitled1/Protocol/Security/securitykeyspair.h \
-		../untitled1/Protocol/Security/securitykey.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securitykeyspair.o ../untitled1/Protocol/Security/securitykeyspair.cpp
 
 protocolhandler.o: ../untitled1/Protocol/protocolhandler.cpp ../untitled1/Protocol/protocolhandler.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
@@ -1778,9 +1848,16 @@ protocolhandler.o: ../untitled1/Protocol/protocolhandler.cpp ../untitled1/Protoc
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
@@ -2177,9 +2254,16 @@ main.o: ../untitled1/main.cpp ../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCor
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDebug
@@ -2287,9 +2371,16 @@ server.o: ../untitled1/server.cpp ../untitled1/server.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../untitled1/server.cpp
@@ -2392,9 +2483,16 @@ session.o: ../untitled1/session.cpp ../untitled1/session.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../untitled1/Protocol/Security/securityhandler.h \
 		../untitled1/Protocol/Security/rsakeypair.h \
-		../untitled1/Protocol/Security/securitykey.h \
+		../untitled1/Protocol/Security/cryptokey.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../untitled1/Protocol/Security/rsagenerator.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../untitled1/Protocol/Security/cryptokeysdescriptor.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../untitled1/Protocol/Security/rsacryptoproxy.h \
 		../../../../Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o session.o ../untitled1/session.cpp

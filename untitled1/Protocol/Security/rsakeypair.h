@@ -4,25 +4,28 @@
 
 
 #include <QString>
-#include "securitykey.h"
+#include "cryptokey.h"
+#include "rsagenerator.h"
 
 
 
-struct RSAKeyPair
+class RSAKeyPair
 {
-    SecurityKey self_private_key = SecurityKey(QString());
+public:
+    CryptoKey* self_private_key = nullptr;
 
 
-    SecurityKey self_public_key = SecurityKey(QString());
+    CryptoKey* self_public_key = nullptr;
 
 
-    SecurityKey client_public_key = SecurityKey(QString());
+    CryptoKey* client_public_key = nullptr;
 
 
-    RSAKeyPair(SecurityKey client_public_key);
+    RSAKeyPair(QString client_public_key);
 
 
-    RSAKeyPair();
+    ~RSAKeyPair();
+
 };
 
 #endif // KEYPAIR_H

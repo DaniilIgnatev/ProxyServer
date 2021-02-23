@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTest>
 #include <QList>
-#include "../Protocol/Security/securitykeyspair.h"
+#include "../Protocol/Security/cryptokeysdescriptor.h"
 #include "../Protocol/Security/rsagenerator.h"
 #include <QRandomGenerator>
 
@@ -17,9 +17,12 @@ public:
     explicit TestRSAGenerator(QObject *parent = nullptr);
 
 private:
+
     RSAGenerator *generator = nullptr;
 
+
     QRandomGenerator* randGener = QRandomGenerator::global();
+
 
 private slots:
 

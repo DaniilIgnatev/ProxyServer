@@ -47,7 +47,7 @@ QList<int> RSAGenerator::generatePrimeNumbers(int start, int count)
 }
 
 
-SecurityKeysPair RSAGenerator::testonlyGenerateSecurityKeys(int p, int q, int e)
+CryptoKeysDescriptor RSAGenerator::testonlyGenerateSecurityKeys(int p, int q, int e)
 {
     int n = p * q;
     int eiler = (p - 1) * (q - 1);
@@ -56,11 +56,11 @@ SecurityKeysPair RSAGenerator::testonlyGenerateSecurityKeys(int p, int q, int e)
     int y = 0;
     gcdExtendReverse(e,eiler,d,y);
 
-    return SecurityKeysPair(SecurityKey(e,n),SecurityKey(d,n));
+    return CryptoKeysDescriptor(CryptoKey(e,n),CryptoKey(d,n));
 }
 
 
-SecurityKeysPair RSAGenerator::generateSecurityKeys()
+CryptoKeysDescriptor RSAGenerator::generateSecurityKeys()
 {
     int p_base = randGener->bounded(3,50);
     auto p_primeList = generatePrimeNumbers(p_base,1);
@@ -78,7 +78,7 @@ SecurityKeysPair RSAGenerator::generateSecurityKeys()
     int y = 0;
     gcdExtendReverse(e,eiler,d,y);
 
-    return SecurityKeysPair(SecurityKey(e,n), SecurityKey(d,n));
+    return CryptoKeysDescriptor(CryptoKey(e,n), CryptoKey(d,n));
 }
 
 

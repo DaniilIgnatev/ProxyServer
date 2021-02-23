@@ -52,12 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Protocol/Security/rsacryptoproxy.cpp \
+SOURCES       = ../Protocol/Security/cryptokey.cpp \
+		../Protocol/Security/cryptokeysdescriptor.cpp \
+		../Protocol/Security/rsacryptoproxy.cpp \
 		../Protocol/Security/rsagenerator.cpp \
 		../Protocol/Security/rsakeypair.cpp \
 		../Protocol/Security/securityhandler.cpp \
-		../Protocol/Security/securitykey.cpp \
-		../Protocol/Security/securitykeyspair.cpp \
 		../Protocol/protocolhandler.cpp \
 		../Protocol/protocolpattern.cpp \
 		../Protocol/request.cpp \
@@ -66,19 +66,21 @@ SOURCES       = ../Protocol/Security/rsacryptoproxy.cpp \
 		../Protocol/stored_session.cpp \
 		../ProtocolTests/main.cpp \
 		../ProtocolTests/testqstring.cpp \
+		../ProtocolTests/testrsacryptoproxy.cpp \
 		../ProtocolTests/testrsagenerator.cpp moc_rsacryptoproxy.cpp \
 		moc_rsagenerator.cpp \
 		moc_securityhandler.cpp \
 		moc_protocolhandler.cpp \
 		moc_storage.cpp \
 		moc_testqstring.cpp \
+		moc_testrsacryptoproxy.cpp \
 		moc_testrsagenerator.cpp
-OBJECTS       = rsacryptoproxy.o \
+OBJECTS       = cryptokey.o \
+		cryptokeysdescriptor.o \
+		rsacryptoproxy.o \
 		rsagenerator.o \
 		rsakeypair.o \
 		securityhandler.o \
-		securitykey.o \
-		securitykeyspair.o \
 		protocolhandler.o \
 		protocolpattern.o \
 		request.o \
@@ -87,6 +89,7 @@ OBJECTS       = rsacryptoproxy.o \
 		stored_session.o \
 		main.o \
 		testqstring.o \
+		testrsacryptoproxy.o \
 		testrsagenerator.o \
 		moc_rsacryptoproxy.o \
 		moc_rsagenerator.o \
@@ -94,6 +97,7 @@ OBJECTS       = rsacryptoproxy.o \
 		moc_protocolhandler.o \
 		moc_storage.o \
 		moc_testqstring.o \
+		moc_testrsacryptoproxy.o \
 		moc_testrsagenerator.o
 DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/common/unix.conf \
@@ -269,6 +273,7 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/qt_config.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_post.prf \
+		../ProtocolTests/.qmake.stash \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/toolchain.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/default_pre.prf \
@@ -287,12 +292,12 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/exceptions.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/yacc.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/lex.prf \
-		../ProtocolTests/ProtocolTests.pro ../Protocol/Security/rsacryptoproxy.h \
+		../ProtocolTests/ProtocolTests.pro ../Protocol/Security/cryptokey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/rsacryptoproxy.h \
 		../Protocol/Security/rsagenerator.h \
 		../Protocol/Security/rsakeypair.h \
 		../Protocol/Security/securityhandler.h \
-		../Protocol/Security/securitykey.h \
-		../Protocol/Security/securitykeyspair.h \
 		../Protocol/protocolhandler.h \
 		../Protocol/protocolpattern.h \
 		../Protocol/request.h \
@@ -300,12 +305,13 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		../Protocol/storage.h \
 		../Protocol/stored_session.h \
 		../ProtocolTests/testqstring.h \
-		../ProtocolTests/testrsagenerator.h ../Protocol/Security/rsacryptoproxy.cpp \
+		../ProtocolTests/testrsacryptoproxy.h \
+		../ProtocolTests/testrsagenerator.h ../Protocol/Security/cryptokey.cpp \
+		../Protocol/Security/cryptokeysdescriptor.cpp \
+		../Protocol/Security/rsacryptoproxy.cpp \
 		../Protocol/Security/rsagenerator.cpp \
 		../Protocol/Security/rsakeypair.cpp \
 		../Protocol/Security/securityhandler.cpp \
-		../Protocol/Security/securitykey.cpp \
-		../Protocol/Security/securitykeyspair.cpp \
 		../Protocol/protocolhandler.cpp \
 		../Protocol/protocolpattern.cpp \
 		../Protocol/request.cpp \
@@ -314,6 +320,7 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		../Protocol/stored_session.cpp \
 		../ProtocolTests/main.cpp \
 		../ProtocolTests/testqstring.cpp \
+		../ProtocolTests/testrsacryptoproxy.cpp \
 		../ProtocolTests/testrsagenerator.cpp
 QMAKE_TARGET  = ProtocolTests
 DESTDIR       = 
@@ -500,6 +507,7 @@ Makefile: ../ProtocolTests/ProtocolTests.pro /home/daniil/Qt5.12.10/5.12.10/gcc_
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/qt_config.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/toolchain.prf \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/default_pre.prf \
@@ -694,6 +702,7 @@ Makefile: ../ProtocolTests/ProtocolTests.pro /home/daniil/Qt5.12.10/5.12.10/gcc_
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/qt_config.prf:
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/toolchain.prf:
 /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/default_pre.prf:
@@ -728,8 +737,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Protocol/Security/rsacryptoproxy.h ../Protocol/Security/rsagenerator.h ../Protocol/Security/rsakeypair.h ../Protocol/Security/securityhandler.h ../Protocol/Security/securitykey.h ../Protocol/Security/securitykeyspair.h ../Protocol/protocolhandler.h ../Protocol/protocolpattern.h ../Protocol/request.h ../Protocol/response.h ../Protocol/storage.h ../Protocol/stored_session.h ../ProtocolTests/testqstring.h ../ProtocolTests/testrsagenerator.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Protocol/Security/rsacryptoproxy.cpp ../Protocol/Security/rsagenerator.cpp ../Protocol/Security/rsakeypair.cpp ../Protocol/Security/securityhandler.cpp ../Protocol/Security/securitykey.cpp ../Protocol/Security/securitykeyspair.cpp ../Protocol/protocolhandler.cpp ../Protocol/protocolpattern.cpp ../Protocol/request.cpp ../Protocol/response.cpp ../Protocol/storage.cpp ../Protocol/stored_session.cpp ../ProtocolTests/main.cpp ../ProtocolTests/testqstring.cpp ../ProtocolTests/testrsagenerator.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Protocol/Security/cryptokey.h ../Protocol/Security/cryptokeysdescriptor.h ../Protocol/Security/rsacryptoproxy.h ../Protocol/Security/rsagenerator.h ../Protocol/Security/rsakeypair.h ../Protocol/Security/securityhandler.h ../Protocol/protocolhandler.h ../Protocol/protocolpattern.h ../Protocol/request.h ../Protocol/response.h ../Protocol/storage.h ../Protocol/stored_session.h ../ProtocolTests/testqstring.h ../ProtocolTests/testrsacryptoproxy.h ../ProtocolTests/testrsagenerator.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Protocol/Security/cryptokey.cpp ../Protocol/Security/cryptokeysdescriptor.cpp ../Protocol/Security/rsacryptoproxy.cpp ../Protocol/Security/rsagenerator.cpp ../Protocol/Security/rsakeypair.cpp ../Protocol/Security/securityhandler.cpp ../Protocol/protocolhandler.cpp ../Protocol/protocolpattern.cpp ../Protocol/request.cpp ../Protocol/response.cpp ../Protocol/storage.cpp ../Protocol/stored_session.cpp ../ProtocolTests/main.cpp ../ProtocolTests/testqstring.cpp ../ProtocolTests/testrsacryptoproxy.cpp ../ProtocolTests/testrsagenerator.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -761,9 +770,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_rsacryptoproxy.cpp moc_rsagenerator.cpp moc_securityhandler.cpp moc_protocolhandler.cpp moc_storage.cpp moc_testqstring.cpp moc_testrsagenerator.cpp
+compiler_moc_header_make_all: moc_rsacryptoproxy.cpp moc_rsagenerator.cpp moc_securityhandler.cpp moc_protocolhandler.cpp moc_storage.cpp moc_testqstring.cpp moc_testrsacryptoproxy.cpp moc_testrsagenerator.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_rsacryptoproxy.cpp moc_rsagenerator.cpp moc_securityhandler.cpp moc_protocolhandler.cpp moc_storage.cpp moc_testqstring.cpp moc_testrsagenerator.cpp
+	-$(DEL_FILE) moc_rsacryptoproxy.cpp moc_rsagenerator.cpp moc_securityhandler.cpp moc_protocolhandler.cpp moc_storage.cpp moc_testqstring.cpp moc_testrsacryptoproxy.cpp moc_testrsagenerator.cpp
 moc_rsacryptoproxy.cpp: ../Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
@@ -817,9 +826,16 @@ moc_rsacryptoproxy.cpp: ../Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../Protocol/Security/rsakeypair.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/untitled1/build-ProtocolTests-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1/ProtocolTests -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Protocol/Security/rsacryptoproxy.h -o moc_rsacryptoproxy.cpp
@@ -876,13 +892,15 @@ moc_rsagenerator.cpp: ../Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
-		../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/untitled1/build-ProtocolTests-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1/ProtocolTests -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Protocol/Security/rsagenerator.h -o moc_rsagenerator.cpp
@@ -946,9 +964,16 @@ moc_securityhandler.cpp: ../Protocol/Security/securityhandler.h \
 		../Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../Protocol/Security/rsakeypair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../Protocol/Security/rsacryptoproxy.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
@@ -1042,9 +1067,16 @@ moc_protocolhandler.cpp: ../Protocol/protocolhandler.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../Protocol/Security/securityhandler.h \
 		../Protocol/Security/rsakeypair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
@@ -1323,6 +1355,322 @@ moc_testqstring.cpp: ../ProtocolTests/testqstring.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/untitled1/build-ProtocolTests-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1/ProtocolTests -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ProtocolTests/testqstring.h -o moc_testqstring.cpp
 
+moc_testrsacryptoproxy.cpp: ../ProtocolTests/testrsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTest \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTestDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCore \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCoreDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeventloop.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydataops.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasictimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbitarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbuffer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcache.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborcommon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregularexpression.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/quuid.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcbormap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfloat16.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcollator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdir.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfileinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdiriterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qendian.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeventtransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfileselector.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfinalstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuture.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrunnable.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresultstore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhistorystate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qisenum.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibrary.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversionnumber.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlockfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetaobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimetype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qplugin.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpluginloader.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocess.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qqueue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresource.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsavefile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopeguard.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsettings.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstack.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstatemachine.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstorageinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextcodec.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadpool.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimeline.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimezone.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtranslator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypetraits.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qxmlstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestlib-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qabstractitemmodeltester.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QAbstractItemModel \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QVariant \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QFont \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QColor \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QBrush \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpainterpath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QPixmap \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QImage \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QIcon \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qicon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qbenchmark.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qbenchmarkmetric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qsignalspy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtesteventloop.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestcase.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestdata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestsystem.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtestsupport_core.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtestsupport_gui.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtestsupport_widgets.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_network.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkCookie \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkcookie.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QSharedDataPointer \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaType \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkReply \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkreply.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QIODevice \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkRequest \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QUrl \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkAccessManager \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QVector \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QSslConfiguration \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslerror.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslcertificate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qssl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QFlags \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_widgets.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_gui.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestassert.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestkeyboard.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestspontaneevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qguiapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qinputmethod.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindow.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QEvent \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMargins \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRect \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qsurface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestmouse.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDebug \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtesttouch.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector3d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector4d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/QSizePolicy \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestversion.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		../Protocol/Security/rsacryptoproxy.h \
+		../Protocol/Security/rsakeypair.h \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		moc_predefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
+	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/untitled1/build-ProtocolTests-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1/ProtocolTests -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ProtocolTests/testrsacryptoproxy.h -o moc_testrsacryptoproxy.cpp
+
 moc_testrsagenerator.cpp: ../ProtocolTests/testrsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
@@ -1508,13 +1856,15 @@ moc_testrsagenerator.cpp: ../ProtocolTests/testrsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector4d.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/QSizePolicy \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum \
-		../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/untitled1/build-ProtocolTests-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/untitled1/ProtocolTests -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ProtocolTests/testrsagenerator.h -o moc_testrsagenerator.cpp
@@ -1532,6 +1882,99 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
+
+cryptokey.o: ../Protocol/Security/cryptokey.cpp ../Protocol/Security/cryptokey.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cryptokey.o ../Protocol/Security/cryptokey.cpp
+
+cryptokeysdescriptor.o: ../Protocol/Security/cryptokeysdescriptor.cpp ../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cryptokeysdescriptor.o ../Protocol/Security/cryptokeysdescriptor.cpp
 
 rsacryptoproxy.o: ../Protocol/Security/rsacryptoproxy.cpp ../Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
@@ -1586,9 +2029,16 @@ rsacryptoproxy.o: ../Protocol/Security/rsacryptoproxy.cpp ../Protocol/Security/r
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		../Protocol/Security/rsakeypair.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsacryptoproxy.o ../Protocol/Security/rsacryptoproxy.cpp
 
 rsagenerator.o: ../Protocol/Security/rsagenerator.cpp ../Protocol/Security/rsagenerator.h \
@@ -1643,13 +2093,15 @@ rsagenerator.o: ../Protocol/Security/rsagenerator.cpp ../Protocol/Security/rsage
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
-		../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsagenerator.o ../Protocol/Security/rsagenerator.cpp
 
 rsakeypair.o: ../Protocol/Security/rsakeypair.cpp ../Protocol/Security/rsakeypair.h \
@@ -1685,7 +2137,7 @@ rsakeypair.o: ../Protocol/Security/rsakeypair.cpp ../Protocol/Security/rsakeypai
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
@@ -1696,7 +2148,24 @@ rsakeypair.o: ../Protocol/Security/rsakeypair.cpp ../Protocol/Security/rsakeypai
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rsakeypair.o ../Protocol/Security/rsakeypair.cpp
 
 securityhandler.o: ../Protocol/Security/securityhandler.cpp ../Protocol/Security/securityhandler.h \
@@ -1758,104 +2227,18 @@ securityhandler.o: ../Protocol/Security/securityhandler.cpp ../Protocol/Security
 		../Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		../Protocol/Security/rsakeypair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../Protocol/Security/rsacryptoproxy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securityhandler.o ../Protocol/Security/securityhandler.cpp
-
-securitykey.o: ../Protocol/Security/securitykey.cpp ../Protocol/Security/securitykey.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securitykey.o ../Protocol/Security/securitykey.cpp
-
-securitykeyspair.o: ../Protocol/Security/securitykeyspair.cpp ../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o securitykeyspair.o ../Protocol/Security/securitykeyspair.cpp
 
 protocolhandler.o: ../Protocol/protocolhandler.cpp ../Protocol/protocolhandler.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
@@ -1945,9 +2328,16 @@ protocolhandler.o: ../Protocol/protocolhandler.cpp ../Protocol/protocolhandler.h
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		../Protocol/Security/securityhandler.h \
 		../Protocol/Security/rsakeypair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
 		../Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
@@ -2424,13 +2814,135 @@ main.o: ../ProtocolTests/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/include/
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/QSizePolicy \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum \
 		../ProtocolTests/testrsagenerator.h \
-		../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
+		../ProtocolTests/testrsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTest \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTestDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCore \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCoreDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydataops.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasictimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbitarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbuffer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcache.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregularexpression.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcbormap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfloat16.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcollator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdiriterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qendian.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeventtransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfileselector.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfinalstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuture.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrunnable.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresultstore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhistorystate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qisenum.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibrary.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversionnumber.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlockfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimetype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qplugin.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpluginloader.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocess.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qqueue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresource.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsavefile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopeguard.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsettings.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstack.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstatemachine.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstorageinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextcodec.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadpool.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimeline.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimezone.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtranslator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypetraits.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qxmlstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qabstractitemmodeltester.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QAbstractItemModel \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QFont \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QColor \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QBrush \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QPixmap \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QImage \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QIcon \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qsignalspy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtesteventloop.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestversion.h \
+		../Protocol/Security/rsacryptoproxy.h \
+		../Protocol/Security/rsakeypair.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ProtocolTests/main.cpp
 
 testqstring.o: ../ProtocolTests/testqstring.cpp ../ProtocolTests/testqstring.h \
@@ -2620,6 +3132,320 @@ testqstring.o: ../ProtocolTests/testqstring.cpp ../ProtocolTests/testqstring.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testqstring.o ../ProtocolTests/testqstring.cpp
 
+testrsacryptoproxy.o: ../ProtocolTests/testrsacryptoproxy.cpp ../ProtocolTests/testrsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstring.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qchar.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringliteral.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringview.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qalgorithms.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTest \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/QtTestDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCore \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtCoreDepends \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeventloop.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpoint.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qset.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstractstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qabstracttransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydataops.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasictimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbitarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbuffer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraymatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcache.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborcommon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregularexpression.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qurl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qurlquery.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/quuid.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcbormap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcborstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfloat16.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcollator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineoption.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcommandlineparser.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdeadlinetimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdir.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfileinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfiledevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdiriterator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeasingcurve.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qendian.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qeventtransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfactoryinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfileselector.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfinalstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuture.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfutureinterface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrunnable.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresultstore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qfuturewatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qhistorystate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qidentityproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qisenum.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibrary.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlibraryinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversionnumber.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qline.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlinkedlist.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlockfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qloggingcategory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmargins.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetaobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimedatabase.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmimetype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpauseanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qplugin.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpluginloader.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocess.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpropertyanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariantanimation.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qqueue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qreadwritelock.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrect.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsize.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qresource.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsavefile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopeguard.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsettings.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsharedmemory.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignalmapper.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsignaltransition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsocketnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstack.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstandardpaths.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstatemachine.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstorageinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringlistmodel.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemsemaphore.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtemporarydir.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtemporaryfile.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextcodec.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadpool.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthreadstorage.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimeline.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtimezone.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtranslator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypetraits.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwaitcondition.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qwineventnotifier.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qxmlstream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcoreversion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestlib-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qabstractitemmodeltester.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QAbstractItemModel \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QVariant \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QFont \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfont.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtgui-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QColor \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qcolor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qrgb.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qrgba64.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QBrush \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qbrush.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qmatrix.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpolygon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qregion.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtransform.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpainterpath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qimage.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpixelformat.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpixmap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QPixmap \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QImage \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/QIcon \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qicon.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qbenchmark.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qbenchmarkmetric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qsignalspy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtesteventloop.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestcase.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestdata.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestsystem.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtestsupport_core.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtestsupport_gui.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtestsupport_widgets.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_network.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkCookie \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkcookie.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QSharedDataPointer \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaType \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkReply \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkreply.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QIODevice \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkRequest \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QUrl \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QNetworkAccessManager \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QVector \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QSslConfiguration \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslerror.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslcertificate.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qssl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QFlags \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_widgets.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtest_gui.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestassert.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestkeyboard.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestspontaneevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qguiapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qinputmethod.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qwindow.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QEvent \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMargins \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRect \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qsurface.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qsurfaceformat.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qcursor.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qkeysequence.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector2d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qwidget.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qpalette.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qfontinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qapplication.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtestmouse.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDebug \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qtesttouch.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector3d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector4d.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/QSizePolicy \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtTest/qttestversion.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
+		../Protocol/Security/rsacryptoproxy.h \
+		../Protocol/Security/rsakeypair.h \
+		../Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testrsacryptoproxy.o ../ProtocolTests/testrsacryptoproxy.cpp
+
 testrsagenerator.o: ../ProtocolTests/testrsagenerator.cpp ../ProtocolTests/testrsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
@@ -2805,13 +3631,15 @@ testrsagenerator.o: ../ProtocolTests/testrsagenerator.cpp ../ProtocolTests/testr
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtGui/qvector4d.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtWidgets/QSizePolicy \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMetaEnum \
-		../Protocol/Security/securitykeyspair.h \
-		../Protocol/Security/securitykey.h \
+		../Protocol/Security/cryptokeysdescriptor.h \
+		../Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
 		../Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtMath \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmath.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QRandomGenerator \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrandom.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testrsagenerator.o ../ProtocolTests/testrsagenerator.cpp
 
 moc_rsacryptoproxy.o: moc_rsacryptoproxy.cpp 
@@ -2831,6 +3659,9 @@ moc_storage.o: moc_storage.cpp
 
 moc_testqstring.o: moc_testqstring.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testqstring.o moc_testqstring.cpp
+
+moc_testrsacryptoproxy.o: moc_testrsacryptoproxy.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testrsacryptoproxy.o moc_testrsacryptoproxy.cpp
 
 moc_testrsagenerator.o: moc_testrsagenerator.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testrsagenerator.o moc_testrsagenerator.cpp

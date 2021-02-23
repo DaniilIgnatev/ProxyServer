@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include "securitykeyspair.h"
+#include "cryptokeysdescriptor.h"
 #include <QtMath>
 #include <QRandomGenerator>
 
@@ -26,10 +26,10 @@ public:
     QList<int> generatePrimeNumbers(int start, int count);
 
 
-    SecurityKeysPair testonlyGenerateSecurityKeys(int p, int q, int e);
+    CryptoKeysDescriptor testonlyGenerateSecurityKeys(int p, int q, int e);
 
 
-    SecurityKeysPair generateSecurityKeys();
+    CryptoKeysDescriptor generateSecurityKeys();
 
 
     int gcd(int a, int b);

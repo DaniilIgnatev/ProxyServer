@@ -2,7 +2,7 @@
 
 
 
-SecurityHandler::SecurityHandler(RSACryptoProxy &cryptoProxy, QObject *parent)
+SecurityHandler::SecurityHandler(RSACryptoProxy *cryptoProxy, QObject *parent)
 {
 
 }

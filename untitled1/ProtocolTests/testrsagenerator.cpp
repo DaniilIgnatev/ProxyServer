@@ -84,7 +84,7 @@ void TestRSAGenerator::gcd()
 
 void TestRSAGenerator::gcdExtendReverse()
 {
-    QList<SecurityKey> GCD_One_Numbers = QList<SecurityKey>();
+    QList<CryptoKey> GCD_One_Numbers = QList<CryptoKey>();
 
     while (GCD_One_Numbers.count() < 5) {
         int firstNum = randGener->bounded(1000);
@@ -97,7 +97,7 @@ void TestRSAGenerator::gcdExtendReverse()
         if (gcd == 1){
             int x = 0;
             int y = 0;
-            GCD_One_Numbers.append(SecurityKey(firstPrime,secondPrime));
+            GCD_One_Numbers.append(CryptoKey(firstPrime,secondPrime));
             int d = generator->gcdExtendReverse(firstPrime, secondPrime, x, y);
             QCOMPARE(d, 1);
         }

@@ -7,7 +7,7 @@
 #include <QObject>
 #include "rsakeypair.h"
 #include "rsacryptoproxy.h"
-#include "securitykey.h"
+#include "cryptokey.h"
 
 
 
@@ -18,7 +18,7 @@ private:
     RSACryptoProxy* cryptoProxy;
 
 public:
-    explicit SecurityHandler(RSACryptoProxy &cryptoProxy, QObject *parent = nullptr);
+    explicit SecurityHandler(RSACryptoProxy *cryptoProxy, QObject *parent = nullptr);
 
     QString serverKey();
 

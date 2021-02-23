@@ -13,7 +13,7 @@
 #include "Security/rsacryptoproxy.h"
 #include "Security/rsakeypair.h"
 #include <QtDebug>
-#include "Security/securitykey.h"
+#include "Security/cryptokey.h"
 #include <QThread>
 
 

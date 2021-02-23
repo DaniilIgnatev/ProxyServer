@@ -52,8 +52,8 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     SHCryptoHandshakeRequest handshake;
     handshake.read(request_obj);
 
-    RSAKeyPair keyPair(handshake.key);
-    RSACryptoProxy crypto(keyPair);
+    RSAKeyPair *keyPair = new RSAKeyPair(handshake.key);
+    RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
 
     security_handler = new SecurityHandler(crypto);
     QString UUID = storage->reserveUUID(handshake);

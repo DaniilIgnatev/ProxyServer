@@ -5,23 +5,33 @@
 #include "rsakeypair.h"
 
 
+
 class RSACryptoProxy : public QObject
 {
     Q_OBJECT
+private:
+
+    int powBig(int num, int exp, int mod);
+
+
+    QString enCrypt(QString str, CryptoKey publicKey);
+
+
+    QString deCrypt(QString str, CryptoKey privateKey);
+
 public:
 
-    RSAKeyPair keys = RSAKeyPair(SecurityKey(QString()));
+    RSAKeyPair* keys = nullptr;
 
 
-    RSACryptoProxy(RSAKeyPair keys, QObject* parent = nullptr);
+    RSACryptoProxy(RSAKeyPair *keys, QObject* parent = nullptr);
 
 
     QString encrypt(QString str);
 
 
-    QString decrypt(QString str);
+    QString decrypt(QString base64String);
 
 };
 
 #endif // RSACRYPTOPROXY_H
-
