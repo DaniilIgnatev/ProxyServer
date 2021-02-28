@@ -52,12 +52,12 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     SHCryptoHandshakeRequest handshake;
     handshake.read(request_obj);
 
-    RSAKeyPair *keyPair = new RSAKeyPair(handshake.key);
+    RSAKeyPair keyPair(handshake.key);
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
 
     security_handler = new SecurityHandler(crypto);
 
-    QString serverKey = security_handler->serverKey();
+    QString serverKey = security_handler->getPublicKey();
 
     SHCryptoHandshakeResponse response;
     response.key = serverKey;
@@ -117,7 +117,7 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 void ProtocolHandler::handleException(QException &e)
 {
     qDebug("Error: handleRequest");
-    qDebug(qPrintable(e.what()));
+    qDebug(e.what());
 
     SHStatusResponse exceptionResponse;
     exceptionResponse.result_message = "error";

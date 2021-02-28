@@ -3,6 +3,7 @@
 
 
 #include "cryptokey.h"
+#include <QDateTime>
 
 
 
@@ -15,6 +16,9 @@ struct CryptoKeysDescriptor
 
 
     CryptoKey privateKey;
+
+
+    QDateTime created;
 };
 
 #endif // SECURITYKEYSPAIR_H

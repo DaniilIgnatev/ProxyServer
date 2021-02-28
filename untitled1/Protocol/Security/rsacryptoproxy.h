@@ -19,12 +19,18 @@ private:
 
     QString deCrypt(QString str, CryptoKey privateKey);
 
+
+    RSAKeyPair keys;
+
 public:
 
-    RSAKeyPair* keys = nullptr;
+    RSACryptoProxy(RSAKeyPair keys, QObject* parent = nullptr);
 
 
-    RSACryptoProxy(RSAKeyPair *keys, QObject* parent = nullptr);
+    RSAKeyPair getKeys();
+
+
+    QString getPublicKey();
 
 
     QString encrypt(QString str);

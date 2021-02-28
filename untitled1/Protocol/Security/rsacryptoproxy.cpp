@@ -2,15 +2,28 @@
 
 
 
-RSACryptoProxy::RSACryptoProxy(RSAKeyPair *keys, QObject *parent) : QObject(parent)
+RSACryptoProxy::RSACryptoProxy(RSAKeyPair keys, QObject *parent) : QObject(parent), keys("0_0")
 {
     this->keys = keys;
 }
 
 
+RSAKeyPair RSACryptoProxy::getKeys()
+{
+    return keys;
+}
+
+
+QString RSACryptoProxy::getPublicKey()
+{
+    return keys.get_self_public_key().toString();
+}
+
+
 QString RSACryptoProxy::encrypt(QString str)
 {
-    QString encoded = enCrypt(str, keys->client_public_key);
+    CryptoKey clientKey = keys.client_public_key;
+    QString encoded = enCrypt(str, clientKey);
     QString base64 = QString::fromUtf8(encoded.toUtf8().toBase64());
     return base64;
 }
@@ -19,7 +32,8 @@ QString RSACryptoProxy::encrypt(QString str)
 QString RSACryptoProxy::decrypt(QString base64String)
 {
     QString str = QString::fromUtf8(QByteArray::fromBase64(base64String.toUtf8()));
-    QString decoded = deCrypt(str, keys->self_private_key());
+    CryptoKey privateKey = keys.get_self_private_key();
+    QString decoded = deCrypt(str, privateKey);
     return decoded;
 }
 
@@ -62,9 +76,9 @@ QString RSACryptoProxy::deCrypt(QString str, CryptoKey privateKey)
     QStringList hexList = str.split("_");
     QByteArray bytes;
     for (int i = 0; i < hexList.count(); i++){
-       int encodedInt = hexList[i].toInt(nullptr,16);
-       mTemp = (quint8)powBig(encodedInt, privateKey.x, privateKey.y);
-       bytes.append(mTemp);
+        int encodedInt = hexList[i].toInt(nullptr,16);
+        mTemp = (quint8)powBig(encodedInt, privateKey.x, privateKey.y);
+        bytes.append(mTemp);
     }
 
     QString decodedStr = QString::fromUtf8(bytes);

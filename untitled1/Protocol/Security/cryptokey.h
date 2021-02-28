@@ -29,6 +29,9 @@ struct CryptoKey
 
     ///Внимание! Ключи-строки в 16-м коде
     QString toString();
+
+
+    //добавить qhash, ==, <
 };
 
 #endif // SECURITYKEY_H

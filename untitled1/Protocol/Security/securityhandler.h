@@ -22,7 +22,7 @@ public:
     explicit SecurityHandler(RSACryptoProxy *cryptoProxy, QObject *parent = nullptr);
 
 
-    QString serverKey();
+    QString getPublicKey();
 
 
     bool checkAuthorize(SHAuthorizeRequest authorize);

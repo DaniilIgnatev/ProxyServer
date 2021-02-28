@@ -6,36 +6,36 @@
 RSAKeyPair::RSAKeyPair(QString client_public_key)
 {
     this->client_public_key = CryptoKey(client_public_key);
+    this->stored = false;
 }
 
 
-
-const CryptoKey RSAKeyPair::get_self_private_key()
+RSAKeyPair::RSAKeyPair(CryptoKey client_public_key, CryptoKey self_public_key, CryptoKey self_private_key)
 {
-    return RSAGeneratorSingletron::get_self_private_key();
+    this->client_public_key = client_public_key;
+    this->_self_public_key = self_public_key;
+    this->_self_private_key = self_private_key;
+    this->stored = true;
 }
 
 
-const CryptoKey RSAKeyPair::get_self_public_key()
+CryptoKey RSAKeyPair::get_self_private_key()
 {
-    return RSAGeneratorSingletron::get_self_public_key();
+    if (stored) {
+        return _self_private_key;
+    }
+    else {
+        return RSAGeneratorSingletron::get_self_private_key(this->client_public_key);
+    }
 }
 
 
-bool RSAKeyPair::hasPastKey()
+CryptoKey RSAKeyPair::get_self_public_key()
 {
-    return RSAGeneratorSingletron::hasPastKey();
+    if (stored){
+        return _self_public_key;
+    }
+    else{
+        return RSAGeneratorSingletron::get_self_public_key(this->client_public_key);
+    }
 }
-
-
-const CryptoKey RSAKeyPair::get_past_private_key()
-{
-    return RSAGeneratorSingletron::get_past_private_key();
-}
-
-
-const CryptoKey RSAKeyPair::get_past_public_key()
-{
-    return RSAGeneratorSingletron::get_past_public_key();
-}
-

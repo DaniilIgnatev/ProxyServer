@@ -10,11 +10,12 @@
 #include "rsagenerator.h"
 #include <QMutex>
 #include <QtDebug>
+#include <QMultiMap>
 
 
-
-class RSAGeneratorSingletron
+class RSAGeneratorSingletron: public QObject
 {
+    Q_OBJECT
 private:
 
     QTimer *updateKeysTimer = nullptr;
@@ -26,37 +27,25 @@ private:
     RSAGeneratorSingletron();
 
 
-    CryptoKey self_private_key;
+    ~RSAGeneratorSingletron();
 
 
-    CryptoKey self_public_key;
+    QMultiMap<CryptoKey,CryptoKeysDescriptor> clientToKeysMap;
 
 
-    CryptoKey past_private_key;
-
-
-    CryptoKey past_public_key;
+    CryptoKeysDescriptor* keys = nullptr;
 
 private slots:
 
-    void updateKeys();
+    void regenerateKeys();
 
 
 public:
 
-    const CryptoKey _get_self_private_key();
+    const CryptoKey _get_self_private_key(CryptoKey client_key);
 
 
-    const CryptoKey _get_self_public_key();
-
-
-    bool _hasPastKey();
-
-
-    const CryptoKey _get_past_private_key();
-
-
-    const CryptoKey _get_past_public_key();
+    const CryptoKey _get_self_public_key(CryptoKey client_key);
 
 //STATIC
 
@@ -72,19 +61,10 @@ public:
     static RSAGeneratorSingletron *getInstance();
 
 
-    static const CryptoKey get_self_private_key();
+    static const CryptoKey get_self_private_key(CryptoKey client_key);
 
 
-    static const CryptoKey get_self_public_key();
-
-
-    static bool hasPastKey();
-
-
-    static const CryptoKey get_past_private_key();
-
-
-    static const CryptoKey get_past_public_key();
+    static const CryptoKey get_self_public_key(CryptoKey client_key);
 };
 
 

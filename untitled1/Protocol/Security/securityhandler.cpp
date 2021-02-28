@@ -8,9 +8,9 @@ SecurityHandler::SecurityHandler(RSACryptoProxy *cryptoProxy, QObject *parent): 
 }
 
 
-QString SecurityHandler::serverKey()
+QString SecurityHandler::getPublicKey()
 {
-     CryptoKey key = *(cryptoProxy->keys->self_public_key());
+     CryptoKey key = cryptoProxy->getPublicKey();
      return key.toString();
 }
 
