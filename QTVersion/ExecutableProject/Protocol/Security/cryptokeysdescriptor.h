@@ -12,6 +12,9 @@ struct CryptoKeysDescriptor
     CryptoKeysDescriptor(CryptoKey publicKey, CryptoKey privateKey);
 
 
+    CryptoKeysDescriptor();
+
+
     CryptoKey publicKey;
 
 

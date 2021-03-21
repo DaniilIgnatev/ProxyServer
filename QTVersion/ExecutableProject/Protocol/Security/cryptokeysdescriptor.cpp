@@ -6,3 +6,10 @@ CryptoKeysDescriptor::CryptoKeysDescriptor(CryptoKey publicKey, CryptoKey privat
 {
 
 }
+
+
+CryptoKeysDescriptor::CryptoKeysDescriptor()
+{
+    this->privateKey = CryptoKey();
+    this->publicKey = CryptoKey();
+}

@@ -11,11 +11,12 @@ RSAGeneratorSingletron *RSAGeneratorSingletron::instance;
 
 RSAGeneratorSingletron::RSAGeneratorSingletron(): QObject(nullptr)
 {
-    keys = (CryptoKeysDescriptor*)malloc(sizeof (CryptoKeysDescriptor));
     updateKeysTimer = new QTimer();
     updateKeysTimer->connect(updateKeysTimer, &QTimer::timeout,this, &RSAGeneratorSingletron::regenerateKeys);
     updateKeysTimer->setInterval(60 * 1000);
     updateKeysTimer->start();
+
+    debugKeys = (CryptoKeysDescriptor*)malloc(sizeof (CryptoKeysDescriptor));
     regenerateKeys();
 }
 
@@ -24,7 +25,7 @@ RSAGeneratorSingletron::~RSAGeneratorSingletron()
 {
     delete updateKeysTimer;
     delete generator;
-    delete  keys;
+    delete  debugKeys;
 }
 
 
@@ -32,19 +33,26 @@ void RSAGeneratorSingletron::regenerateKeys()
 {
     qDebug("Обновление RSA ключей!");
 
-    *this->keys = generator->generateSecurityKeys();
+    //добавить обновление словаря
+    *this->debugKeys = generator->generateSecurityKeys();
 }
 
 
 const CryptoKey RSAGeneratorSingletron::_get_self_private_key(CryptoKey client_key)
 {
-    return keys->privateKey;
+    //CryptoKeysDescriptor serverKeys = this->clientToKeysMap.value(client_key);
+    //CryptoKey serverPrivateKey = serverKeys.privateKey;
+
+    return debugKeys->privateKey;
 }
 
 
 const CryptoKey RSAGeneratorSingletron::_get_self_public_key(CryptoKey client_key)
 {
-    return keys->publicKey;
+    CryptoKeysDescriptor serverKeys = this->clientToKeysMap.value(client_key);
+    //CryptoKey serverPublicKey = serverKeys.publicKey;
+
+    return debugKeys->publicKey;
 }
 
 

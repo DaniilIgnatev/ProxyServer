@@ -33,7 +33,9 @@ private:
     QMultiMap<CryptoKey,CryptoKeysDescriptor> clientToKeysMap;
 
 
-    CryptoKeysDescriptor* keys = nullptr;
+    ///Костыль, должно быть заменено применением clientToKeysMap
+    CryptoKeysDescriptor* debugKeys = nullptr;
+
 
 private slots:
 

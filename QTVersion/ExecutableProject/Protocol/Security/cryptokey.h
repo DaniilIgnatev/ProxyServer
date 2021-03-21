@@ -32,6 +32,15 @@ struct CryptoKey
 
 
     //добавить qhash, ==, <
+
+    friend bool operator <(const CryptoKey& lhs, const CryptoKey& rhs){
+        return lhs.x + lhs.y < rhs.x + rhs.y;
+    }
+
+
+    friend bool operator >(const CryptoKey& lhs, const CryptoKey& rhs){
+        return lhs.x + lhs.y > rhs.x + rhs.y;
+    }
 };
 
 #endif // SECURITYKEY_H
