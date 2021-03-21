@@ -10,8 +10,7 @@ void SHResponse::read(const QJsonObject &json){
 }
 
 
-void SHResponse::write(const QJsonObject &json){
-    json["type"] = type;
+void SHResponse::write(QJsonObject &json){
     json["operation"] = operation;
 }
 
@@ -19,13 +18,18 @@ void SHResponse::write(const QJsonObject &json){
 
 //struct SHCryptoHandshakeResponse: public SHResponse
 
+SHCryptoHandshakeResponse::SHCryptoHandshakeResponse()
+{
+    operation = ProtocolPattern_handshake;
+}
+
 void SHCryptoHandshakeResponse::read(const QJsonObject &json){
     SHResponse::read(json);
     key = json["key"].toString();
 }
 
 
-void SHCryptoHandshakeResponse::write(const QJsonObject &json){
+void SHCryptoHandshakeResponse::write(QJsonObject &json){
     SHResponse::write(json);
     json["key"] = key;
 }
@@ -34,13 +38,18 @@ void SHCryptoHandshakeResponse::write(const QJsonObject &json){
 
 //struct SHCryptoDataResponse: public SHResponse
 
+SHCryptoDataResponse::SHCryptoDataResponse()
+{
+    operation = ProtocolPattern_data;
+}
+
 void SHCryptoDataResponse::read(const QJsonObject &json){
     SHResponse::read(json);
     response = json["response"].toString();
 }
 
 
-void SHCryptoDataResponse::write(const QJsonObject &json){
+void SHCryptoDataResponse::write(QJsonObject &json){
     SHResponse::write(json);
     json["response"] = response;
 }
@@ -48,6 +57,11 @@ void SHCryptoDataResponse::write(const QJsonObject &json){
 
 
 //struct SHStatusResponse: public SHResponse
+
+SHStatusResponse::SHStatusResponse()
+{
+
+}
 
 void SHStatusResponse::read(const QJsonObject &json){
     SHResponse::read(json);
@@ -57,7 +71,7 @@ void SHStatusResponse::read(const QJsonObject &json){
 }
 
 
-void SHStatusResponse::write(const QJsonObject &json){
+void SHStatusResponse::write(QJsonObject &json){
     SHResponse::write(json);
     json["result"] = result;
     json["result_message"] = result_message;

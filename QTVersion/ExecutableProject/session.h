@@ -39,7 +39,7 @@ private:
 
     QThread *thread;
 
-    ProtocolHandler *protocol;
+    ProtocolHandler *protocolHandler;
 
     QTcpSocket* socket;
 

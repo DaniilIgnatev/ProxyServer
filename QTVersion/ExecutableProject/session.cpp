@@ -9,9 +9,11 @@ Session::Session(quint16 socketDescriptor): QObject(0)
     this->socketDescriptor = socketDescriptor;
     connect(this->thread, &QThread::finished, this, &Session::deleteLater);
 
-    protocol = new ProtocolHandler(this);
-    connect(this, &Session::requestReady, protocol, &ProtocolHandler::handleRequest);
+    protocolHandler = new ProtocolHandler(this);
+    connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
+    connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
 
+    //client socket
     socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
     qDebug() << "Socket opened";
@@ -26,7 +28,7 @@ Session::Session(quint16 socketDescriptor): QObject(0)
 Session::~Session()
 {
     socket->deleteLater();
-    protocol->deleteLater();
+    protocolHandler->deleteLater();
     delete readData;
     delete readStream;
     qDebug() << "Session deinited";
@@ -95,6 +97,9 @@ void Session::readyRead()
 
 void Session::handleResponse(QByteArray* response)
 {
+    response->insert(1,"\"type\":\"response\",");
+    response->insert(0,"[");
+    response->push_back(']');
     response_size = response->size();
     response->insert(0,(char*)&response_size,4);
     socket->write(*response);

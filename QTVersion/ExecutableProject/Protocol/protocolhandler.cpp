@@ -55,14 +55,14 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     RSAKeyPair keyPair(handshake.key);
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
 
-    security_handler = new SecurityHandler(crypto);
+    security_handler = new SecurityHandler(crypto, this);
 
     QString serverKey = security_handler->getPublicKey();
 
     SHCryptoHandshakeResponse response;
     response.key = serverKey;
 
-    QJsonObject jsonObject;
+    QJsonObject jsonObject = QJsonObject();
     response.write(jsonObject);
 
     QJsonDocument jsonDocument(jsonObject);

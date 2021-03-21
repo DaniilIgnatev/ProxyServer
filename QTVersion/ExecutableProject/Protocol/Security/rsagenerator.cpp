@@ -62,11 +62,11 @@ CryptoKeysDescriptor RSAGenerator::testonlyGenerateSecurityKeys(int p, int q, in
 
 CryptoKeysDescriptor RSAGenerator::generateSecurityKeys()
 {
-    int p_base = randGener->bounded(3,50);
+    int p_base = QRandomGenerator::global()->bounded(3,50);
     auto p_primeList = generatePrimeNumbers(p_base,1);
     int p = p_primeList.first();
 
-    int q_base = randGener->bounded(51,100);
+    int q_base = QRandomGenerator::global()->bounded(51,100);
     auto q_primeList = generatePrimeNumbers(q_base,1);
     int q = q_primeList.first();
 
@@ -97,7 +97,7 @@ int RSAGenerator::gcd(int a, int b)
 
 int RSAGenerator::generatePublicExp(int eiler)
 {
-    int result = randGener->bounded(3,eiler / 2);
+    int result = QRandomGenerator::global()->bounded(3,eiler / 2);
     while (gcd(result,eiler) != 1) {
         result += 1;
     }

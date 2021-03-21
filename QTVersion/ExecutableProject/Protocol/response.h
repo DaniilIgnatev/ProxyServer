@@ -16,36 +16,41 @@ struct SHResponse{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
 
 struct SHCryptoHandshakeResponse: SHResponse{
-    QString operation = ProtocolPattern_handshake;
+
+    SHCryptoHandshakeResponse();
 
     QString key;
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
 
 struct SHCryptoDataResponse: SHResponse{
-    QString operation = ProtocolPattern_data;
+
+    SHCryptoDataResponse();
 
     QString response;
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
 
 struct SHStatusResponse: SHResponse{
+
+    SHStatusResponse();
+
     bool result = true;
 
     QString result_message;
@@ -54,7 +59,7 @@ struct SHStatusResponse: SHResponse{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 #endif // RESPONSE_H

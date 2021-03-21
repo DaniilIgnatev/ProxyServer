@@ -6,7 +6,8 @@
 #include <QString>
 #include <QChar>
 #include <QStringList>
-
+#include <QCryptographicHash>
+#include <QDataStream>
 
 
 struct CryptoKey
@@ -31,8 +32,6 @@ struct CryptoKey
     QString toString();
 
 
-    //добавить qhash, ==, <
-
     friend bool operator <(const CryptoKey& lhs, const CryptoKey& rhs){
         return lhs.x + lhs.y < rhs.x + rhs.y;
     }
@@ -41,6 +40,15 @@ struct CryptoKey
     friend bool operator >(const CryptoKey& lhs, const CryptoKey& rhs){
         return lhs.x + lhs.y > rhs.x + rhs.y;
     }
+
+
+    friend bool operator ==(const CryptoKey& lhs, const CryptoKey& rhs){
+        return lhs.x == rhs.x && lhs.y == rhs.y;
+    }
+
+
+    uint qHash(CryptoKey key);
+
 };
 
 #endif // SECURITYKEY_H

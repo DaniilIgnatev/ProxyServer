@@ -37,5 +37,26 @@ QString CryptoKey::toString()
 }
 
 
+qint64 hashString(const QString & str)
+{
+  QByteArray hash = QCryptographicHash::hash(
+    QByteArray::fromRawData((const char*)str.utf16(), str.length()*2),
+    QCryptographicHash::Md5
+  );
+  Q_ASSERT(hash.size() == 16);
+  QDataStream stream(hash);
+  qint64 a, b;
+  stream >> a >> b;
+  return a ^ b;
+}
+
+
+uint CryptoKey::qHash(CryptoKey key)
+{
+    QString str = (QString(key.x) + QString(key.y));
+    qint64 hash = hashString(str);
+    return hash;
+}
+
 
 

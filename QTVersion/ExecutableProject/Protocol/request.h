@@ -14,7 +14,7 @@ struct SHRequest{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
@@ -29,7 +29,7 @@ struct SHCryptoHandshakeRequest: SHRequest{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
@@ -43,7 +43,7 @@ struct SHCryptoDataRequest: SHRequest{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 
@@ -58,7 +58,7 @@ struct SHAuthorizeRequest: SHRequest{
 
     void read(const QJsonObject &json);
 
-    void write(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 

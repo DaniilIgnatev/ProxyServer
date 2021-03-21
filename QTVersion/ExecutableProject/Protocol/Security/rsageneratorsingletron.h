@@ -34,7 +34,7 @@ private:
 
 
     ///Костыль, должно быть заменено применением clientToKeysMap
-    CryptoKeysDescriptor* debugKeys = nullptr;
+    CryptoKeysDescriptor debugKeys;
 
 
 private slots:

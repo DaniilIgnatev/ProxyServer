@@ -10,8 +10,8 @@ void SHRequest::read(const QJsonObject &json){
 }
 
 
-void SHRequest::write(const QJsonObject &json){
-    json["operation"] = operation;
+void SHRequest::write(QJsonObject &json){
+    json.insert("operation", operation);
 }
 
 
@@ -25,7 +25,7 @@ void SHCryptoHandshakeRequest::read(const QJsonObject &json){
 }
 
 
-void SHCryptoHandshakeRequest::write(const QJsonObject &json){
+void SHCryptoHandshakeRequest::write(QJsonObject &json){
     SHRequest::write(json);
     json["method"] = method;
     json["key"] = key;
@@ -42,7 +42,7 @@ void SHCryptoDataRequest::read(const QJsonObject &json){
 }
 
 
-void SHCryptoDataRequest::write(const QJsonObject &json){
+void SHCryptoDataRequest::write(QJsonObject &json){
     SHRequest::write(json);
     json["stayAlive"] = stayAlive;
     json["request"] = request;
@@ -60,7 +60,7 @@ void SHAuthorizeRequest::read(const QJsonObject &json){
 }
 
 
-void SHAuthorizeRequest::write(const QJsonObject &json){
+void SHAuthorizeRequest::write(QJsonObject &json){
     SHRequest::write(json);
     json["user"] = user;
     json["password"] = password;
