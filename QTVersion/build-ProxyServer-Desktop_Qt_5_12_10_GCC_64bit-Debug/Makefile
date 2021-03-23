@@ -816,6 +816,11 @@ moc_rsacryptoproxy.cpp: ../ExecutableProject/Protocol/Security/rsacryptoproxy.h 
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -836,7 +841,6 @@ moc_rsacryptoproxy.cpp: ../ExecutableProject/Protocol/Security/rsacryptoproxy.h 
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -907,6 +911,11 @@ moc_rsagenerator.cpp: ../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -979,6 +988,11 @@ moc_rsageneratorsingletron.cpp: ../ExecutableProject/Protocol/Security/rsagenera
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -996,7 +1010,6 @@ moc_rsageneratorsingletron.cpp: ../ExecutableProject/Protocol/Security/rsagenera
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1072,6 +1085,11 @@ moc_securityhandler.cpp: ../ExecutableProject/Protocol/Security/securityhandler.
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1092,7 +1110,6 @@ moc_securityhandler.cpp: ../ExecutableProject/Protocol/Security/securityhandler.
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1178,6 +1195,11 @@ moc_protocolhandler.cpp: ../ExecutableProject/Protocol/protocolhandler.h \
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1196,7 +1218,6 @@ moc_protocolhandler.cpp: ../ExecutableProject/Protocol/protocolhandler.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1209,6 +1230,13 @@ moc_protocolhandler.cpp: ../ExecutableProject/Protocol/protocolhandler.h \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QTcpSocket \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/Protocol/protocolhandler.h -o moc_protocolhandler.cpp
@@ -1310,6 +1338,8 @@ moc_server.cpp: ../ExecutableProject/server.h \
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1327,6 +1357,7 @@ moc_server.cpp: ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/server.h -o moc_server.cpp
@@ -1424,6 +1455,8 @@ moc_session.cpp: ../ExecutableProject/session.h \
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1441,6 +1474,8 @@ moc_session.cpp: ../ExecutableProject/session.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/session.h -o moc_session.cpp
@@ -1502,7 +1537,21 @@ cryptokey.o: ../ExecutableProject/Protocol/Security/cryptokey.cpp ../ExecutableP
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qpair.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cryptokey.o ../ExecutableProject/Protocol/Security/cryptokey.cpp
 
 cryptokeysdescriptor.o: ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.cpp ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1550,6 +1599,20 @@ cryptokeysdescriptor.o: ../ExecutableProject/Protocol/Security/cryptokeysdescrip
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -1612,6 +1675,11 @@ rsacryptoproxy.o: ../ExecutableProject/Protocol/Security/rsacryptoproxy.cpp ../E
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1632,7 +1700,6 @@ rsacryptoproxy.o: ../ExecutableProject/Protocol/Security/rsacryptoproxy.cpp ../E
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1701,6 +1768,11 @@ rsagenerator.o: ../ExecutableProject/Protocol/Security/rsagenerator.cpp ../Execu
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -1771,6 +1843,11 @@ rsageneratorsingletron.o: ../ExecutableProject/Protocol/Security/rsageneratorsin
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatetime.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -1788,7 +1865,6 @@ rsageneratorsingletron.o: ../ExecutableProject/Protocol/Security/rsageneratorsin
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1845,17 +1921,22 @@ rsakeypair.o: ../ExecutableProject/Protocol/Security/rsakeypair.cpp ../Executabl
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearraylist.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qregexp.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qstringmatcher.h \
-		../ExecutableProject/Protocol/Security/rsagenerator.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreevent.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmetatype.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvarlengtharray.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcontainerfwd.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
+		../ExecutableProject/Protocol/Security/rsagenerator.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDateTime \
@@ -1875,7 +1956,6 @@ rsakeypair.o: ../ExecutableProject/Protocol/Security/rsakeypair.cpp ../Executabl
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -1949,6 +2029,11 @@ securityhandler.o: ../ExecutableProject/Protocol/Security/securityhandler.cpp ..
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -1969,7 +2054,6 @@ securityhandler.o: ../ExecutableProject/Protocol/Security/securityhandler.cpp ..
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -2053,6 +2137,11 @@ protocolhandler.o: ../ExecutableProject/Protocol/protocolhandler.cpp ../Executab
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDataStream \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdatastream.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -2071,7 +2160,6 @@ protocolhandler.o: ../ExecutableProject/Protocol/protocolhandler.cpp ../Executab
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qdebug.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmap.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtextstream.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qiodevice.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlocale.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvariant.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qvector.h \
@@ -2083,7 +2171,14 @@ protocolhandler.o: ../ExecutableProject/Protocol/protocolhandler.cpp ../Executab
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QThread \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qthread.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QTcpSocket \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o protocolhandler.o ../ExecutableProject/Protocol/protocolhandler.cpp
 
 protocolpattern.o: ../ExecutableProject/Protocol/protocolpattern.cpp ../ExecutableProject/Protocol/protocolpattern.h \
@@ -2335,6 +2430,8 @@ main.o: ../ExecutableProject/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/incl
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -2352,6 +2449,7 @@ main.o: ../ExecutableProject/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/incl
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ExecutableProject/main.cpp
 
@@ -2452,6 +2550,8 @@ server.o: ../ExecutableProject/server.cpp ../ExecutableProject/server.h \
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -2468,7 +2568,8 @@ server.o: ../ExecutableProject/server.cpp ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
-		../ExecutableProject/Protocol/Security/rsacryptoproxy.h
+		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../ExecutableProject/server.cpp
 
 session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
@@ -2564,6 +2665,8 @@ session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
 		../ExecutableProject/Protocol/Security/cryptokey.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QChar \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QStringList \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCryptographicHash \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcryptographichash.h \
 		../ExecutableProject/Protocol/Security/rsagenerator.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QList \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
@@ -2580,7 +2683,9 @@ session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMutex \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
-		../ExecutableProject/Protocol/Security/rsacryptoproxy.h
+		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o session.o ../ExecutableProject/session.cpp
 
 moc_rsacryptoproxy.o: moc_rsacryptoproxy.cpp 

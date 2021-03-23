@@ -14,7 +14,8 @@
 #include <QtDebug>
 #include "Security/cryptokey.h"
 #include <QThread>
-
+#include <QTcpSocket>
+#include <QHostAddress>
 
 
 
@@ -36,13 +37,37 @@ public:
     ~ProtocolHandler();
 
 signals:
-    void responseReady(QByteArray* responseData);
+    void responseReady(QByteArray &responseData);
+
 
 public slots:
     void handleRequest(QByteArray &requestData);
 
+
+    void shDataSocket_onError(QAbstractSocket::SocketError);
+
+
+    void shDataSocket_onConnected();
+
+
+    void shDataSocket_onDisconnected();
+
+
+    void shDataSocket_onReadyRead();
+
 private:
-    SecurityHandler* security_handler = NULL;
+
+    QTcpSocket* shDataSocket = nullptr;
+
+    ///Уже прочитано
+    quint32 bytes_read = 0;
+
+    QByteArray* readData = NULL;
+
+    QDataStream* readStream = NULL;
+
+
+    SecurityHandler* security_handler = nullptr;
 
 
     ProtocolPattern_Enum request_scenario = ProtocolPattern_Enum::unknown;
@@ -63,7 +88,7 @@ private:
     void handleUnknownRequest(QJsonObject &request_obj);
 
 
-    void handleException(QException &e);
+    void handleException(QException &e,QAbstractSocket::SocketError errorCode = QAbstractSocket::SocketError::TemporaryError);
 };
 
 #endif // PROTOCOLHANDLER_H

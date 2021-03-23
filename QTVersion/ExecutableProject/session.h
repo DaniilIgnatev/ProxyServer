@@ -33,7 +33,7 @@ signals:
     void requestReady(QByteArray &request);
 
 public slots:
-    void handleResponse(QByteArray* response);
+    void handleResponse(QByteArray  &response);
 
 private:
 
