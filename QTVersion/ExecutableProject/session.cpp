@@ -11,7 +11,7 @@ Session::Session(quint16 socketDescriptor): QObject(0)
 
     protocolHandler = new ProtocolHandler(this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
-    connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
+    connect(protocolHandler,&ProtocolHandler::singleResponseReady, this, &Session::handleResponse);
 
     //client socket
     socket = new QTcpSocket(this);
@@ -97,9 +97,7 @@ void Session::readyRead()
 
 void Session::handleResponse(QByteArray &response)
 {
-    response.insert(1,"\"type\":\"response\",");
-    response.insert(0,"[");
-    response.push_back(']');
+    JSON_Extension::makeResponseArray(response);
     response_size = response.size();
     response.insert(0,(char*)&response_size,4);
     socket->write(response);

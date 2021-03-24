@@ -21,6 +21,7 @@ SOURCES += \
         Protocol/protocolpattern.cpp \
         Protocol/request.cpp \
         Protocol/response.cpp \
+        json_extension.cpp \
         main.cpp \
         server.cpp \
         session.cpp
@@ -42,5 +43,6 @@ HEADERS += \
     Protocol/protocolpattern.h \
     Protocol/request.h \
     Protocol/response.h \
+    json_extension.h \
     server.h \
     session.h

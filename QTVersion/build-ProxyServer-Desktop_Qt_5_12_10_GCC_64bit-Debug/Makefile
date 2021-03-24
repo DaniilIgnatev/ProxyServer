@@ -63,6 +63,7 @@ SOURCES       = ../ExecutableProject/Protocol/Security/cryptokey.cpp \
 		../ExecutableProject/Protocol/protocolpattern.cpp \
 		../ExecutableProject/Protocol/request.cpp \
 		../ExecutableProject/Protocol/response.cpp \
+		../ExecutableProject/json_extension.cpp \
 		../ExecutableProject/main.cpp \
 		../ExecutableProject/server.cpp \
 		../ExecutableProject/session.cpp moc_rsacryptoproxy.cpp \
@@ -83,6 +84,7 @@ OBJECTS       = cryptokey.o \
 		protocolpattern.o \
 		request.o \
 		response.o \
+		json_extension.o \
 		main.o \
 		server.o \
 		session.o \
@@ -296,6 +298,7 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		../ExecutableProject/Protocol/protocolpattern.h \
 		../ExecutableProject/Protocol/request.h \
 		../ExecutableProject/Protocol/response.h \
+		../ExecutableProject/json_extension.h \
 		../ExecutableProject/server.h \
 		../ExecutableProject/session.h ../ExecutableProject/Protocol/Security/cryptokey.cpp \
 		../ExecutableProject/Protocol/Security/cryptokeysdescriptor.cpp \
@@ -308,6 +311,7 @@ DIST          = /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/spec_pre.
 		../ExecutableProject/Protocol/protocolpattern.cpp \
 		../ExecutableProject/Protocol/request.cpp \
 		../ExecutableProject/Protocol/response.cpp \
+		../ExecutableProject/json_extension.cpp \
 		../ExecutableProject/main.cpp \
 		../ExecutableProject/server.cpp \
 		../ExecutableProject/session.cpp
@@ -724,8 +728,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../ExecutableProject/Protocol/Security/cryptokey.h ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h ../ExecutableProject/Protocol/Security/rsacryptoproxy.h ../ExecutableProject/Protocol/Security/rsagenerator.h ../ExecutableProject/Protocol/Security/rsageneratorsingletron.h ../ExecutableProject/Protocol/Security/rsakeypair.h ../ExecutableProject/Protocol/Security/securityhandler.h ../ExecutableProject/Protocol/protocolhandler.h ../ExecutableProject/Protocol/protocolpattern.h ../ExecutableProject/Protocol/request.h ../ExecutableProject/Protocol/response.h ../ExecutableProject/server.h ../ExecutableProject/session.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ExecutableProject/Protocol/Security/cryptokey.cpp ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.cpp ../ExecutableProject/Protocol/Security/rsacryptoproxy.cpp ../ExecutableProject/Protocol/Security/rsagenerator.cpp ../ExecutableProject/Protocol/Security/rsageneratorsingletron.cpp ../ExecutableProject/Protocol/Security/rsakeypair.cpp ../ExecutableProject/Protocol/Security/securityhandler.cpp ../ExecutableProject/Protocol/protocolhandler.cpp ../ExecutableProject/Protocol/protocolpattern.cpp ../ExecutableProject/Protocol/request.cpp ../ExecutableProject/Protocol/response.cpp ../ExecutableProject/main.cpp ../ExecutableProject/server.cpp ../ExecutableProject/session.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ExecutableProject/Protocol/Security/cryptokey.h ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h ../ExecutableProject/Protocol/Security/rsacryptoproxy.h ../ExecutableProject/Protocol/Security/rsagenerator.h ../ExecutableProject/Protocol/Security/rsageneratorsingletron.h ../ExecutableProject/Protocol/Security/rsakeypair.h ../ExecutableProject/Protocol/Security/securityhandler.h ../ExecutableProject/Protocol/protocolhandler.h ../ExecutableProject/Protocol/protocolpattern.h ../ExecutableProject/Protocol/request.h ../ExecutableProject/Protocol/response.h ../ExecutableProject/json_extension.h ../ExecutableProject/server.h ../ExecutableProject/session.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../ExecutableProject/Protocol/Security/cryptokey.cpp ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.cpp ../ExecutableProject/Protocol/Security/rsacryptoproxy.cpp ../ExecutableProject/Protocol/Security/rsagenerator.cpp ../ExecutableProject/Protocol/Security/rsageneratorsingletron.cpp ../ExecutableProject/Protocol/Security/rsakeypair.cpp ../ExecutableProject/Protocol/Security/securityhandler.cpp ../ExecutableProject/Protocol/protocolhandler.cpp ../ExecutableProject/Protocol/protocolpattern.cpp ../ExecutableProject/Protocol/request.cpp ../ExecutableProject/Protocol/response.cpp ../ExecutableProject/json_extension.cpp ../ExecutableProject/main.cpp ../ExecutableProject/server.cpp ../ExecutableProject/session.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1237,6 +1241,8 @@ moc_protocolhandler.cpp: ../ExecutableProject/Protocol/protocolhandler.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/Protocol/protocolhandler.h -o moc_protocolhandler.cpp
@@ -1358,6 +1364,8 @@ moc_server.cpp: ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/server.h -o moc_server.cpp
@@ -1476,6 +1484,8 @@ moc_session.cpp: ../ExecutableProject/session.h \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray \
 		moc_predefs.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc
 	/home/daniil/Qt5.12.10/5.12.10/gcc_64/bin/moc $(DEFINES) --include /home/daniil/Documents/GitHub/ProxyServer/QTVersion/build-ProxyServer-Desktop_Qt_5_12_10_GCC_64bit-Debug/moc_predefs.h -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/mkspecs/linux-g++ -I/home/daniil/Documents/GitHub/ProxyServer/QTVersion/ExecutableProject -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtSql -I/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../ExecutableProject/session.h -o moc_session.cpp
@@ -2178,7 +2188,9 @@ protocolhandler.o: ../ExecutableProject/Protocol/protocolhandler.cpp ../Executab
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qtnetwork-config.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qabstractsocket.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o protocolhandler.o ../ExecutableProject/Protocol/protocolhandler.cpp
 
 protocolpattern.o: ../ExecutableProject/Protocol/protocolpattern.cpp ../ExecutableProject/Protocol/protocolpattern.h \
@@ -2330,6 +2342,35 @@ response.o: ../ExecutableProject/Protocol/response.cpp ../ExecutableProject/Prot
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o response.o ../ExecutableProject/Protocol/response.cpp
 
+json_extension.o: ../ExecutableProject/json_extension.cpp ../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbytearray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qrefcount.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qconfig.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtcore-config.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qsysinfo.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qlogging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qflags.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qmutex.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnumeric.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qversiontagging.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qnamespace.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qarraydata.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o json_extension.o ../ExecutableProject/json_extension.cpp
+
 main.o: ../ExecutableProject/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QCoreApplication \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qcoreapplication.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qglobal.h \
@@ -2450,6 +2491,8 @@ main.o: ../ExecutableProject/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/incl
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../ExecutableProject/main.cpp
 
@@ -2569,7 +2612,9 @@ server.o: ../ExecutableProject/server.cpp ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QtDebug \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../ExecutableProject/server.cpp
 
 session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
@@ -2685,7 +2730,9 @@ session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QMultiMap \
 		../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/QHostAddress \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtNetwork/qhostaddress.h \
+		../ExecutableProject/json_extension.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o session.o ../ExecutableProject/session.cpp
 
 moc_rsacryptoproxy.o: moc_rsacryptoproxy.cpp 

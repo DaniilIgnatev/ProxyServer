@@ -3,7 +3,8 @@
 
 #include <QObject>
 #include <QJsonObject>
-
+#include <QJsonArray>
+#include <QJsonDocument>
 
 
 ///Любой запрос
@@ -41,6 +42,8 @@ struct SHCryptoDataRequest: SHRequest{
 
     QString request;
 
+    QString key;
+
     void read(const QJsonObject &json);
 
     void write(QJsonObject &json);
@@ -65,9 +68,11 @@ struct SHAuthorizeRequest: SHRequest{
 
 ///Полностью раскрытый запрос
 struct SHNakedRequest: SHCryptoDataRequest{
+    SHNakedRequest(const SHCryptoDataRequest& dataRequest, QString decryptedRequest);
+
     SHAuthorizeRequest authorizeRequest;
 
-    SHRequest dataRequest;
+    QString decryptedRequest;
 };
 
 #endif // REQUEST_H

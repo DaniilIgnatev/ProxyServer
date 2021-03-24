@@ -12,7 +12,7 @@
 
 
 
-class SecurityHandler: QObject
+class SecurityHandler: public QObject
 {
     Q_OBJECT
 private:
@@ -31,7 +31,7 @@ public:
     SHNakedRequest removeShell(SHCryptoDataRequest secured_request);
 
 
-    SHCryptoDataResponse putInShell(QString str, QString operation);
+    SHCryptoDataResponse putInShell(QString unsecured_response);
 };
 
 #endif // SECURITYHANDLER_H

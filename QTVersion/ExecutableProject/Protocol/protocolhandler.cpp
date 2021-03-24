@@ -10,7 +10,15 @@ ProtocolHandler::ProtocolHandler(QObject *parent): QObject(parent)
 
 ProtocolHandler::~ProtocolHandler()
 {
+    if (readData != nullptr){
+        delete readData;
+        readData = nullptr;
+    }
 
+    if (readStream != nullptr){
+        delete readStream;
+        readStream = nullptr;
+    }
 }
 
 
@@ -57,6 +65,7 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
 
     security_handler = new SecurityHandler(crypto, this);
+    crypto->setParent(security_handler);
 
     QString serverKey = security_handler->getPublicKey();
 
@@ -69,26 +78,35 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
-    emit responseReady(result);
+    emit singleResponseReady(result);
 }
 
 
+//CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
 
-    SHCryptoDataRequest request;
-    request.read(request_obj);
+    SHCryptoDataRequest securedRequest;
+    securedRequest.read(request_obj);
 
-    this->stayAlive = request.stayAlive;
+    this->stayAlive = securedRequest.stayAlive;
+
+    RSAKeyPair keyPair(securedRequest.key);
+    RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
+    security_handler = new SecurityHandler(crypto, this);
+    crypto->setParent(security_handler);
+
+    SHNakedRequest nakedRequest = security_handler->removeShell(securedRequest);
+    bytesToServer = new QByteArray(nakedRequest.decryptedRequest.toUtf8());
 
     shDataSocket = new QTcpSocket(this);
     connect(shDataSocket,QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),this,&ProtocolHandler::shDataSocket_onError);
     connect(shDataSocket, &QTcpSocket::connected, this, &ProtocolHandler::shDataSocket_onConnected);
     connect(shDataSocket, &QTcpSocket::disconnected, this, &ProtocolHandler::shDataSocket_onDisconnected);
     connect(shDataSocket, &QTcpSocket::readyRead, this, &ProtocolHandler::shDataSocket_onReadyRead);
-    shDataSocket->connectToHost("95.104.194.120", 8084);
+    shDataSocket->connectToHost("95.68.243.66", 8084);
 }
 
 
@@ -105,7 +123,17 @@ void ProtocolHandler::shDataSocket_onConnected()
 {
     qDebug("shDataSocket_onConnected");
 
+    shDataSocket->write(*bytesToServer);
 
+    if (!stayAlive){
+        onReadDataTimer = new QTimer(this);
+        onReadDataTimer->setSingleShot(true);
+        connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
+        onReadDataTimer->start(500);
+    }
+
+    delete bytesToServer;
+    bytesToServer = nullptr;
 }
 
 
@@ -114,7 +142,7 @@ void ProtocolHandler::shDataSocket_onDisconnected()
     qDebug("shDataSocket_onDisconnected");
     qDebug("shDataSocket disconnected");
 
-    qDebug() << "Сервер ответил";
+    qDebug() << "Сервер УД завершил обмен данными";
     qDebug() << bytes_read;
     qDebug() << " байт.";
 
@@ -122,7 +150,15 @@ void ProtocolHandler::shDataSocket_onDisconnected()
 
     qDebug() << readData;
 
-    emit responseReady(*readData);
+    QString unsecuredResponse = QString::fromUtf8(*readData);
+    SHCryptoDataResponse securedResponse = security_handler->putInShell(unsecuredResponse);
+
+    QJsonObject responseObject;
+    securedResponse.write(responseObject);
+    QJsonDocument responseDocument(responseObject);
+    QByteArray responseData = responseDocument.toJson(QJsonDocument::JsonFormat::Compact);
+
+    emit singleResponseReady(responseData);
 }
 
 
@@ -130,13 +166,12 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 {
     qDebug("shDataSocket_onReadyRead");
 
-    if (readData == NULL){
+    if (readData == nullptr){
         readData = new QByteArray();
     }
-    if (readStream == NULL){
+    if (readStream == nullptr){
         readStream = new QDataStream(shDataSocket);
     }
-
 
     quint32 bytes_read_add = shDataSocket->bytesAvailable();
 
@@ -147,6 +182,16 @@ void ProtocolHandler::shDataSocket_onReadyRead()
     qDebug() << "Получено ";
     qDebug() << bytes_read;
     qDebug() << " байт.";
+
+    if (stayAlive){
+        SHCryptoDataResponse securedResponse = security_handler->putInShell();
+    }
+}
+
+
+void ProtocolHandler::onReadDataTimeout(){
+    qDebug("onReadDataTimeout");
+    shDataSocket->close();
 }
 
 
@@ -170,7 +215,7 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 
 
 
-    emit responseReady(result);
+    emit singleResponseReady(result);
 }
 
 
@@ -192,5 +237,5 @@ void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketErro
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact).data();
 
-    emit responseReady(result);
+    emit singleResponseReady(result);
 }

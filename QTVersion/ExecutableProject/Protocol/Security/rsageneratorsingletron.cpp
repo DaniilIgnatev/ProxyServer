@@ -24,10 +24,10 @@ RSAGeneratorSingletron *RSAGeneratorSingletron::getInstance()
 
 RSAGeneratorSingletron::RSAGeneratorSingletron(): QObject(nullptr)
 {
-    updateKeysTimer = new QTimer();
-    updateKeysTimer->connect(updateKeysTimer, &QTimer::timeout,this, &RSAGeneratorSingletron::regenerateKeys);
-    updateKeysTimer->setInterval(60 * 1000);
-    updateKeysTimer->start();
+//    updateKeysTimer = new QTimer();
+//    updateKeysTimer->connect(updateKeysTimer, &QTimer::timeout,this, &RSAGeneratorSingletron::regenerateKeys);
+//    updateKeysTimer->setInterval(60 * 1000);
+//    updateKeysTimer->start();
 
     regenerateKeys();
 }

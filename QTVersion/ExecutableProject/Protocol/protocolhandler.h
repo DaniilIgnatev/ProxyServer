@@ -16,6 +16,8 @@
 #include <QThread>
 #include <QTcpSocket>
 #include <QHostAddress>
+#include "json_extension.h"
+#include <QTimer>
 
 
 
@@ -37,34 +39,33 @@ public:
     ~ProtocolHandler();
 
 signals:
-    void responseReady(QByteArray &responseData);
-
+    void singleResponseReady(QByteArray &responseData);
 
 public slots:
     void handleRequest(QByteArray &requestData);
-
-
     void shDataSocket_onError(QAbstractSocket::SocketError);
-
-
     void shDataSocket_onConnected();
-
-
     void shDataSocket_onDisconnected();
-
-
     void shDataSocket_onReadyRead();
-
+    void onReadDataTimeout();
 private:
 
     QTcpSocket* shDataSocket = nullptr;
 
-    ///Уже прочитано
+
+    QTimer* onReadDataTimer = nullptr;
+
+
+    QByteArray* bytesToServer = nullptr;
+
+
     quint32 bytes_read = 0;
 
-    QByteArray* readData = NULL;
 
-    QDataStream* readStream = NULL;
+    QByteArray* readData = nullptr;
+
+
+    QDataStream* readStream = nullptr;
 
 
     SecurityHandler* security_handler = nullptr;

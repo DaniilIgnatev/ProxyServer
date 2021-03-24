@@ -26,32 +26,19 @@ bool SecurityHandler::checkAuthorize(SHAuthorizeRequest authorize)
 SHNakedRequest SecurityHandler::removeShell(SHCryptoDataRequest secured_request)
 {
     QString secured_str = secured_request.request;
-    QString clean_str = cryptoProxy->decrypt(secured_str);
+    QString decrypted_request = cryptoProxy->decrypt(secured_str);
 
-    SHNakedRequest result;
-    result.operation = secured_request.operation;
-    result.request = secured_request.request;
-    result.stayAlive = secured_request.stayAlive;
-
-    SHAuthorizeRequest authorizeRequest;
-
-    result.authorizeRequest = authorizeRequest;
-
-    SHCryptoDataRequest dataRequest;
-    dataRequest.request = clean_str;
-
-    result.dataRequest = dataRequest;
+    SHNakedRequest result(secured_request, decrypted_request);
 
     return result;
 }
 
 
-SHCryptoDataResponse SecurityHandler::putInShell(QString str, QString operation)
+SHCryptoDataResponse SecurityHandler::putInShell(QString unsecured_response)
 {
     SHCryptoDataResponse response;
-    response.operation = operation;
 
-    QString secured_Str = cryptoProxy->encrypt(str);
+    QString secured_Str = cryptoProxy->encrypt(unsecured_response);
     response.response = secured_Str;
 
     return response;
