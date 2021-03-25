@@ -40,6 +40,8 @@ struct SHCryptoDataRequest: SHRequest{
 
     bool stayAlive;
 
+    bool secureResponse;
+
     QString request;
 
     QString key;
@@ -51,26 +53,9 @@ struct SHCryptoDataRequest: SHRequest{
 
 
 
-///Запрос авторизации серверу данных
-struct SHAuthorizeRequest: SHRequest{
-    QString user;
-
-    QString password;
-
-    QString time;
-
-    void read(const QJsonObject &json);
-
-    void write(QJsonObject &json);
-};
-
-
-
 ///Полностью раскрытый запрос
 struct SHNakedRequest: SHCryptoDataRequest{
     SHNakedRequest(const SHCryptoDataRequest& dataRequest, QString decryptedRequest);
-
-    SHAuthorizeRequest authorizeRequest;
 
     QString decryptedRequest;
 };

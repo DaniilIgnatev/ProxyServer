@@ -11,7 +11,7 @@ Session::Session(quint16 socketDescriptor): QObject(0)
 
     protocolHandler = new ProtocolHandler(this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
-    connect(protocolHandler,&ProtocolHandler::singleResponseReady, this, &Session::handleResponse);
+    connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
 
     //client socket
     socket = new QTcpSocket(this);

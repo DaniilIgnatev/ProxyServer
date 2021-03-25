@@ -40,34 +40,18 @@ void SHCryptoDataRequest::read(const QJsonObject &json){
     key = json["key"].toString();
     stayAlive = json["stayAlive"].toBool();
     request = json["request"].toString();
+    secureResponse = json["cryptoResponse"].toBool();
 }
 
 
 void SHCryptoDataRequest::write(QJsonObject &json){
     SHRequest::write(json);
-    json["key"] = key;
     json["stayAlive"] = stayAlive;
+    json["cryptoResponse"] = secureResponse;
     json["request"] = request;
+    json["key"] = key;
 }
 
-
-
-//struct SHAuthorizeRequest: public SHRequest
-
-void SHAuthorizeRequest::read(const QJsonObject &json){
-    SHRequest::read(json);
-    user = json["user"].toString();
-    password = json["password"].toString();
-    time = json["time"].toString();
-}
-
-
-void SHAuthorizeRequest::write(QJsonObject &json){
-    SHRequest::write(json);
-    json["user"] = user;
-    json["password"] = password;
-    json["time"] = time;
-}
 
 
 
@@ -79,13 +63,4 @@ SHNakedRequest::SHNakedRequest(const SHCryptoDataRequest &dataRequest, QString d
     this->request = dataRequest.request;
     this->stayAlive = dataRequest.stayAlive;
     this->decryptedRequest = decryptedRequest;
-
-
-    QJsonDocument jsonRequest = QJsonDocument::fromJson(decryptedRequest.toUtf8());
-    QJsonArray jsonRequestArray = jsonRequest.array();
-
-    QJsonObject authorizeJson = jsonRequestArray.first().toObject();
-    SHAuthorizeRequest authorizeRequest;
-    authorizeRequest.read(authorizeJson);
-    this->authorizeRequest = authorizeRequest;
 }

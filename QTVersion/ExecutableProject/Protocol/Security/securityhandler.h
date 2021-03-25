@@ -25,13 +25,10 @@ public:
     QString getPublicKey();
 
 
-    bool checkAuthorize(SHAuthorizeRequest authorize);
-
-
     SHNakedRequest removeShell(SHCryptoDataRequest secured_request);
 
 
-    SHCryptoDataResponse putInShell(QString unsecured_response);
+    SHCryptoDataResponse putInShell(QString unsecured_response, bool secure);
 };
 
 #endif // SECURITYHANDLER_H

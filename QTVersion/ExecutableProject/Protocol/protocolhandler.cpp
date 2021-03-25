@@ -78,7 +78,7 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
-    emit singleResponseReady(result);
+    emit responseReady(result);
 }
 
 
@@ -92,6 +92,7 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
     securedRequest.read(request_obj);
 
     this->stayAlive = securedRequest.stayAlive;
+    this->secureResponse = securedRequest.secureResponse;
 
     RSAKeyPair keyPair(securedRequest.key);
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
@@ -148,17 +149,8 @@ void ProtocolHandler::shDataSocket_onDisconnected()
 
     qDebug() << "shDataSocket_onDisconnected thread id" << QThread::currentThreadId();
 
-    qDebug() << readData;
 
-    QString unsecuredResponse = QString::fromUtf8(*readData);
-    SHCryptoDataResponse securedResponse = security_handler->putInShell(unsecuredResponse);
-
-    QJsonObject responseObject;
-    securedResponse.write(responseObject);
-    QJsonDocument responseDocument(responseObject);
-    QByteArray responseData = responseDocument.toJson(QJsonDocument::JsonFormat::Compact);
-
-    emit singleResponseReady(responseData);
+    processResponse();
 }
 
 
@@ -184,7 +176,7 @@ void ProtocolHandler::shDataSocket_onReadyRead()
     qDebug() << " байт.";
 
     if (stayAlive){
-        SHCryptoDataResponse securedResponse = security_handler->putInShell();
+        processResponse();
     }
 }
 
@@ -192,6 +184,20 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 void ProtocolHandler::onReadDataTimeout(){
     qDebug("onReadDataTimeout");
     shDataSocket->close();
+}
+
+
+void ProtocolHandler::processResponse(){
+    QString unsecuredResponse = QString::fromUtf8(*readData);
+
+    SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
+    QJsonObject responseObject;
+    dataResponse.write(responseObject);
+
+    QJsonDocument responseDocument(responseObject);
+    QByteArray responseData = responseDocument.toJson(QJsonDocument::JsonFormat::Compact);
+
+    emit responseReady(responseData);
 }
 
 
@@ -215,7 +221,7 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 
 
 
-    emit singleResponseReady(result);
+    emit responseReady(result);
 }
 
 
@@ -237,5 +243,5 @@ void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketErro
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact).data();
 
-    emit singleResponseReady(result);
+    emit responseReady(result);
 }

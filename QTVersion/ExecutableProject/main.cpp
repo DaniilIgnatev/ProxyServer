@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     qDebug() << "Main thread id = " << QThread::currentThreadId();
 
     Server server;
-    server.listen(QHostAddress::Any,8084);
+    server.listen(QHostAddress::Any, 8090);
 
     return a.exec();
 }

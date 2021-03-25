@@ -39,7 +39,7 @@ public:
     ~ProtocolHandler();
 
 signals:
-    void singleResponseReady(QByteArray &responseData);
+    void responseReady(QByteArray &responseData);
 
 public slots:
     void handleRequest(QByteArray &requestData);
@@ -68,6 +68,9 @@ private:
     QDataStream* readStream = nullptr;
 
 
+    void processResponse();
+
+
     SecurityHandler* security_handler = nullptr;
 
 
@@ -78,6 +81,9 @@ private:
 
 
     bool stayAlive = false;
+
+
+    bool secureResponse = false;
 
 
     void handleCryptoHandshakeRequest(QJsonObject &reqeust_obj);
