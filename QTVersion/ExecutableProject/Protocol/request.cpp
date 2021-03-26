@@ -40,7 +40,7 @@ void SHCryptoDataRequest::read(const QJsonObject &json){
     key = json["key"].toString();
     stayAlive = json["stayAlive"].toBool();
     request = json["request"].toString();
-    secureResponse = json["cryptoResponse"].toBool();
+    secureResponse = json["secureResponse"].toBool();
 }
 
 

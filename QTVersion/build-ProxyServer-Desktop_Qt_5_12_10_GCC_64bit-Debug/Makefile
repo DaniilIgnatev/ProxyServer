@@ -1082,6 +1082,10 @@ moc_securityhandler.cpp: ../ExecutableProject/Protocol/Security/securityhandler.
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonArray \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
@@ -1185,11 +1189,11 @@ moc_protocolhandler.cpp: ../ExecutableProject/Protocol/protocolhandler.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -1333,10 +1337,10 @@ moc_server.cpp: ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
-		../ExecutableProject/Protocol/response.h \
-		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		../ExecutableProject/Protocol/response.h \
+		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		../ExecutableProject/Protocol/Security/securityhandler.h \
@@ -1451,11 +1455,11 @@ moc_session.cpp: ../ExecutableProject/session.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		../ExecutableProject/Protocol/Security/securityhandler.h \
@@ -2032,6 +2036,10 @@ securityhandler.o: ../ExecutableProject/Protocol/Security/securityhandler.cpp ..
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonArray \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
@@ -2133,11 +2141,11 @@ protocolhandler.o: ../ExecutableProject/Protocol/protocolhandler.cpp ../Executab
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qshareddata.h \
@@ -2281,7 +2289,11 @@ request.o: ../ExecutableProject/Protocol/request.cpp ../ExecutableProject/Protoc
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qobject_impl.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonArray \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonarray.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o request.o ../ExecutableProject/Protocol/request.cpp
 
 response.o: ../ExecutableProject/Protocol/response.cpp ../ExecutableProject/Protocol/response.h \
@@ -2460,10 +2472,10 @@ main.o: ../ExecutableProject/main.cpp /home/daniil/Qt5.12.10/5.12.10/gcc_64/incl
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
-		../ExecutableProject/Protocol/response.h \
-		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		../ExecutableProject/Protocol/response.h \
+		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		../ExecutableProject/Protocol/Security/securityhandler.h \
@@ -2582,10 +2594,10 @@ server.o: ../ExecutableProject/server.cpp ../ExecutableProject/server.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
-		../ExecutableProject/Protocol/response.h \
-		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
+		../ExecutableProject/Protocol/response.h \
+		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		../ExecutableProject/Protocol/Security/securityhandler.h \
@@ -2698,11 +2710,11 @@ session.o: ../ExecutableProject/session.cpp ../ExecutableProject/session.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonObject \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsonobject.h \
 		../ExecutableProject/Protocol/request.h \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
+		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		../ExecutableProject/Protocol/response.h \
 		../ExecutableProject/Protocol/protocolpattern.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QString \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QJsonDocument \
-		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qjsondocument.h \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/QException \
 		/home/daniil/Qt5.12.10/5.12.10/gcc_64/include/QtCore/qexception.h \
 		../ExecutableProject/Protocol/Security/securityhandler.h \

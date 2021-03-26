@@ -97,7 +97,11 @@ void Session::readyRead()
 
 void Session::handleResponse(QByteArray &response)
 {
+    qDebug("Session::handleResponse");
+
     JSON_Extension::makeResponseArray(response);
+    //qDebug("%s",response.data());
+
     response_size = response.size();
     response.insert(0,(char*)&response_size,4);
     socket->write(response);

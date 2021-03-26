@@ -55,8 +55,12 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
 
 void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 {
+    qDebug("handleCryptoHandshakeRequest");
+
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
+
+    qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHCryptoHandshakeRequest handshake;
     handshake.read(request_obj);
@@ -85,8 +89,12 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 //CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
+    qDebug("handleCryptoDataRequest");
+
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
+
+    qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHCryptoDataRequest securedRequest;
     securedRequest.read(request_obj);
@@ -130,7 +138,7 @@ void ProtocolHandler::shDataSocket_onConnected()
         onReadDataTimer = new QTimer(this);
         onReadDataTimer->setSingleShot(true);
         connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
-        onReadDataTimer->start(500);
+        onReadDataTimer->start(20000);
     }
 
     delete bytesToServer;
@@ -188,16 +196,20 @@ void ProtocolHandler::onReadDataTimeout(){
 
 
 void ProtocolHandler::processResponse(){
-    QString unsecuredResponse = QString::fromUtf8(*readData);
+    if (bytes_read > 0){
+        QString unsecuredResponse = QString::fromUtf8(*readData);
+        readData->clear();
+        bytes_read = 0;
 
-    SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
-    QJsonObject responseObject;
-    dataResponse.write(responseObject);
+        SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
+        QJsonObject responseObject;
+        dataResponse.write(responseObject);
 
-    QJsonDocument responseDocument(responseObject);
-    QByteArray responseData = responseDocument.toJson(QJsonDocument::JsonFormat::Compact);
+        QJsonDocument responseDocument(responseObject);
+        QByteArray responseData = responseDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
-    emit responseReady(responseData);
+        emit responseReady(responseData);
+    }
 }
 
 
@@ -207,7 +219,7 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 
     status = ProtocolHandlerStatus::error;
 
-    qDebug(QJsonDocument(request_obj).toJson());
+    qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHStatusResponse unknownResponse;
     unknownResponse.result_message = "error";
