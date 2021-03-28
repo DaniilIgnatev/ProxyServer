@@ -20,6 +20,8 @@
 #include <QTimer>
 
 
+#define ON_READ_TIMEOUT_MS 100
+
 
 enum ProtocolHandlerStatus{
     notHandled = 0, error = 1, handled = 2
@@ -50,6 +52,7 @@ public slots:
     void onReadDataTimeout();
 private:
 
+    //RESPONSE
     QTcpSocket* shDataSocket = nullptr;
 
 
@@ -71,6 +74,10 @@ private:
     void processResponse();
 
 
+    //REQUEST
+    QJsonObject *request = nullptr;
+
+
     SecurityHandler* security_handler = nullptr;
 
 
@@ -86,15 +93,26 @@ private:
     bool secureResponse = false;
 
 
+
+    //CRYPTO HANDSHAKE REQUEST
+    SHCryptoHandshakeRequest *cryptoHandshakeRequest = nullptr;
+
+
     void handleCryptoHandshakeRequest(QJsonObject &reqeust_obj);
+
+
+    //CRYPTO DATA REQUEST
+    SHCryptoDataRequest *cryptoDataRequest = nullptr;
 
 
     void handleCryptoDataRequest(QJsonObject &request_obj);
 
 
+    //UNKNOWN REQUEST
     void handleUnknownRequest(QJsonObject &request_obj);
 
 
+    //EXCEPTION
     void handleException(QException &e,QAbstractSocket::SocketError errorCode = QAbstractSocket::SocketError::TemporaryError);
 };
 

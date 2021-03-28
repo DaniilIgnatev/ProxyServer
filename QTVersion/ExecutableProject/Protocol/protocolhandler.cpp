@@ -19,12 +19,27 @@ ProtocolHandler::~ProtocolHandler()
         delete readStream;
         readStream = nullptr;
     }
+
+    if (request != nullptr){
+        delete request;
+        request = nullptr;
+    }
+
+    if (cryptoHandshakeRequest != nullptr){
+        delete cryptoHandshakeRequest;
+        cryptoHandshakeRequest = nullptr;
+    }
+
+    if (cryptoDataRequest != nullptr){
+        delete cryptoDataRequest;
+        cryptoDataRequest = nullptr;
+    }
 }
 
 
 void ProtocolHandler::handleRequest(QByteArray &requestData)
 {
-    qDebug() << "handleRequest " << QThread::currentThreadId();
+    qDebug() << "ProtocolHandler::handleRequest, thread: " << QThread::currentThreadId();
 
     QJsonDocument requestDocument = QJsonDocument::fromJson(requestData);
     QJsonArray request_list = requestDocument.array();
@@ -32,8 +47,9 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
     status = ProtocolHandlerStatus::notHandled;
 
     QJsonObject firstRequest = request_list[0].toObject();
-    QString operation = firstRequest["operation"].toString();
+    request = new QJsonObject(firstRequest);
 
+    QString operation = firstRequest["operation"].toString();
     ProtocolPattern requestType(operation);
 
     try {
@@ -55,7 +71,7 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
 
 void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 {
-    qDebug("handleCryptoHandshakeRequest");
+    qDebug("ProtocolHandler::handleCryptoHandshakeRequest");
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
@@ -64,6 +80,7 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 
     SHCryptoHandshakeRequest handshake;
     handshake.read(request_obj);
+    cryptoHandshakeRequest = new SHCryptoHandshakeRequest(handshake);
 
     RSAKeyPair keyPair(handshake.key);
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
@@ -89,25 +106,26 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 //CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
-    qDebug("handleCryptoDataRequest");
+    qDebug("ProtocolHandler::handleCryptoDataRequest");
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
 
     qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
-    SHCryptoDataRequest securedRequest;
-    securedRequest.read(request_obj);
+    SHCryptoDataRequest dataRequest;
+    dataRequest.read(request_obj);
+    cryptoDataRequest = new SHCryptoDataRequest(dataRequest);
 
-    this->stayAlive = securedRequest.stayAlive;
-    this->secureResponse = securedRequest.secureResponse;
+    this->stayAlive = dataRequest.stayAlive;
+    this->secureResponse = dataRequest.secureResponse;
 
-    RSAKeyPair keyPair(securedRequest.key);
+    RSAKeyPair keyPair(dataRequest.key);
     RSACryptoProxy *crypto = new RSACryptoProxy(keyPair);
     security_handler = new SecurityHandler(crypto, this);
     crypto->setParent(security_handler);
 
-    SHNakedRequest nakedRequest = security_handler->removeShell(securedRequest);
+    SHNakedRequest nakedRequest = security_handler->removeShell(dataRequest);
     bytesToServer = new QByteArray(nakedRequest.decryptedRequest.toUtf8());
 
     shDataSocket = new QTcpSocket(this);
@@ -130,16 +148,9 @@ void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCod
 
 void ProtocolHandler::shDataSocket_onConnected()
 {
-    qDebug("shDataSocket_onConnected");
+    qDebug("ProtocolHandler::shDataSocket_onConnected");
 
     shDataSocket->write(*bytesToServer);
-
-    if (!stayAlive){
-        onReadDataTimer = new QTimer(this);
-        onReadDataTimer->setSingleShot(true);
-        connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
-        onReadDataTimer->start(20000);
-    }
 
     delete bytesToServer;
     bytesToServer = nullptr;
@@ -148,15 +159,13 @@ void ProtocolHandler::shDataSocket_onConnected()
 
 void ProtocolHandler::shDataSocket_onDisconnected()
 {
-    qDebug("shDataSocket_onDisconnected");
-    qDebug("shDataSocket disconnected");
+    qDebug("ProtocolHandler::shDataSocket_onDisconnected");
 
-    qDebug() << "Сервер УД завершил обмен данными";
+    qDebug() << "Сервер УД завершил обмен данными, получено";
     qDebug() << bytes_read;
     qDebug() << " байт.";
 
     qDebug() << "shDataSocket_onDisconnected thread id" << QThread::currentThreadId();
-
 
     processResponse();
 }
@@ -164,7 +173,20 @@ void ProtocolHandler::shDataSocket_onDisconnected()
 
 void ProtocolHandler::shDataSocket_onReadyRead()
 {
-    qDebug("shDataSocket_onReadyRead");
+    qDebug("ProtocolHandler::shDataSocket_onReadyRead");
+
+    if (!stayAlive){
+        if (onReadDataTimer == nullptr){
+            onReadDataTimer = new QTimer(this);
+            onReadDataTimer->setSingleShot(true);
+            connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
+            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+        }
+        else{
+            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+        }
+    }
+
 
     if (readData == nullptr){
         readData = new QByteArray();
@@ -190,7 +212,12 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 
 
 void ProtocolHandler::onReadDataTimeout(){
-    qDebug("onReadDataTimeout");
+    qDebug("ProtocolHandler::onReadDataTimeout");
+
+    if (bytes_read > 0 && (!readData->endsWith("}]" && readData->startsWith("[{")))){
+        qDebug("bytesAvailable");
+        onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+    }
     shDataSocket->close();
 }
 
@@ -215,7 +242,7 @@ void ProtocolHandler::processResponse(){
 
 void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 {
-    qDebug("handleUnknownRequest");
+    qDebug("ProtocolHandler::handleUnknownRequest");
 
     status = ProtocolHandlerStatus::error;
 
@@ -231,18 +258,16 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
-
-
     emit responseReady(result);
 }
 
 
 void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketError errorCode)
 {
-    status = ProtocolHandlerStatus::error;
+    qDebug("ProtocolHandler::handleException");
+    qDebug("%s", e.what());
 
-    qDebug("Error: handleRequest");
-    qDebug(e.what());
+    status = ProtocolHandlerStatus::error;
 
     SHStatusResponse exceptionResponse;
     exceptionResponse.result_message = "error";
