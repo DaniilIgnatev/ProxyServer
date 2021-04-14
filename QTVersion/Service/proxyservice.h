@@ -5,6 +5,7 @@
 #include "qtservice/qtservice.h"
 
 #include "../ProxyServer/server.h"
+#include <QFile>
 
 class ProxyService : public QtService<QCoreApplication>
 {
