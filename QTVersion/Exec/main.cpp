@@ -8,8 +8,13 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     Server server;
-    server.listen(QHostAddress::Any,8090);
-    qDebug("Server listening on port 8090");
-
-    return a.exec();
+    if (server.listen()){
+        qDebug() << "Server listening on port " << server.serverPort();
+        return a.exec();
+    }
+    else{
+        qDebug("Server start error");
+        QThread::sleep(3);
+        return -1;
+    }
 }

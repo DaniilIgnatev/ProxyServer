@@ -23,6 +23,7 @@ SOURCES += \
         ../ProxyServer/json_extension.cpp \
         ../ProxyServer/server.cpp \
         ../ProxyServer/session.cpp \
+        ../ProxyServer/settings.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -47,4 +48,5 @@ HEADERS += \
     ../ProxyServer/Protocol/response.h \
     ../ProxyServer/json_extension.h \
     ../ProxyServer/server.h \
-    ../ProxyServer/session.h
+    ../ProxyServer/session.h \
+    ../ProxyServer/settings.h
