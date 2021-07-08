@@ -12,8 +12,14 @@ void ProxyService::start()
 {
     QCoreApplication *app = application();
     server = new Server(app);
-    server->listen(QHostAddress::Any,8090);
-    QtService::instance()->logMessage("listening");
+
+    if (server->listen()){
+        QtService::instance()->logMessage("Server listening on port ");
+        QtService::instance()->logMessage(QString::number(server->serverPort()));
+    }
+    else{
+        QtService::instance()->logMessage("Server start error");
+    }
 }
 
 

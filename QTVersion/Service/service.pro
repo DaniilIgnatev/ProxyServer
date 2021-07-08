@@ -18,6 +18,7 @@ SOURCES  = main.cpp \
     ../ProxyServer/json_extension.cpp \
     ../ProxyServer/server.cpp \
     ../ProxyServer/session.cpp \
+    ../ProxyServer/settings.cpp \
     proxyservice.cpp
 
 
@@ -38,6 +39,7 @@ HEADERS += \
     ../ProxyServer/json_extension.h \
     ../ProxyServer/server.h \
     ../ProxyServer/session.h \
+    ../ProxyServer/settings.h \
     proxyservice.h
 
 SUBDIRS += \

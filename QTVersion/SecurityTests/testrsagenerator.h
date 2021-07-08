@@ -4,8 +4,9 @@
 #include <QObject>
 #include <QTest>
 #include <QList>
-#include "../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h"
-#include "../ExecutableProject/Protocol/Security/rsagenerator.h"
+
+//#include "../ProxyServer/Protocol/Security/cryptokeysdescriptor.h"
+#include "../ProxyServer/Protocol/Security/rsagenerator.h"
 #include <QRandomGenerator>
 
 

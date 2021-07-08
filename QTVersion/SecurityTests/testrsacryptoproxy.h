@@ -4,8 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QtTest>
-#include "../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h"
-#include "../ExecutableProject/Protocol/Security/rsacryptoproxy.h"
+#include "../ProxyServer/Protocol/Security/rsacryptoproxy.h"
 
 
 

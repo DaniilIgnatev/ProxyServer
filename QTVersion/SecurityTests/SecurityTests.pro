@@ -1,5 +1,6 @@
 QT -= gui
 QT += testlib
+QT += network
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -9,19 +10,22 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        ../ExecutableProject/Protocol/Security/cryptokey.cpp \
-        ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.cpp \
-        ../ExecutableProject/Protocol/Security/rsacryptoproxy.cpp \
-        ../ExecutableProject/Protocol/Security/rsagenerator.cpp \
-        ../ExecutableProject/Protocol/Security/rsageneratorsingletron.cpp \
-        ../ExecutableProject/Protocol/Security/rsakeypair.cpp \
-        ../ExecutableProject/Protocol/Security/securityhandler.cpp \
-        ../ExecutableProject/Protocol/protocolhandler.cpp \
-        ../ExecutableProject/Protocol/protocolpattern.cpp \
-        ../ExecutableProject/Protocol/request.cpp \
-        ../ExecutableProject/Protocol/response.cpp \
+        ../ProxyServer/Protocol/Security/cryptokey.cpp \
+        ../ProxyServer/Protocol/Security/cryptokeysdescriptor.cpp \
+        ../ProxyServer/Protocol/Security/rsacryptoproxy.cpp \
+        ../ProxyServer/Protocol/Security/rsagenerator.cpp \
+        ../ProxyServer/Protocol/Security/rsageneratorsingletron.cpp \
+        ../ProxyServer/Protocol/Security/rsakeypair.cpp \
+        ../ProxyServer/Protocol/Security/securityhandler.cpp \
+        ../ProxyServer/Protocol/protocolhandler.cpp \
+        ../ProxyServer/Protocol/protocolpattern.cpp \
+        ../ProxyServer/Protocol/request.cpp \
+        ../ProxyServer/Protocol/response.cpp \
+        ../ProxyServer/json_extension.cpp \
+        ../ProxyServer/server.cpp \
+        ../ProxyServer/session.cpp \
+        ../ProxyServer/settings.cpp \
         main.cpp \
-        testqstring.cpp \
         testrsacryptoproxy.cpp \
         testrsagenerator.cpp
 
@@ -31,17 +35,20 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ../ExecutableProject/Protocol/Security/cryptokey.h \
-    ../ExecutableProject/Protocol/Security/cryptokeysdescriptor.h \
-    ../ExecutableProject/Protocol/Security/rsacryptoproxy.h \
-    ../ExecutableProject/Protocol/Security/rsagenerator.h \
-    ../ExecutableProject/Protocol/Security/rsageneratorsingletron.h \
-    ../ExecutableProject/Protocol/Security/rsakeypair.h \
-    ../ExecutableProject/Protocol/Security/securityhandler.h \
-    ../ExecutableProject/Protocol/protocolhandler.h \
-    ../ExecutableProject/Protocol/protocolpattern.h \
-    ../ExecutableProject/Protocol/request.h \
-    ../ExecutableProject/Protocol/response.h \
-    testqstring.h \
+    ../ProxyServer/Protocol/Security/cryptokey.h \
+    ../ProxyServer/Protocol/Security/cryptokeysdescriptor.h \
+    ../ProxyServer/Protocol/Security/rsacryptoproxy.h \
+    ../ProxyServer/Protocol/Security/rsagenerator.h \
+    ../ProxyServer/Protocol/Security/rsageneratorsingletron.h \
+    ../ProxyServer/Protocol/Security/rsakeypair.h \
+    ../ProxyServer/Protocol/Security/securityhandler.h \
+    ../ProxyServer/Protocol/protocolhandler.h \
+    ../ProxyServer/Protocol/protocolpattern.h \
+    ../ProxyServer/Protocol/request.h \
+    ../ProxyServer/Protocol/response.h \
+    ../ProxyServer/json_extension.h \
+    ../ProxyServer/server.h \
+    ../ProxyServer/session.h \
+    ../ProxyServer/settings.h \
     testrsacryptoproxy.h \
     testrsagenerator.h
