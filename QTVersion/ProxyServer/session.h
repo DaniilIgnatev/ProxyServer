@@ -22,7 +22,7 @@ class Session : public QObject
 {
     Q_OBJECT
 public:
-    Session(quint16 socketDescriptor);
+    Session(quint16 socketDescriptor, int serverPort);
 
     ~Session();
 

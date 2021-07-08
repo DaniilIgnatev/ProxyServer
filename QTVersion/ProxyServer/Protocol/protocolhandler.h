@@ -35,7 +35,7 @@ class ProtocolHandler : public QObject
     Q_OBJECT
 public:
 
-    ProtocolHandler(QObject *parent = nullptr);
+    ProtocolHandler(int serverPort,QObject *parent = nullptr);
 
 
     ~ProtocolHandler();
@@ -51,6 +51,8 @@ public slots:
     void shDataSocket_onReadyRead();
     void onReadDataTimeout();
 private:
+
+    int _serverPort;
 
     //RESPONSE
     QTcpSocket* shDataSocket = nullptr;

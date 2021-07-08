@@ -2,16 +2,22 @@
 
 
 
+Settings Server::settings()
+{
+    return this->_settings;
+}
+
+
 Server::Server(QObject *parent): QTcpServer(parent)
 {
-    settings.read();
+    _settings.read();
 }
 
 
 bool Server::listen()
 {
-    if (this->settings.hasPort()){
-        return this->QTcpServer::listen(QHostAddress::Any, settings.port());
+    if (this->_settings.hasProxyPort() && this->_settings.hasSHPort()){
+        return this->QTcpServer::listen(QHostAddress::Any, _settings.proxyPort());
     }
     else{
         qDebug() << "Settings are missing the port value";
@@ -22,6 +28,6 @@ bool Server::listen()
 
 void Server::incomingConnection(qintptr socketDescriptor)
 {
-    Session* client = new Session(socketDescriptor);
+    Session* client = new Session(socketDescriptor, this->_settings.shPort());
 }
 

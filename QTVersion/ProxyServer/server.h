@@ -11,10 +11,13 @@
 class Server : public QTcpServer
 {
     Q_OBJECT
-private:
-    Settings settings;
+
+    Settings _settings;
 
 public:
+    Settings settings();
+
+
     Server(QObject *parent = nullptr);
 
 

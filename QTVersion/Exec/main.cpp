@@ -9,7 +9,8 @@ int main(int argc, char *argv[])
 
     Server server;
     if (server.listen()){
-        qDebug() << "Server listening on port " << server.serverPort();
+        qDebug() << "Proxy server listening on port: " << server.serverPort();
+        qDebug() << "SHServer port: " << server.settings().shPort();
         return a.exec();
     }
     else{

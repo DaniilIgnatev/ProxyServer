@@ -2,15 +2,27 @@
 
 
 
-int Settings::port()
+int Settings::proxyPort()
 {
-    return _port;
+    return _proxyPort;
 }
 
 
-bool Settings::hasPort()
+bool Settings::hasProxyPort()
 {
-    return _hasPort;
+    return _hasProxyPort;
+}
+
+
+int Settings::shPort()
+{
+    return _shPort;
+}
+
+
+bool Settings::hasSHPort()
+{
+    return _hasSHPort;
 }
 
 
@@ -24,5 +36,6 @@ void Settings::read()
 {
     QSettings ini("config.ini",QSettings::Format::IniFormat);
 
-    this->_port = ini.value(Settings::key_port).toInt(&(this->_hasPort));
+    this->_proxyPort = ini.value(Settings::key_proxyPort).toInt(&(this->_hasProxyPort));
+    this->_shPort = ini.value(Settings::key_shPort).toInt(&(this->_hasSHPort));
 }

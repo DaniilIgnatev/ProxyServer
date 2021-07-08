@@ -9,18 +9,31 @@ class Settings
 {
 private:
 
-    bool _hasPort = false;
+    bool _hasProxyPort = false;
 
-    int _port = 8090;
+    int _proxyPort = 8090;
 
-    const QString key_port = "port";
+    const QString key_proxyPort = "proxyport";
+
+
+    bool _hasSHPort = false;
+
+    int _shPort = 8084;
+
+    const QString key_shPort = "shport";
 
 public:
 
-    int port();
+    int proxyPort();
 
 
-    bool hasPort();
+    bool hasProxyPort();
+
+
+    int shPort();
+
+
+    bool hasSHPort();
 
 
     Settings();

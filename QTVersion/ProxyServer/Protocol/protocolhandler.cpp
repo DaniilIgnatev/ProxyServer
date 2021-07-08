@@ -2,9 +2,9 @@
 
 
 
-ProtocolHandler::ProtocolHandler(QObject *parent): QObject(parent)
+ProtocolHandler::ProtocolHandler(int serverPort, QObject *parent): QObject(parent)
 {
-
+    this->_serverPort = serverPort;
 }
 
 

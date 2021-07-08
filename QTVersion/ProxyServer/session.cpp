@@ -1,7 +1,7 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor): QObject(0)
+Session::Session(quint16 socketDescriptor, int serverPort): QObject(0)
 {
     thread = new QThread();
     thread->start();
@@ -9,7 +9,7 @@ Session::Session(quint16 socketDescriptor): QObject(0)
     this->socketDescriptor = socketDescriptor;
     connect(this->thread, &QThread::finished, this, &Session::deleteLater);
 
-    protocolHandler = new ProtocolHandler(this);
+    protocolHandler = new ProtocolHandler(serverPort, this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
     connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
 
