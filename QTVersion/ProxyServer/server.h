@@ -14,6 +14,8 @@ class Server : public QTcpServer
 
     Settings _settings;
 
+    bool _listening = false;
+
 public:
     Settings settings();
 
@@ -22,6 +24,9 @@ public:
 
 
     bool listen();
+
+
+    QString startupInfo();
 
 protected:
     void incomingConnection(qintptr socketDescriptor) override;

@@ -34,7 +34,7 @@ Settings::Settings()
 
 void Settings::read()
 {
-    QSettings ini("config.ini",QSettings::Format::IniFormat);
+    QSettings ini(this->configPath, QSettings::Format::IniFormat);
 
     this->_proxyPort = ini.value(Settings::key_proxyPort).toInt(&(this->_hasProxyPort));
     this->_shPort = ini.value(Settings::key_shPort).toInt(&(this->_hasSHPort));

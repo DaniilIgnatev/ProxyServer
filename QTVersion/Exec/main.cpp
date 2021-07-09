@@ -8,14 +8,14 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     Server server;
-    if (server.listen()){
-        qDebug() << "Proxy server listening on port: " << server.serverPort();
-        qDebug() << "SHServer port: " << server.settings().shPort();
+    bool started = server.listen();
+    qDebug() << server.startupInfo().toUtf8();
+
+    if (started){
         return a.exec();
     }
     else{
-        qDebug("Server start error");
-        QThread::sleep(3);
+        QThread::sleep(5);
         return -1;
     }
 }

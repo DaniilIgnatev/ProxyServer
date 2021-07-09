@@ -17,12 +17,33 @@ Server::Server(QObject *parent): QTcpServer(parent)
 bool Server::listen()
 {
     if (this->_settings.hasProxyPort() && this->_settings.hasSHPort()){
-        return this->QTcpServer::listen(QHostAddress::Any, _settings.proxyPort());
+        this->_listening = this->QTcpServer::listen(QHostAddress::Any, _settings.proxyPort());
+        return _listening;
     }
     else{
         qDebug() << "Settings are missing the port value";
-        return false;
+        this->_listening = false;
+        return _listening;
     }
+}
+
+
+QString Server::startupInfo()
+{
+     QString info = "";
+
+    if (this->_listening){
+        info += " Server listening\n";
+        info += " hasProxyServerPort: " + QString::number(serverPort()) + "\n";
+        info += " hasSHServerPort: " + QString::number(settings().shPort()) + "\n";
+    }
+    else{
+        info += " Server start error\n";
+        info += " hasProxyServerPort: " + QVariant(settings().hasProxyPort()).toString() + "; value: " + QString::number(settings().proxyPort()) + "\n";
+        info += " hasSHServerPort: " + QVariant(settings().hasSHPort()).toString() + "; value: " + QString::number(settings().shPort()) + "\n";
+    }
+
+    return info;
 }
 
 

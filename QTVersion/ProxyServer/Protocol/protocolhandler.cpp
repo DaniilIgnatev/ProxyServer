@@ -133,7 +133,7 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
     connect(shDataSocket, &QTcpSocket::connected, this, &ProtocolHandler::shDataSocket_onConnected);
     connect(shDataSocket, &QTcpSocket::disconnected, this, &ProtocolHandler::shDataSocket_onDisconnected);
     connect(shDataSocket, &QTcpSocket::readyRead, this, &ProtocolHandler::shDataSocket_onReadyRead);
-    shDataSocket->connectToHost("127.0.0.1", 8084);
+    shDataSocket->connectToHost("127.0.0.1", this->_serverPort);
 }
 
 

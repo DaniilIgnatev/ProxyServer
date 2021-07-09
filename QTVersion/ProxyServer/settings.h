@@ -3,6 +3,7 @@
 
 
 #include <QSettings>
+#include <QDir>
 
 
 class Settings
@@ -23,6 +24,9 @@ private:
     const QString key_shPort = "shport";
 
 public:
+
+    const QString configPath = QDir::toNativeSeparators("C:/SHProxyServer/config.ini");
+
 
     int proxyPort();
 

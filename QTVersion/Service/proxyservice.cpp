@@ -4,7 +4,7 @@
 
 ProxyService::ProxyService(int argc, char **argv): QtService<QCoreApplication>(argc, argv, "SHPROXYSERVER")
 {
-    setServiceDescription("Security server of INTERRA smart house system");
+    setServiceDescription("Security server for INTERRA smart house system");
 }
 
 
@@ -13,13 +13,16 @@ void ProxyService::start()
     QCoreApplication *app = application();
     server = new Server(app);
 
-    if (server->listen()){
-        QtService::instance()->logMessage("Server listening on port ");
-        QtService::instance()->logMessage(QString::number(server->serverPort()));
-    }
-    else{
-        QtService::instance()->logMessage("Server start error");
-    }
+    server->listen();
+    QtService::instance()->logMessage(server->startupInfo());
+}
+
+
+void ProxyService::stop()
+{
+    QtService::instance()->logMessage("stop");
+    this->server->close();
+    this->server->deleteLater();
 }
 
 
