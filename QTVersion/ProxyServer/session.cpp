@@ -1,32 +1,31 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor, Settings settings): QObject(0)
+Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
 {
+    this->socketDescriptor = socketDescriptor;
+
     thread = new QThread();
     thread->start();
-
-    this->socketDescriptor = socketDescriptor;
     connect(this->thread, &QThread::finished, this, &Session::deleteLater);
 
-    int shServerPort = settings.shPort();
-    protocolHandler = new ProtocolHandler(shServerPort, this);
+    //log
+    QString logDirPath = settings->logsPath();
+    logWriter = new LogWriter(logDirPath, QString::number(socketDescriptor), this);
+    logWriter->log("SESSION INIT");
+
+    //protocolHandler
+    protocolHandler = new ProtocolHandler(settings, logWriter, this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
     connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
 
     //client socket
     socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
-    qDebug() << "Socket opened";
+    logWriter->log("SOCKET OPENED");
 
     connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
     connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
-
-    //log
-    QString logPath = settings.logsPath();
-    logFile = new QFile(logPath, this);
-    logFile->open(QFile::WriteOnly);
-    logFile->write("Socket opened");
 
     this->moveToThread(thread);
 }
@@ -34,21 +33,12 @@ Session::Session(quint16 socketDescriptor, Settings settings): QObject(0)
 
 Session::~Session()
 {
+    logWriter->log("SESSION DEINIT");
     socket->deleteLater();
     protocolHandler->deleteLater();
+    logWriter->deleteLater();
     delete readData;
     delete readStream;
-    qDebug() << "Session deinited";
-
-    logFile->write("Session deinited");
-    logFile->close();
-    logFile->deleteLater();
-}
-
-
-void Session::send(QString &message)
-{
-    socket->write(message.toUtf8());
 }
 
 
@@ -64,9 +54,10 @@ void Session::readyRead()
     if (request_size == 0){
         if (socket->bytesAvailable() > 4){
             *readStream >> request_size;
-            qDebug() << "Ожидается пакет ";
-            qDebug() << request_size;
-            qDebug() << " байт.";
+
+            logWriter->log("READY READ ", false);
+            logWriter->log(QString::number(request_size).toUtf8(), false);
+            logWriter->log(" BYTES.", false);
         }
         else{
             return;
@@ -79,19 +70,21 @@ void Session::readyRead()
     readData->append(newReadData);
     bytes_read += bytes_read_add;
 
-    qDebug() << "Получено ";
-    qDebug() << bytes_read;
-    qDebug() << " байт.";
+    logWriter->log("ACCUMULATED ", false);
+    logWriter->log(QString::number(bytes_read).toUtf8(), false);
+    logWriter->log(" bytes.", false);
 
 
     if (request_size == bytes_read){
-        qDebug() << "Принят пакет";
-        qDebug() << request_size;
-        qDebug() << " байт.";
+        logWriter->log("PACKAGE FETCHED ");
+        logWriter->log(QString::number(request_size).toUtf8());
+        logWriter->log(" BYTES.");
 
-        qDebug() << "readyRead thread id" << QThread::currentThreadId();
+        logWriter->log("THREAD ID:");
+        logWriter->log(QString::number((uint64_t)QThread::currentThreadId()).toUtf8());
+        logWriter->log("READ DATA:\n");
 
-        qDebug() << readData;
+        logWriter->log(readData);
 
         emit requestReady(*readData);
 
@@ -107,19 +100,18 @@ void Session::readyRead()
 
 void Session::handleResponse(QByteArray &response)
 {
-    qDebug("Session::handleResponse");
-
     JSON_Extension::makeResponseArray(response);
     //qDebug("%s",response.data());
 
     response_size = response.size();
     response.insert(0,(char*)&response_size,4);
+    logWriter->log("RESPONSE DATA:\n");
     socket->write(response);
 }
 
 
 void Session::socketClosed()
 {
-    qDebug() << "socket closed";
+    logWriter->log("SOCKET CLOSED");
     this->thread->exit();
 }

@@ -18,6 +18,9 @@
 #include <QHostAddress>
 #include "../json_extension.h"
 #include <QTimer>
+#include "../settings.h"
+#include "../logwriter.h"
+
 
 
 #define ON_READ_TIMEOUT_MS 100
@@ -35,7 +38,7 @@ class ProtocolHandler : public QObject
     Q_OBJECT
 public:
 
-    ProtocolHandler(int serverPort,QObject *parent = nullptr);
+    ProtocolHandler(Settings* settings, LogWriter* logWriter, QObject *parent = nullptr);
 
 
     ~ProtocolHandler();
@@ -52,7 +55,11 @@ public slots:
     void onReadDataTimeout();
 private:
 
-    int _serverPort;
+    LogWriter* logWriter;
+
+
+    Settings* settings;
+
 
     //RESPONSE
     QTcpSocket* shDataSocket = nullptr;

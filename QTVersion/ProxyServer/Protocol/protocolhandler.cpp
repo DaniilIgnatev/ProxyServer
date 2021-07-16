@@ -2,9 +2,10 @@
 
 
 
-ProtocolHandler::ProtocolHandler(int serverPort, QObject *parent): QObject(parent)
+ProtocolHandler::ProtocolHandler(Settings *settings, LogWriter* logWriter, QObject *parent): QObject(parent)
 {
-    this->_serverPort = serverPort;
+    this->settings = settings;
+    this->logWriter = logWriter;
 }
 
 
@@ -33,6 +34,11 @@ ProtocolHandler::~ProtocolHandler()
     if (cryptoDataRequest != nullptr){
         delete cryptoDataRequest;
         cryptoDataRequest = nullptr;
+    }
+
+    if (settings != nullptr){
+        delete settings;
+        settings = nullptr;
     }
 }
 
@@ -133,7 +139,7 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
     connect(shDataSocket, &QTcpSocket::connected, this, &ProtocolHandler::shDataSocket_onConnected);
     connect(shDataSocket, &QTcpSocket::disconnected, this, &ProtocolHandler::shDataSocket_onDisconnected);
     connect(shDataSocket, &QTcpSocket::readyRead, this, &ProtocolHandler::shDataSocket_onReadyRead);
-    shDataSocket->connectToHost("127.0.0.1", this->_serverPort);
+    shDataSocket->connectToHost("127.0.0.1", this->settings->shPort());
 }
 
 

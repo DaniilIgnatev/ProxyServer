@@ -12,7 +12,7 @@ class Server : public QTcpServer
 {
     Q_OBJECT
 
-    Settings _settings;
+    Settings* _settings;
 
     bool _listening = false;
 
@@ -21,6 +21,9 @@ public:
 
 
     Server(QObject *parent = nullptr);
+
+
+    ~Server();
 
 
     bool listen();

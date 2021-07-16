@@ -4,22 +4,28 @@
 
 Settings Server::settings()
 {
-    QString configPath = _settings.configPath();
-    qDebug() << "ini file path: " << configPath;
-    return this->_settings;
+    return *_settings;
 }
 
 
 Server::Server(QObject *parent): QTcpServer(parent)
 {
-    _settings.read();
+    _settings->read();
+    QString configPath = _settings->configPath();
+    qDebug() << "ini file path: " << configPath;
+}
+
+
+Server::~Server(){
+    delete _settings;
+    _settings = nullptr;
 }
 
 
 bool Server::listen()
 {
-    if (this->_settings.hasProxyPort() && this->settings().initialized()){
-        this->_listening = this->QTcpServer::listen(QHostAddress::Any, _settings.proxyPort());
+    if (this->_settings->initialized()){
+        this->_listening = this->QTcpServer::listen(QHostAddress::Any, _settings->proxyPort());
         return _listening;
     }
     else{
@@ -48,6 +54,6 @@ QString Server::startupInfo()
 
 void Server::incomingConnection(qintptr socketDescriptor)
 {
-    Session* client = new Session(socketDescriptor, settings());
+    Session* client = new Session(socketDescriptor, _settings);
 }
 

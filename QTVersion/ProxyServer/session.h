@@ -11,6 +11,7 @@
 #include "json_extension.h"
 #include <QFile>
 #include "settings.h"
+#include "logwriter.h"
 
 
 /*
@@ -24,15 +25,13 @@ class Session : public QObject
 {
     Q_OBJECT
 public:
-    Session(quint16 socketDescriptor, Settings settings);
+    Session(quint16 socketDescriptor, Settings* settings);
+
 
     ~Session();
 
+
     quint16 socketDescriptor;
-
-    void send(QString &message);
-
-    QFile* logFile = nullptr;
 
 
 signals:
@@ -44,6 +43,9 @@ public slots:
 
 
 private:
+
+    LogWriter *logWriter = nullptr;
+
 
     QThread *thread;
 
