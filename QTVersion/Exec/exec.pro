@@ -21,6 +21,7 @@ SOURCES += \
         ../ProxyServer/Protocol/request.cpp \
         ../ProxyServer/Protocol/response.cpp \
         ../ProxyServer/json_extension.cpp \
+        ../ProxyServer/logwriter.cpp \
         ../ProxyServer/server.cpp \
         ../ProxyServer/session.cpp \
         ../ProxyServer/settings.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     ../ProxyServer/Protocol/request.h \
     ../ProxyServer/Protocol/response.h \
     ../ProxyServer/json_extension.h \
+    ../ProxyServer/logwriter.h \
     ../ProxyServer/server.h \
     ../ProxyServer/session.h \
     ../ProxyServer/settings.h

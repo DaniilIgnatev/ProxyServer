@@ -9,6 +9,8 @@
 #include "Protocol/protocolhandler.h"
 #include <QtDebug>
 #include "json_extension.h"
+#include <QFile>
+#include "settings.h"
 
 
 /*
@@ -22,13 +24,15 @@ class Session : public QObject
 {
     Q_OBJECT
 public:
-    Session(quint16 socketDescriptor, int serverPort);
+    Session(quint16 socketDescriptor, Settings settings);
 
     ~Session();
 
     quint16 socketDescriptor;
 
     void send(QString &message);
+
+    QFile* logFile = nullptr;
 
 
 signals:

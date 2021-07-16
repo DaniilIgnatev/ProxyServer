@@ -1,7 +1,7 @@
 #include "session.h"
 
 
-Session::Session(quint16 socketDescriptor, int serverPort): QObject(0)
+Session::Session(quint16 socketDescriptor, Settings settings): QObject(0)
 {
     thread = new QThread();
     thread->start();
@@ -9,7 +9,8 @@ Session::Session(quint16 socketDescriptor, int serverPort): QObject(0)
     this->socketDescriptor = socketDescriptor;
     connect(this->thread, &QThread::finished, this, &Session::deleteLater);
 
-    protocolHandler = new ProtocolHandler(serverPort, this);
+    int shServerPort = settings.shPort();
+    protocolHandler = new ProtocolHandler(shServerPort, this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
     connect(protocolHandler,&ProtocolHandler::responseReady, this, &Session::handleResponse);
 
@@ -20,6 +21,12 @@ Session::Session(quint16 socketDescriptor, int serverPort): QObject(0)
 
     connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
     connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
+
+    //log
+    QString logPath = settings.logsPath();
+    logFile = new QFile(logPath, this);
+    logFile->open(QFile::WriteOnly);
+    logFile->write("Socket opened");
 
     this->moveToThread(thread);
 }
@@ -32,8 +39,11 @@ Session::~Session()
     delete readData;
     delete readStream;
     qDebug() << "Session deinited";
-}
 
+    logFile->write("Session deinited");
+    logFile->close();
+    logFile->deleteLater();
+}
 
 
 void Session::send(QString &message)
