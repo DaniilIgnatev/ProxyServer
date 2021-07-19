@@ -10,15 +10,18 @@ Settings Server::settings()
 
 Server::Server(QObject *parent): QTcpServer(parent)
 {
-    _settings->read();
+    _settings = new Settings();
     QString configPath = _settings->configPath();
     qDebug() << "ini file path: " << configPath;
+    _settings->read();
 }
 
 
 Server::~Server(){
-    delete _settings;
-    _settings = nullptr;
+    if (_settings != nullptr){
+        delete _settings;
+        _settings = nullptr;
+    }
 }
 
 

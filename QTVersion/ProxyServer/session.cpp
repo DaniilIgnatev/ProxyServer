@@ -14,6 +14,9 @@ Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
     logWriter = new LogWriter(logDirPath, QString::number(socketDescriptor), this);
     logWriter->log("SESSION INIT");
 
+    logWriter->log("THREAD ID:");
+    logWriter->log(QString::number((uint64_t)thread).toUtf8());
+
     //protocolHandler
     protocolHandler = new ProtocolHandler(settings, logWriter, this);
     connect(this, &Session::requestReady, protocolHandler, &ProtocolHandler::handleRequest);
@@ -33,12 +36,15 @@ Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
 
 Session::~Session()
 {
+    logWriter->log("THREAD ID:");
+    logWriter->log(QString::number((uint64_t)thread).toUtf8());
     logWriter->log("SESSION DEINIT");
     socket->deleteLater();
     protocolHandler->deleteLater();
     logWriter->deleteLater();
     delete readData;
     delete readStream;
+    thread->deleteLater();
 }
 
 
@@ -76,14 +82,11 @@ void Session::readyRead()
 
 
     if (request_size == bytes_read){
-        logWriter->log("PACKAGE FETCHED ");
+        logWriter->log("CLIENT SOCKET READ");
+        logWriter->log("BYTES: ");
         logWriter->log(QString::number(request_size).toUtf8());
-        logWriter->log(" BYTES.");
 
-        logWriter->log("THREAD ID:");
-        logWriter->log(QString::number((uint64_t)QThread::currentThreadId()).toUtf8());
-        logWriter->log("READ DATA:\n");
-
+        logWriter->log("CONTENT:\n");
         logWriter->log(readData);
 
         emit requestReady(*readData);
@@ -101,11 +104,16 @@ void Session::readyRead()
 void Session::handleResponse(QByteArray &response)
 {
     JSON_Extension::makeResponseArray(response);
-    //qDebug("%s",response.data());
 
     response_size = response.size();
     response.insert(0,(char*)&response_size,4);
-    logWriter->log("RESPONSE DATA:\n");
+
+    logWriter->log("CLIENT SOCKET WRITE:\n");
+    logWriter->log("BYTES: ");
+    logWriter->log(QString::number(response.size()).toUtf8());
+    logWriter->log("CONTENT:\n");
+    logWriter->log(response);
+
     socket->write(response);
 }
 

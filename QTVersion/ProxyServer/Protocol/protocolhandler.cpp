@@ -40,12 +40,17 @@ ProtocolHandler::~ProtocolHandler()
         delete settings;
         settings = nullptr;
     }
+
+    if (shDataSocket != nullptr){
+        shDataSocket->deleteLater();
+        shDataSocket = nullptr;
+    }
 }
 
 
 void ProtocolHandler::handleRequest(QByteArray &requestData)
 {
-    qDebug() << "ProtocolHandler::handleRequest, thread: " << QThread::currentThreadId();
+    //qDebug() << "ProtocolHandler::handleRequest, thread: " << QThread::currentThreadId();
 
     QJsonDocument requestDocument = QJsonDocument::fromJson(requestData);
     QJsonArray request_list = requestDocument.array();
@@ -75,14 +80,15 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
 }
 
 
+//CRYPTO_HANDSHAKE
 void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 {
-    qDebug("ProtocolHandler::handleCryptoHandshakeRequest");
+    logWriter->log("ProtocolHandler::handleCryptoHandshakeRequest");
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
 
-    qDebug("%s",QJsonDocument(request_obj).toJson().data());
+    //qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHCryptoHandshakeRequest handshake;
     handshake.read(request_obj);
@@ -112,12 +118,12 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 //CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
-    qDebug("ProtocolHandler::handleCryptoDataRequest");
+    logWriter->log("ProtocolHandler::handleCryptoDataRequest");
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
 
-    qDebug("%s",QJsonDocument(request_obj).toJson().data());
+    //qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHCryptoDataRequest dataRequest;
     dataRequest.read(request_obj);
@@ -143,20 +149,65 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 }
 
 
-void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCode)
+//UNKNOWN_REQUEST
+void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 {
-    if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError){
-        QException exception;
-        handleException(exception, errorCode);
-    }
+    qDebug("ProtocolHandler::handleUnknownRequest");
+
+    status = ProtocolHandlerStatus::error;
+
+    qDebug("%s",QJsonDocument(request_obj).toJson().data());
+
+    SHStatusResponse unknownResponse;
+    unknownResponse.result_message = "error";
+    unknownResponse.result_message = "unknown request type";
+
+    QJsonObject jsonObject;
+    unknownResponse.write(jsonObject);
+
+    QJsonDocument jsonDocument(jsonObject);
+    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
+
+    emit responseReady(result);
 }
 
 
+//EXCEPTION
+void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketError errorCode)
+{
+    qDebug("ProtocolHandler::handleException");
+    qDebug("%s", e.what());
+
+    status = ProtocolHandlerStatus::error;
+
+    SHStatusResponse exceptionResponse;
+    exceptionResponse.result_message = "error";
+    exceptionResponse.result_message = "exception occured";
+    exceptionResponse.result_message.append(qPrintable(e.what()));
+
+    QJsonObject jsonObject;
+    exceptionResponse.write(jsonObject);
+
+    QJsonDocument jsonDocument(jsonObject);
+    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact).data();
+
+    emit responseReady(result);
+}
+
+
+
+//SH_SOCKET_EVENTS
 void ProtocolHandler::shDataSocket_onConnected()
 {
-    qDebug("ProtocolHandler::shDataSocket_onConnected");
-
+    logWriter->log("ProtocolHandler::shDataSocket_onConnected");
     shDataSocket->write(*bytesToServer);
+
+    logWriter->log("SH SOCKET DID WRITE");
+    logWriter->log("BYTES: ");
+    logWriter->log(QString::number(bytesToServer->size()).toUtf8());
+
+    logWriter->log("CONTENT:\n");
+    logWriter->log(bytesToServer);
 
     delete bytesToServer;
     bytesToServer = nullptr;
@@ -165,21 +216,14 @@ void ProtocolHandler::shDataSocket_onConnected()
 
 void ProtocolHandler::shDataSocket_onDisconnected()
 {
-    qDebug("ProtocolHandler::shDataSocket_onDisconnected");
-
-    qDebug() << "Сервер УД завершил обмен данными, получено";
-    qDebug() << bytes_read;
-    qDebug() << " байт.";
-
-    qDebug() << "shDataSocket_onDisconnected thread id" << QThread::currentThreadId();
-
+    logWriter->log("ProtocolHandler::shDataSocket_onDisconnected");
     processResponse();
 }
 
 
 void ProtocolHandler::shDataSocket_onReadyRead()
 {
-    qDebug("ProtocolHandler::shDataSocket_onReadyRead");
+    logWriter->log("ProtocolHandler::shDataSocket_onReadyRead", false);
 
     if (!stayAlive){
         if (onReadDataTimer == nullptr){
@@ -206,10 +250,7 @@ void ProtocolHandler::shDataSocket_onReadyRead()
     QByteArray newReadData = shDataSocket->readAll();
     readData->append(newReadData);
     bytes_read += bytes_read_add;
-
-    qDebug() << "Получено ";
-    qDebug() << bytes_read;
-    qDebug() << " байт.";
+    timeoutTimes = 0;
 
     if (stayAlive){
         processResponse();
@@ -218,13 +259,32 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 
 
 void ProtocolHandler::onReadDataTimeout(){
-    qDebug("ProtocolHandler::onReadDataTimeout");
+    timeoutTimes++;
+    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8());
 
     if (bytes_read > 0 && (!readData->endsWith("}]" && readData->startsWith("[{")))){
-        qDebug("bytesAvailable");
-        onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+        if (timeoutTimes * ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS){
+            logWriter->log("MORE BYTES ARE AVAILABLE");
+            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+        }
+        else{
+            shDataSocket->close();
+        }
     }
-    shDataSocket->close();
+    else{
+        if (timeoutTimes * ON_READ_TIMEOUT_MS >= ON_READ_MAX_TIMEOUT_EMPTY_MS){
+            shDataSocket->close();
+        }
+    }
+}
+
+
+void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCode)
+{
+    if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError){
+        QException exception;
+        handleException(exception, errorCode);
+    }
 }
 
 
@@ -233,6 +293,7 @@ void ProtocolHandler::processResponse(){
         QString unsecuredResponse = QString::fromUtf8(*readData);
         readData->clear();
         bytes_read = 0;
+        timeoutTimes = 0;
 
         SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
         QJsonObject responseObject;
@@ -243,48 +304,4 @@ void ProtocolHandler::processResponse(){
 
         emit responseReady(responseData);
     }
-}
-
-
-void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
-{
-    qDebug("ProtocolHandler::handleUnknownRequest");
-
-    status = ProtocolHandlerStatus::error;
-
-    qDebug("%s",QJsonDocument(request_obj).toJson().data());
-
-    SHStatusResponse unknownResponse;
-    unknownResponse.result_message = "error";
-    unknownResponse.result_message = "unknown request type";
-
-    QJsonObject jsonObject;
-    unknownResponse.write(jsonObject);
-
-    QJsonDocument jsonDocument(jsonObject);
-    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
-
-    emit responseReady(result);
-}
-
-
-void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketError errorCode)
-{
-    qDebug("ProtocolHandler::handleException");
-    qDebug("%s", e.what());
-
-    status = ProtocolHandlerStatus::error;
-
-    SHStatusResponse exceptionResponse;
-    exceptionResponse.result_message = "error";
-    exceptionResponse.result_message = "exception occured";
-    exceptionResponse.result_message.append(qPrintable(e.what()));
-
-    QJsonObject jsonObject;
-    exceptionResponse.write(jsonObject);
-
-    QJsonDocument jsonDocument(jsonObject);
-    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact).data();
-
-    emit responseReady(result);
 }

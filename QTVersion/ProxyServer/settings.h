@@ -42,52 +42,11 @@ public:
 
     const QString iniFileName = "config.ini";
 
-    QString configPath(){
-        auto kernal = QSysInfo::kernelType();
-        if (kernal == "winnt"){
-            return QDir::toNativeSeparators("C:/" + RootDirName + "/" + iniFileName);
-        }
-        else{
-            QString homePath = QDir::homePath();
-            return QDir::toNativeSeparators(homePath + "/" +  RootDirName + "/" + iniFileName);
-        }
-    }
+
+    QString configPath();
 
 
-    QString diagnostics(){
-        QString message = "";
-
-        if (!hasLogsPath()){
-            message += "Settings are missing the " + key_logsPath + "\n";
-        }
-        else{
-            message += key_logsPath + ": " + logsPath() + "\n";
-        }
-
-        if (!hasProxyPort()){
-            message += "Settings are missing the " + key_proxyPort + "\n";
-        }
-        else{
-            message += key_proxyPort + ": " + proxyPort() + "\n";
-        }
-
-        if (!hasSHAdress()){
-            message += "Settings are missing the " + key_shAdress + "\n";
-        }
-        else{
-            message += key_shAdress + ": " + shAdress() + "\n";
-        }
-
-        if (!hasSHPort()){
-            message += "Settings are missing the " + key_shPort + "\n";
-        }
-        else{
-            message += key_shPort + ": " + shPort() + "\n";
-        }
-
-        message = QDir::toNativeSeparators(message);
-        return message;
-    }
+    QString diagnostics();
 
 
     bool initialized();
