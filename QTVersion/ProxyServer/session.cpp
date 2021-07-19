@@ -4,6 +4,7 @@
 Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
 {
     this->socketDescriptor = socketDescriptor;
+    this->settings = settings;
 
     thread = new QThread();
     thread->start();
@@ -11,11 +12,12 @@ Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
 
     //log
     QString logDirPath = settings->logsPath();
-    logWriter = new LogWriter(logDirPath, QString::number(socketDescriptor), this);
-    logWriter->log("SESSION INIT");
+    logWriter = new LogWriter(settings->logsEnabled(), settings->logSocketStatus(), settings->logSocketContent(), logDirPath, QString::number(socketDescriptor), this);
 
-    logWriter->log("THREAD ID:");
-    logWriter->log(QString::number((uint64_t)thread).toUtf8());
+    logWriter->log("SESSION INIT\n", LogWriter::Status);
+
+    logWriter->log("THREAD ID: ", LogWriter::Status);
+    logWriter->log(QString::number((uint64_t)thread).toUtf8() + "\n", LogWriter::Status);
 
     //protocolHandler
     protocolHandler = new ProtocolHandler(settings, logWriter, this);
@@ -25,7 +27,7 @@ Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
     //client socket
     socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
-    logWriter->log("SOCKET OPENED");
+    logWriter->log("SOCKET OPENED\n", LogWriter::Status);
 
     connect(socket, &QTcpSocket::disconnected, this, &Session::socketClosed);
     connect(socket, &QTcpSocket::readyRead, this, &Session::readyRead);
@@ -36,14 +38,15 @@ Session::Session(quint16 socketDescriptor, Settings* settings): QObject(0)
 
 Session::~Session()
 {
-    logWriter->log("THREAD ID:");
-    logWriter->log(QString::number((uint64_t)thread).toUtf8());
-    logWriter->log("SESSION DEINIT");
+    logWriter->log("THREAD ID: ", LogWriter::Status);
+    logWriter->log(QString::number((uint64_t)thread).toUtf8() + "\n", LogWriter::Status);
+    logWriter->log("SESSION DEINIT\n", LogWriter::Status);
     socket->deleteLater();
-    protocolHandler->deleteLater();
-    logWriter->deleteLater();
+    delete protocolHandler;
     delete readData;
     delete readStream;
+
+    logWriter->deleteLater();
     thread->deleteLater();
 }
 
@@ -61,9 +64,9 @@ void Session::readyRead()
         if (socket->bytesAvailable() > 4){
             *readStream >> request_size;
 
-            logWriter->log("READY READ ", false);
-            logWriter->log(QString::number(request_size).toUtf8(), false);
-            logWriter->log(" BYTES.", false);
+            logWriter->log("READY READ ", LogWriter::Status, false);
+            logWriter->log(QString::number(request_size).toUtf8(), LogWriter::Status, false);
+            logWriter->log(" BYTES.", LogWriter::Status, false);
         }
         else{
             return;
@@ -76,18 +79,19 @@ void Session::readyRead()
     readData->append(newReadData);
     bytes_read += bytes_read_add;
 
-    logWriter->log("ACCUMULATED ", false);
-    logWriter->log(QString::number(bytes_read).toUtf8(), false);
-    logWriter->log(" bytes.", false);
+    logWriter->log("ACCUMULATED ", LogWriter::Status, false);
+    logWriter->log(QString::number(bytes_read).toUtf8(), LogWriter::Status, false);
+    logWriter->log(" bytes.", LogWriter::Status, false);
 
 
     if (request_size == bytes_read){
-        logWriter->log("CLIENT SOCKET READ");
-        logWriter->log("BYTES: ");
-        logWriter->log(QString::number(request_size).toUtf8());
+        logWriter->log("\nCLIENT SOCKET READ\n", LogWriter::Status);
+        logWriter->log("BYTES: ", LogWriter::Status);
+        logWriter->log(QString::number(request_size).toUtf8() + "\n", LogWriter::Status);
 
-        logWriter->log("CONTENT:\n");
-        logWriter->log(readData);
+        logWriter->log("\nCONTENT:\n", LogWriter::Content);
+        logWriter->log(readData, LogWriter::Content);
+        logWriter->log("\n\n", LogWriter::Content);
 
         emit requestReady(*readData);
 
@@ -106,13 +110,15 @@ void Session::handleResponse(QByteArray &response)
     JSON_Extension::makeResponseArray(response);
 
     response_size = response.size();
-    response.insert(0,(char*)&response_size,4);
+    response.insert(0,(char*)&response_size, 4);
 
-    logWriter->log("CLIENT SOCKET WRITE:\n");
-    logWriter->log("BYTES: ");
-    logWriter->log(QString::number(response.size()).toUtf8());
-    logWriter->log("CONTENT:\n");
-    logWriter->log(response);
+    logWriter->log("\nCLIENT SOCKET WRITE:\n", LogWriter::Status);
+    logWriter->log("BYTES: ", LogWriter::Status);
+    logWriter->log(QString::number(response.size()).toUtf8() + "\n", LogWriter::Status);
+
+    logWriter->log("\nCONTENT:\n", LogWriter::Content);
+    logWriter->log(response, LogWriter::Content);
+    logWriter->log("\n\n", LogWriter::Content);
 
     socket->write(response);
 }
@@ -120,6 +126,6 @@ void Session::handleResponse(QByteArray &response)
 
 void Session::socketClosed()
 {
-    logWriter->log("SOCKET CLOSED");
+    logWriter->log("SOCKET CLOSED\n", LogWriter::Status);
     this->thread->exit();
 }

@@ -36,15 +36,17 @@ ProtocolHandler::~ProtocolHandler()
         cryptoDataRequest = nullptr;
     }
 
-    if (settings != nullptr){
-        delete settings;
-        settings = nullptr;
-    }
-
     if (shDataSocket != nullptr){
         shDataSocket->deleteLater();
         shDataSocket = nullptr;
     }
+
+    if (bytesToServer != nullptr){
+        delete bytesToServer;
+        bytesToServer = nullptr;
+    }
+
+    logWriter->log("PROTOCOL HANDLER DEINIT\n", LogWriter::Protocol);
 }
 
 
@@ -83,7 +85,7 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
 //CRYPTO_HANDSHAKE
 void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 {
-    logWriter->log("ProtocolHandler::handleCryptoHandshakeRequest");
+    logWriter->log("ProtocolHandler::handleCryptoHandshakeRequest\n", LogWriter::Protocol);
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
@@ -118,7 +120,7 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 //CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
-    logWriter->log("ProtocolHandler::handleCryptoDataRequest");
+    logWriter->log("ProtocolHandler::handleCryptoDataRequest\n", LogWriter::Protocol);
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
@@ -145,18 +147,18 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
     connect(shDataSocket, &QTcpSocket::connected, this, &ProtocolHandler::shDataSocket_onConnected);
     connect(shDataSocket, &QTcpSocket::disconnected, this, &ProtocolHandler::shDataSocket_onDisconnected);
     connect(shDataSocket, &QTcpSocket::readyRead, this, &ProtocolHandler::shDataSocket_onReadyRead);
-    shDataSocket->connectToHost("127.0.0.1", this->settings->shPort());
+    shDataSocket->connectToHost(this->settings->shAdress(), this->settings->shPort());
 }
 
 
 //UNKNOWN_REQUEST
 void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 {
-    qDebug("ProtocolHandler::handleUnknownRequest");
+    logWriter->log("ProtocolHandler::handleUnknownRequest\n", LogWriter::Protocol);
 
     status = ProtocolHandlerStatus::error;
 
-    qDebug("%s",QJsonDocument(request_obj).toJson().data());
+    //qDebug("%s",QJsonDocument(request_obj).toJson().data());
 
     SHStatusResponse unknownResponse;
     unknownResponse.result_message = "error";
@@ -175,8 +177,8 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 //EXCEPTION
 void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketError errorCode)
 {
-    qDebug("ProtocolHandler::handleException");
-    qDebug("%s", e.what());
+    logWriter->log("ProtocolHandler::handleException: ", LogWriter::Protocol);
+    logWriter->log((QString(e.what()) + "\n").toUtf8(), LogWriter::Protocol);
 
     status = ProtocolHandlerStatus::error;
 
@@ -199,31 +201,37 @@ void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketErro
 //SH_SOCKET_EVENTS
 void ProtocolHandler::shDataSocket_onConnected()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onConnected");
-    shDataSocket->write(*bytesToServer);
+    logWriter->log("ProtocolHandler::shDataSocket_onConnected\n", LogWriter::Status);
 
-    logWriter->log("SH SOCKET DID WRITE");
-    logWriter->log("BYTES: ");
-    logWriter->log(QString::number(bytesToServer->size()).toUtf8());
+    if (bytesToServer != nullptr && bytesToServer->length() > 0){
+        shDataSocket->write(*bytesToServer);
 
-    logWriter->log("CONTENT:\n");
-    logWriter->log(bytesToServer);
+        logWriter->log("SH SOCKET DID WRITE\n", LogWriter::Status);
+        logWriter->log("BYTES: ", LogWriter::Status);
+        logWriter->log(QString::number(bytesToServer->size()).toUtf8() + "\n", LogWriter::Status);
 
-    delete bytesToServer;
-    bytesToServer = nullptr;
+        logWriter->log("\nCONTENT:\n", LogWriter::Content);
+        logWriter->log(bytesToServer, LogWriter::Content);
+        logWriter->log("\n\n", LogWriter::Content);
+    }
+
+    if (bytesToServer != nullptr){
+        delete bytesToServer;
+        bytesToServer = nullptr;
+    }
 }
 
 
 void ProtocolHandler::shDataSocket_onDisconnected()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onDisconnected");
+    logWriter->log("ProtocolHandler::shDataSocket_onDisconnected\n", LogWriter::Status);
     processResponse();
 }
 
 
 void ProtocolHandler::shDataSocket_onReadyRead()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onReadyRead", false);
+    logWriter->log("ProtocolHandler::shDataSocket_onReadyRead\n", LogWriter::Status, false);
 
     if (!stayAlive){
         if (onReadDataTimer == nullptr){
@@ -260,19 +268,21 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 
 void ProtocolHandler::onReadDataTimeout(){
     timeoutTimes++;
-    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8());
+    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8() + "\n", LogWriter::Status);
 
     if (bytes_read > 0 && (!readData->endsWith("}]" && readData->startsWith("[{")))){
         if (timeoutTimes * ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS){
-            logWriter->log("MORE BYTES ARE AVAILABLE");
+            logWriter->log("MORE BYTES ARE AVAILABLE", LogWriter::Status);
             onReadDataTimer->start(ON_READ_TIMEOUT_MS);
         }
         else{
+            logWriter->log("CRYTICAL TIMEOUT WITH SOME DATA", LogWriter::Status);
             shDataSocket->close();
         }
     }
     else{
         if (timeoutTimes * ON_READ_TIMEOUT_MS >= ON_READ_MAX_TIMEOUT_EMPTY_MS){
+            logWriter->log("CRYTICAL TIMEOUT WITHOUT ANY DATA", LogWriter::Status);
             shDataSocket->close();
         }
     }

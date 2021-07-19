@@ -19,18 +19,11 @@ QString Settings::diagnostics()
 {
     QString message = "";
 
-    if (!hasLogsPath()){
-        message += "Settings are missing the " + key_logsPath + "\n";
-    }
-    else{
-        message += key_logsPath + ": " + logsPath() + "\n";
-    }
-
     if (!hasProxyPort()){
         message += "Settings are missing the " + key_proxyPort + "\n";
     }
     else{
-        message += key_proxyPort + ": " + proxyPort() + "\n";
+        message += key_proxyPort + ": " + QString::number(proxyPort()) + "\n";
     }
 
     if (!hasSHAdress()){
@@ -44,8 +37,21 @@ QString Settings::diagnostics()
         message += "Settings are missing the " + key_shPort + "\n";
     }
     else{
-        message += key_shPort + ": " + shPort() + "\n";
+        message += key_shPort + ": " + QString::number(shPort()) + "\n";
     }
+
+    if (!hasLogsPath()){
+        message += "Settings are missing the " + key_logsPath + "\n";
+    }
+    else{
+        message += key_logsPath + ": " + logsPath() + "\n";
+    }
+
+    message += key_logsEnabled + ": " + (logsEnabled() ? "true" : "false") + "\n";
+
+    message += key_logSocketStatus + ": " + (logSocketStatus() ? "true" : "false") + "\n";
+
+    message += key_logSocketContent + ": " + (logSocketContent() ? "true" : "false") + "\n";
 
     message = QDir::toNativeSeparators(message);
     return message;
@@ -54,7 +60,10 @@ QString Settings::diagnostics()
 
 bool Settings::initialized()
 {
-    return hasLogsPath() && hasProxyPort() && hasSHAdress() && hasSHPort();
+    return hasLogsPath() &&
+           hasProxyPort() &&
+           hasSHAdress() &&
+           hasSHPort();
 }
 
 
@@ -106,6 +115,24 @@ bool Settings::hasLogsPath()
 }
 
 
+bool Settings::logSocketStatus()
+{
+    return this->_logSocketStatus;
+}
+
+
+bool Settings::logSocketContent()
+{
+    return this->_logSocketContent;
+}
+
+
+bool Settings::logsEnabled()
+{
+    return this->_logsEnabled;
+}
+
+
 Settings::Settings()
 {
 
@@ -116,10 +143,14 @@ void Settings::read()
 {
     QSettings ini(this->configPath(), QSettings::Format::IniFormat);
 
-    QString defaultStr = "";
-
-    this->_logsPath = ini.value(key_logsPath, defaultStr).toString();
     this->_proxyPort = ini.value(key_proxyPort).toInt(&(this->_hasProxyPort));
+
     this->_shPort = ini.value(key_shPort).toInt(&(this->_hasSHPort));
-    this->_shAdress = ini.value(key_shAdress, defaultStr).toString();
+    this->_shAdress = ini.value(key_shAdress, "localhost").toString();
+
+    this->_logsPath = ini.value(key_logsPath).toString();
+    this->_logsEnabled = ini.value(key_logsEnabled).toBool();
+
+    this->_logSocketStatus = ini.value(key_logSocketStatus).toBool();
+    this->_logSocketContent = ini.value(key_logSocketContent).toBool();
 }

@@ -28,17 +28,30 @@ private:
 
     QString _logsPath = "";
 
+
+    bool _hasLogsEnabled = false;
+
+    bool _logsEnabled = false;
+
+
+    bool _hasLogSocketStatus = false;
+
+    bool _logSocketStatus = false;
+
+
+    bool _hasLogSocketContent = false;
+
+    bool _logSocketContent = false;
+
+
+
 public:
 
-    const QString key_proxyPort = "proxyport";
+    Settings();
 
-    const QString key_shPort = "shport";
-
-    const QString key_shAdress = "shadress";
-
-    const QString key_logsPath = "logspath";
 
     const QString RootDirName = "SHProxyServer";
+
 
     const QString iniFileName = "config.ini";
 
@@ -46,10 +59,7 @@ public:
     QString configPath();
 
 
-    QString diagnostics();
-
-
-    bool initialized();
+    const QString key_proxyPort = "proxyport";
 
 
     int proxyPort();
@@ -58,10 +68,16 @@ public:
     bool hasProxyPort();
 
 
+    const QString key_shPort = "shport";
+
+
     int shPort();
 
 
     bool hasSHPort();
+
+
+    const QString key_shAdress = "shadress";
 
 
     QString shAdress();
@@ -70,13 +86,38 @@ public:
     bool hasSHAdress();
 
 
+    const QString key_logsPath = "logspath";
+
+
     QString logsPath();
 
 
     bool hasLogsPath();
 
 
-    Settings();
+    const QString key_logsEnabled = "logsenabled";
+
+
+    bool logsEnabled();
+
+
+    const QString key_logSocketContent = "logsocketcontent";
+
+
+    bool logSocketContent();
+
+
+    const QString key_logSocketStatus = "logsocketstatus";
+
+
+    bool logSocketStatus();
+
+
+
+    QString diagnostics();
+
+
+    bool initialized();
 
 
     void read();

@@ -44,16 +44,19 @@ public slots:
 
 private:
 
+    Settings *settings = nullptr;
+
+
     LogWriter *logWriter = nullptr;
 
 
-    QThread *thread;
+    QThread *thread = nullptr;
 
 
-    ProtocolHandler *protocolHandler;
+    ProtocolHandler *protocolHandler = nullptr;
 
 
-    QTcpSocket* socket;
+    QTcpSocket* socket = nullptr;
 
 
     ///Всего для чтения
