@@ -24,15 +24,23 @@ LogWriter::LogWriter(bool enabled, bool statusEnabled, bool contentEnabled, QStr
     logDir = new QDir(logDirPath);
 
     if (enabled){
-        QString nowStr = QDateTime::currentDateTime().toString(Qt::DateFormat::DefaultLocaleLongDate);
+        QDateTime nowDateTime = QDateTime::currentDateTime();
+        QDate nowDate = nowDateTime.date();
+        QTime nowTime = nowDateTime.time();
+        QString nowStr = QString::number(nowDate.day()) + "d_" + QString::number(nowDate.month()) + "m_" + QString::number(nowTime.hour()) + "h_" +QString::number(nowTime.minute()) + "m_" + QString::number(nowTime.second()) + "s_" + QString::number(nowTime.msec()) + "ms";
         QString logFilePath = logDirPath + "/" + nowStr;
         if (id != ""){
-            logFilePath += "_" + id;
+            logFilePath += "_" + id + "id";
         }
         logFilePath += ".txt";
 
+        logFilePath = QDir::toNativeSeparators(logFilePath);
         logFile = new QFile(logFilePath);
-        logFile->open(QFile::WriteOnly);
+
+        bool opened = logFile->open(QIODevice::WriteOnly | QIODevice::Text);
+        if (!opened){
+            qDebug() << "Error opening file " << logFilePath;
+        }
     }
 }
 
