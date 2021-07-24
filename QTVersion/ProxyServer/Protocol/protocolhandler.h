@@ -23,13 +23,13 @@
 
 
 
-#define ON_READ_TIMEOUT_MS 100
+//#define ON_READ_TIMEOUT_MS 100
 
 
-#define ON_READ_MAX_TIMEOUT_DATA_MS 10000
+//#define ON_READ_MAX_TIMEOUT_DATA_MS 10000
 
 
-#define ON_READ_MAX_TIMEOUT_EMPTY_MS 1000
+//#define ON_READ_MAX_TIMEOUT_EMPTY_MS 1000
 
 
 enum ProtocolHandlerStatus{
@@ -58,7 +58,7 @@ public slots:
     void shDataSocket_onConnected();
     void shDataSocket_onDisconnected();
     void shDataSocket_onReadyRead();
-    void onReadDataTimeout();
+    //void onReadDataTimeout();
 private:
 
     LogWriter* logWriter;
@@ -71,7 +71,7 @@ private:
     QTcpSocket* shDataSocket = nullptr;
 
 
-    QTimer* onReadDataTimer = nullptr;
+    //QTimer* onReadDataTimer = nullptr;
 
 
     int timeoutTimes = 0;
