@@ -233,17 +233,15 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 {
     logWriter->log("ProtocolHandler::shDataSocket_onReadyRead\n", LogWriter::Status, false);
 
-//    if (!stayAlive){
-//        if (onReadDataTimer == nullptr){
-//            onReadDataTimer = new QTimer(this);
-//            onReadDataTimer->setSingleShot(true);
-//            connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
-//            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
-//        }
-//        else{
-//            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
-//        }
-//    }
+    if (!stayAlive){
+        if (onReadDataTimer == nullptr){
+            onReadDataTimer = new QTimer(this);
+            onReadDataTimer->setSingleShot(true);
+            connect(onReadDataTimer, &QTimer::timeout, this, &ProtocolHandler::onReadDataTimeout);
+        }
+
+        onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+    }
 
 
     if (readData == nullptr){
@@ -266,27 +264,27 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 }
 
 
-//void ProtocolHandler::onReadDataTimeout(){
-//    timeoutTimes++;
-//    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8() + "\n", LogWriter::Status);
+void ProtocolHandler::onReadDataTimeout(){
+    timeoutTimes++;
+    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8() + "\n", LogWriter::Status);
 
-//    if (bytes_read > 0 && (!readData->endsWith("}]" && readData->startsWith("[{")))){
-//        if (timeoutTimes * ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS){
-//            logWriter->log("MORE BYTES ARE AVAILABLE", LogWriter::Status);
-//            //onReadDataTimer->start(ON_READ_TIMEOUT_MS);
-//        }
-//        else{
-//            logWriter->log("CRYTICAL TIMEOUT WITH SOME DATA", LogWriter::Status);
-//            shDataSocket->close();
-//        }
-//    }
-//    else{
-//        if (timeoutTimes * ON_READ_TIMEOUT_MS >= ON_READ_MAX_TIMEOUT_EMPTY_MS){
-//            logWriter->log("CRYTICAL TIMEOUT WITHOUT ANY DATA", LogWriter::Status);
-//            shDataSocket->close();
-//        }
-//    }
-//}
+    if (bytes_read > 0 /*&& (!readData->endsWith("}]" && readData->startsWith("[{")))*/){
+        if (timeoutTimes * ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS){
+            logWriter->log("MORE BYTES ARE AVAILABLE", LogWriter::Status);
+            onReadDataTimer->start(ON_READ_TIMEOUT_MS);
+        }
+        else{
+            logWriter->log("CRYTICAL TIMEOUT WITH SOME DATA", LogWriter::Status);
+            shDataSocket->close();
+        }
+    }
+    else{
+        if (timeoutTimes * ON_READ_TIMEOUT_MS >= ON_READ_MAX_TIMEOUT_EMPTY_MS){
+            logWriter->log("CRYTICAL TIMEOUT WITHOUT ANY DATA", LogWriter::Status);
+            shDataSocket->close();
+        }
+    }
+}
 
 
 void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCode)
