@@ -15,22 +15,29 @@ bool LogWriter::modeEnabled(LogWriter::LogWriterEnum mode)
 }
 
 
-LogWriter::LogWriter(bool enabled, bool statusEnabled, bool contentEnabled, QString logDirPath, QString id, QObject *parent): QObject(parent)
+LogWriter::LogWriter(bool enabled, bool statusEnabled, bool contentEnabled, QString logRootDirPath, QString id, QObject *parent): QObject(parent)
 {
     this->enabled = enabled;
     this->statusEnabled = statusEnabled;
     this->contentEnabled = contentEnabled;
 
-    logDir = new QDir(logDirPath);
+    logDir = new QDir(logRootDirPath);
 
     if (enabled){
         QDateTime nowDateTime = QDateTime::currentDateTime();
         QDate nowDate = nowDateTime.date();
         QTime nowTime = nowDateTime.time();
-        QString nowStr = QString::number(nowDate.day()) + "d_" + QString::number(nowDate.month()) + "m_" + QString::number(nowTime.hour()) + "h_" +QString::number(nowTime.minute()) + "m_" + QString::number(nowTime.second()) + "s_" + QString::number(nowTime.msec()) + "ms";
-        QString logFilePath = logDirPath + "/" + nowStr;
+
+        //формат папки-даты 2022-07-11
+        QString nowDateStr = QString::number(nowDate.year()) + "-" + QString::number(nowDate.month()) + "-" + QString::number(nowDate.day());
+        QString logDirPath = logRootDirPath + "/" + nowDateStr;
+
+        //формат файла-времени 13-56-38_2508
+        QString nowTimeStr = QString::number(nowTime.hour()) + "-" +QString::number(nowTime.minute()) + "-" + QString::number(nowTime.second()) + "_" + QString::number(nowTime.msec());
+        QString logFilePath = logDirPath + "/" + nowTimeStr;
+
         if (id != ""){
-            logFilePath += "_" + id + "id";
+            logFilePath += " " + id;
         }
         logFilePath += ".txt";
 
