@@ -14,13 +14,8 @@
 #include "logwriter.h"
 
 
-/*
-Session содержит protocolhandler
-Session Посылает сигнал, о поступлении запроса
-protocolhandler посылает сигнал о поступлении ответа
-*/
 
-///Предоставляет внешний интерфейс для клиента
+///Обслуживает клиентский сокет в отдельном потоке
 class Session : public QObject
 {
     Q_OBJECT

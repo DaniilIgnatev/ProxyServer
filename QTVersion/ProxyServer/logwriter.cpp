@@ -1,12 +1,9 @@
 #include "logwriter.h"
 
 
-
 bool LogWriter::modeEnabled(LogWriter::LogWriterEnum mode)
 {
     switch (mode) {
-    case Protocol:
-        return true;
     case Status:
         return this->statusEnabled;
     case Content:
@@ -96,4 +93,19 @@ void LogWriter::log(QByteArray *message, LogWriterEnum mode, bool file)
             logFile->write(*message);
         }
     }
+}
+
+bool LogWriter::getStatusEnabled() const
+{
+    return statusEnabled;
+}
+
+bool LogWriter::getEnabled() const
+{
+    return enabled;
+}
+
+bool LogWriter::getContentEnabled() const
+{
+    return contentEnabled;
 }

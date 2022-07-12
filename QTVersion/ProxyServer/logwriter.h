@@ -34,7 +34,6 @@ private:
 
 public:
     enum LogWriterEnum{
-        Protocol,
         Status,
         Content
     };
@@ -59,6 +58,15 @@ public:
 
 
     void log(QByteArray *message, LogWriterEnum mode, bool file = true);
+
+
+    bool getStatusEnabled() const;
+
+
+    bool getEnabled() const;
+
+
+    bool getContentEnabled() const;
 
 signals:
 

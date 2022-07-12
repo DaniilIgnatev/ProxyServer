@@ -38,7 +38,7 @@ enum ProtocolHandlerStatus{
 
 
 
-///Предоставляет внутренний интерфейс для клиента
+///Обслуживает сокет умного дома
 class ProtocolHandler : public QObject
 {
     Q_OBJECT
@@ -131,7 +131,7 @@ private:
 
 
     //EXCEPTION
-    void handleException(QException &e,QAbstractSocket::SocketError errorCode = QAbstractSocket::SocketError::TemporaryError);
+    void handleException(QException &e);
 };
 
 #endif // PROTOCOLHANDLER_H

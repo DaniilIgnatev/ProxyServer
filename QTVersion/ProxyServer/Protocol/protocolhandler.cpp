@@ -1,5 +1,5 @@
 #include "protocolhandler.h"
-
+#include <QMetaEnum>
 
 
 ProtocolHandler::ProtocolHandler(Settings *settings, LogWriter* logWriter, QObject *parent): QObject(parent)
@@ -46,7 +46,7 @@ ProtocolHandler::~ProtocolHandler()
         bytesToServer = nullptr;
     }
 
-    logWriter->log("PROTOCOL HANDLER DEINIT\n", LogWriter::Protocol);
+    logWriter->log("Деинициализация обработчика протокола\n", LogWriter::Status);
 }
 
 
@@ -85,7 +85,7 @@ void ProtocolHandler::handleRequest(QByteArray &requestData)
 //CRYPTO_HANDSHAKE
 void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 {
-    logWriter->log("ProtocolHandler::handleCryptoHandshakeRequest\n", LogWriter::Protocol);
+    logWriter->log("Запрос обрабатывается как \"рукопожатие\"\n", LogWriter::Status);
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoHandshake;
@@ -113,6 +113,9 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
     QJsonDocument jsonDocument(jsonObject);
     QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
 
+    logWriter->log("Сформировал ответ:\n", LogWriter::Status);
+    logWriter->log(result + "\n", LogWriter::Status);
+
     emit responseReady(result);
 }
 
@@ -120,7 +123,7 @@ void ProtocolHandler::handleCryptoHandshakeRequest(QJsonObject &request_obj)
 //CRYPTO_DATA
 void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 {
-    logWriter->log("ProtocolHandler::handleCryptoDataRequest\n", LogWriter::Protocol);
+    logWriter->log("Запрос обрабатывается как \"обмен данными\"\n", LogWriter::Status);
 
     status = ProtocolHandlerStatus::handled;
     request_scenario = ProtocolPattern_Enum::cryptoData;
@@ -154,7 +157,8 @@ void ProtocolHandler::handleCryptoDataRequest(QJsonObject &request_obj)
 //UNKNOWN_REQUEST
 void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 {
-    logWriter->log("ProtocolHandler::handleUnknownRequest\n", LogWriter::Protocol);
+    Q_UNUSED(request_obj);
+    logWriter->log("Запрос обрабатывается как \"неопознанный\"\n", LogWriter::Status);
 
     status = ProtocolHandlerStatus::error;
 
@@ -175,11 +179,8 @@ void ProtocolHandler::handleUnknownRequest(QJsonObject &request_obj)
 
 
 //EXCEPTION
-void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketError errorCode)
+void ProtocolHandler::handleException(QException &e)
 {
-    logWriter->log("ProtocolHandler::handleException: ", LogWriter::Protocol);
-    logWriter->log((QString(e.what()) + "\n").toUtf8(), LogWriter::Protocol);
-
     status = ProtocolHandlerStatus::error;
 
     SHStatusResponse exceptionResponse;
@@ -191,7 +192,8 @@ void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketErro
     exceptionResponse.write(jsonObject);
 
     QJsonDocument jsonDocument(jsonObject);
-    QByteArray result = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact).data();
+    auto jsonBytes = jsonDocument.toJson(QJsonDocument::JsonFormat::Compact);
+    QByteArray result = jsonBytes.data();
 
     emit responseReady(result);
 }
@@ -201,16 +203,13 @@ void ProtocolHandler::handleException(QException &e, QAbstractSocket::SocketErro
 //SH_SOCKET_EVENTS
 void ProtocolHandler::shDataSocket_onConnected()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onConnected\n", LogWriter::Status);
+    logWriter->log("Подключился к серверу умного дома\n", LogWriter::Status);
 
     if (bytesToServer != nullptr && bytesToServer->length() > 0){
         shDataSocket->write(*bytesToServer);
 
-        logWriter->log("SH SOCKET DID WRITE\n", LogWriter::Status);
-        logWriter->log("BYTES: ", LogWriter::Status);
-        logWriter->log(QString::number(bytesToServer->size()).toUtf8() + "\n", LogWriter::Status);
-
-        logWriter->log("\nCONTENT:\n", LogWriter::Content);
+        logWriter->log("Отправил запрос серверу умного дома " + QString::number(bytesToServer->size()).toUtf8() + " байт\n", LogWriter::Status);
+        logWriter->log("Содержимое запроса:\n", LogWriter::Content);
         logWriter->log(bytesToServer, LogWriter::Content);
         logWriter->log("\n\n", LogWriter::Content);
     }
@@ -224,14 +223,14 @@ void ProtocolHandler::shDataSocket_onConnected()
 
 void ProtocolHandler::shDataSocket_onDisconnected()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onDisconnected\n", LogWriter::Status);
+    logWriter->log("Отключился от сервера умного дома\n", LogWriter::Status);
     processResponse();
 }
 
 
 void ProtocolHandler::shDataSocket_onReadyRead()
 {
-    logWriter->log("ProtocolHandler::shDataSocket_onReadyRead\n", LogWriter::Status, false);
+    logWriter->log("Получил порцию данных от сервера умного дома\n", LogWriter::Status, false);
 
     if (!stayAlive){
         if (onReadDataTimer == nullptr){
@@ -266,21 +265,21 @@ void ProtocolHandler::shDataSocket_onReadyRead()
 
 void ProtocolHandler::onReadDataTimeout(){
     timeoutTimes++;
-    logWriter->log("ProtocolHandler::onReadDataTimeout, timeout times: " + QString::number(timeoutTimes).toUtf8() + "\n", LogWriter::Status);
+    logWriter->log("Таймаут сокета умного дома №" + QString::number(timeoutTimes).toUtf8() + "\n", LogWriter::Status, false);
 
     if (bytes_read > 0 /*&& (!readData->endsWith("}]" && readData->startsWith("[{")))*/){
         if (timeoutTimes * ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS){
-            logWriter->log("MORE BYTES ARE AVAILABLE", LogWriter::Status);
+//            logWriter->log("Количество таймаутов не превышено", LogWriter::Status, false);
             onReadDataTimer->start(ON_READ_TIMEOUT_MS);
         }
         else{
-            logWriter->log("CRYTICAL TIMEOUT WITH SOME DATA", LogWriter::Status);
+            logWriter->log("Превышено время ожидания " + QString::number(ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS).toUtf8() + " мс. Данные получены частично!", LogWriter::Status);
             shDataSocket->close();
         }
     }
     else{
         if (timeoutTimes * ON_READ_TIMEOUT_MS >= ON_READ_MAX_TIMEOUT_EMPTY_MS){
-            logWriter->log("CRYTICAL TIMEOUT WITHOUT ANY DATA", LogWriter::Status);
+            logWriter->log("Превышено время ожидания " + QString::number(ON_READ_TIMEOUT_MS < ON_READ_MAX_TIMEOUT_DATA_MS).toUtf8() + " мс. Данные не получены!", LogWriter::Status);
             shDataSocket->close();
         }
     }
@@ -291,7 +290,14 @@ void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCod
 {
     if (errorCode != QAbstractSocket::SocketError::RemoteHostClosedError){
         QException exception;
-        handleException(exception, errorCode);
+
+        QMetaEnum metaEnum = QMetaEnum::fromType<QAbstractSocket::SocketError>();
+        QString errorCodeString = metaEnum.valueToKey(errorCode);
+        logWriter->log("\nОшибка сокета умного дома!!!\n", LogWriter::Status);
+        logWriter->log("Код: " + errorCodeString.toUtf8() + "\n", LogWriter::Status);
+        logWriter->log("Описание:" + QString(exception.what()).toUtf8() + "\n\n", LogWriter::Status);
+
+        handleException(exception);
     }
 }
 
@@ -302,6 +308,11 @@ void ProtocolHandler::processResponse(){
         readData->clear();
         bytes_read = 0;
         timeoutTimes = 0;
+
+        logWriter->log("Принял ответ от сервера умного дома на " + QString::number(bytes_read).toUtf8() + " байт\n", LogWriter::Status);
+        logWriter->log("Содержимое ответа:\n", LogWriter::Content);
+        logWriter->log(readData, LogWriter::Content);
+        logWriter->log("\n\n", LogWriter::Content);
 
         SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
         QJsonObject responseObject;
