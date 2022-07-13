@@ -28,6 +28,12 @@ LogWriter::LogWriter(bool enabled, bool statusEnabled, bool contentEnabled, QStr
         //формат папки-даты 2022-07-11
         QString nowDateStr = QString::number(nowDate.year()) + "-" + QString::number(nowDate.month()) + "-" + QString::number(nowDate.day());
         QString logDirPath = logRootDirPath + "/" + nowDateStr;
+        QDir logDir(logDirPath);
+        if (!logDir.exists()){
+            if (!logDir.mkpath(".")){
+                qDebug() << "Error creating directory " << logDirPath;
+            }
+        }
 
         //формат файла-времени 13-56-38_2508
         QString nowTimeStr = QString::number(nowTime.hour()) + "-" +QString::number(nowTime.minute()) + "-" + QString::number(nowTime.second()) + "_" + QString::number(nowTime.msec());
@@ -66,7 +72,7 @@ LogWriter::~LogWriter(){
 void LogWriter::log(QByteArray &message, LogWriterEnum mode, bool file)
 {
     if (enabled && modeEnabled(mode)){
-        qDebug() << message;
+//        qDebug() << message;
         if (file){
             logFile->write(message);
         }
@@ -77,7 +83,7 @@ void LogWriter::log(QByteArray &message, LogWriterEnum mode, bool file)
 void LogWriter::log(const char message[], LogWriterEnum mode, bool file)
 {
     if (enabled && modeEnabled(mode)){
-        qDebug() << message;
+//        qDebug() << message;
         if (file){
             logFile->write(message);
         }
@@ -88,7 +94,7 @@ void LogWriter::log(const char message[], LogWriterEnum mode, bool file)
 void LogWriter::log(QByteArray *message, LogWriterEnum mode, bool file)
 {
     if (enabled && modeEnabled(mode)){
-        qDebug() << *message;
+//        qDebug() << *message;
         if (file){
             logFile->write(*message);
         }

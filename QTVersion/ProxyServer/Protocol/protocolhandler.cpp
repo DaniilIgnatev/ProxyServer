@@ -304,8 +304,6 @@ void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCod
 
 void ProtocolHandler::processResponse(){
     if (bytes_read > 0){
-        QString unsecuredResponse = QString::fromUtf8(*readData);
-        readData->clear();
         bytes_read = 0;
         timeoutTimes = 0;
 
@@ -314,6 +312,8 @@ void ProtocolHandler::processResponse(){
         logWriter->log(readData, LogWriter::Content);
         logWriter->log("\n\n", LogWriter::Content);
 
+        QString unsecuredResponse = QString::fromUtf8(*readData);
+        readData->clear();
         SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
         QJsonObject responseObject;
         dataResponse.write(responseObject);
