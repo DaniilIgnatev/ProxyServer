@@ -71,3 +71,5 @@ Thumbs.db
 *.dll
 *.exe
 
+.DS_Store
+QTVersion/.DS_Store

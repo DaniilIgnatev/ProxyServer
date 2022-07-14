@@ -304,15 +304,14 @@ void ProtocolHandler::shDataSocket_onError(QAbstractSocket::SocketError errorCod
 
 void ProtocolHandler::processResponse(){
     if (bytes_read > 0){
-        bytes_read = 0;
-        timeoutTimes = 0;
-
         logWriter->log("Принял ответ от сервера умного дома на " + QString::number(bytes_read).toUtf8() + " байт\n", LogWriter::Status);
         logWriter->log("Содержимое ответа:\n", LogWriter::Content);
         logWriter->log(readData, LogWriter::Content);
-        logWriter->log("\n\n", LogWriter::Content);
+        logWriter->log("\n", LogWriter::Content);
 
         QString unsecuredResponse = QString::fromUtf8(*readData);
+        bytes_read = 0;
+        timeoutTimes = 0;
         readData->clear();
         SHCryptoDataResponse dataResponse = security_handler->putInShell(unsecuredResponse, secureResponse);
         QJsonObject responseObject;

@@ -113,7 +113,7 @@ void Session::handleResponse(QByteArray &response)
     response.insert(0,(char*)&response_size, 4);
 
     logWriter->log("Отправил ответ клиенту на ", LogWriter::Status);
-    logWriter->log(QString::number(response.size()).toUtf8() + " байт\n", LogWriter::Status);
+    logWriter->log(QString::number(response.size()).toUtf8() + " байт\n\n", LogWriter::Status);
 
 //    logWriter->log("\nCONTENT:\n", LogWriter::Content);
 //    logWriter->log(response, LogWriter::Content);
